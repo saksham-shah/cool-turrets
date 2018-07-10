@@ -9,7 +9,7 @@ function Turret(x_, y_, colour_) {
 }
 
 // Adds the Entity prototype to the Turret object
-//Turret.prototype = Object.create(Entity.prototype);
+Turret.prototype = Object.create(Entity.prototype);
 
 Turret.prototype.update = function() {
     if (this.pos.dist(player.pos) < this.playerControlRadius) {
