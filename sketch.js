@@ -1,14 +1,15 @@
 var player;
+var entities;
 var dt;
 
 function setup() {
     var canvas = createCanvas(960, 640);
 
-
+    entities = [];
     player = new Player(0, 0);
-    turrets = [];
+    entities.push(player);
 
-    turrets.push(new Turret(width / 2, height / 2, color(255, 0, 0)));
+    entities.push(new Turret(width / 2, height / 2, color(255, 0, 0)));
 
     lastUpdate = Date.now();
 }
@@ -20,15 +21,12 @@ function draw() {
     lastUpdate = now;
 
     background(50);
-    player.update();
-    player.move();
-    player.draw();
 
-    for (var i = 0; i < turrets.length; i++) {
-        turrets[i].update();
+    for (var i = 0; i < entities.length; i++) {
+        entities[i].update();
+        entities[i].move();
     }
-    for (var i = 0; i < turrets.length; i++) {
-        turrets[i].draw();
+    for (var i = 0; i < entities.length; i++) {
+        entities[i].draw();
     }
-
 }
