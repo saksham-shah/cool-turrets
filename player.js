@@ -15,10 +15,15 @@ Player.prototype.update = function() {
 // Follows mouse by accelerating towards it
 Player.prototype.followMouse = function() {
   var mousePos = createVector(mouseX, mouseY);
-  var vectorToMouse = p5.Vector.sub(mousePos, this.pos);
-  vectorToMouse.normalize();
-  vectorToMouse.mult(this.maxVel);
-  this.acc.add(vectorToMouse);
+  var d = p5.Vector.dist(this.pos, mousePos);
+  if (d > this.r * 0.5) {
+    var vectorToMouse = p5.Vector.sub(mousePos, this.pos);
+    vectorToMouse.normalize();
+    vectorToMouse.mult(this.maxVel);
+    this.acc.add(vectorToMouse);
+  } else {
+    this.acc.sub(this.vel);
+  }
 }
 
 // Follows mouse using desired velocity stuff
