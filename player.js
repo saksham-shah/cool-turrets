@@ -19,7 +19,7 @@ Player.prototype.followMouse = function() {
   if (d > this.r * 0.5) {
     var vectorToMouse = p5.Vector.sub(mousePos, this.pos);
     vectorToMouse.normalize();
-    vectorToMouse.mult(this.maxVel);
+    vectorToMouse.mult(this.maxForce);
     this.acc.add(vectorToMouse);
   } else {
     this.acc.sub(this.vel);
