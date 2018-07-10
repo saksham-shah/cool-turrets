@@ -5,7 +5,7 @@ function Entity(x_, y_, r_) {
   this.acc = createVector(0, 0);
 
   this.maxVel = 3;
-  this.maxForce = 0.1;
+  this.maxForce = 0.5;
 
   // R for radius
   this.r = r_;
