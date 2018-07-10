@@ -1,18 +1,19 @@
 function Turret(x_, y_, colour_) {
     // Inherit from Entity
-    Entity.call(this, x_, y_, 20);
+    Entity.call(this, x_, y_, 1, 20); // 1 for friction means there is no friction - turrets glide forever
     // this.r = 5;
     // this.pos = createVector(x_, y_);
     this.direction = 0;
-    this.playerControlRadius = 200;
+    this.playerControlRadius = 50;
     this.colour = colour_;
+    // this.vel.y = 0.1;
 }
 
 // Adds the Entity prototype to the Turret object
 Turret.prototype = Object.create(Entity.prototype);
 
 Turret.prototype.update = function() {
-    if (this.pos.dist(player.pos) < this.playerControlRadius) {
+    if (this.pos.dist(player.pos) < this.playerControlRadius + player.r) {
         // Player controlled
         var vectorPlayerToTurret = p5.Vector.sub(this.pos, player.pos);
 
