@@ -31,10 +31,10 @@ Player.prototype.followMouse = function() {
 
 Player.prototype.moveUsingArrowKeys = function() {
     //Controls
-    if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) this.vel.x -= this.maxForce;
-    if (keyIsDown(UP_ARROW) || keyIsDown(87)) this.vel.y -= this.maxForce;
-    if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) this.vel.x += this.maxForce;
-    if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) this.vel.y += this.maxForce;
+    if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) this.acc.x -= this.maxForce;
+    if (keyIsDown(UP_ARROW) || keyIsDown(87)) this.acc.y -= this.maxForce;
+    if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) this.acc.x += this.maxForce;
+    if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) this.acc.y += this.maxForce;
 
 }
 
