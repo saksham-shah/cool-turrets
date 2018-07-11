@@ -6,10 +6,12 @@ function setup() {
     var canvas = createCanvas(960, 640);
 
     entities = [];
-    player = new Player(0, 0);
+    player = new Player(width / 2, height / 2);
     entities.push(player);
 
     entities.push(new Turret(width / 2, height / 2, color(255, 0, 0)));
+
+    entities.push(new EnemySeeker(width / 3, height / 3, color(0, 255, 0)));
 
     lastUpdate = Date.now();
 }
