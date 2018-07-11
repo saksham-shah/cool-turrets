@@ -24,6 +24,7 @@ EnemySeeker.prototype.update = function() {
 EnemySeeker.prototype.draw = function() {
     push();
     fill(this.colour);
+    noStroke();
     translate(this.drawPos.x, this.drawPos.y);
     ellipse(0, 0, this.r * 2);
     pop();
