@@ -91,5 +91,9 @@ Entity.prototype.checkCollisions = function(entities) {
 
 Entity.prototype.hitByBullet = function(bullet) {
     this.health -= bullet.damage;
+    var knockback = bullet.vel.copy().mult(bullet.r * 0.1);
+
+    this.acc.add(knockback);
+    console.log(knockback.mag());
     console.log("Hit for " + bullet.damage + " damage, health left: " + this.health);
 }

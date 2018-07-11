@@ -7,13 +7,14 @@ function TurretStandard(x_, y_, colour_) {
     this.playerControlRadius = 100;
 
     this.reloadTime = 20;
-    this.recoil = 1;
 
     this.bulletTemplate = {
         speed: 10,
         damage: 10,
         r: 7
-    }
+    };
+
+    this.recoil = this.bulletTemplate.r * 0.1;
 }
 // Adds the Turret prototype to the TurretStandard object
 TurretStandard.prototype = Object.create(Turret.prototype);
