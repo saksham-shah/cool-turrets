@@ -2,8 +2,8 @@
 function Player(x_, y_) {
     // Inherits from Entity (random number for size right now)
     Entity.call(this, x_, y_, 0.96, 10);
-    // this.maxVel = 3;
-    // this.maxForce = 0.15;
+    this.maxVel = 3.5;
+    this.maxForce = 0.1;
 }
 
 // Adds the Entity prototype to the Player object
