@@ -1,11 +1,11 @@
 function Turret(x_, y_, colour_) {
     // Inherit from Entity
-    Entity.call(this, x_, y_, 1, 20); // 1 for friction means there is no friction - turrets glide forever
+    Entity.call(this, x_, y_, 0.96, 20); // 1 for friction means there is no friction - turrets glide forever
 
     this.direction = 0;
     this.playerControlRadius = 50;
     this.colour = colour_;
-    this.vel.y = 1;
+
     this.reloadTime = 60;
     this.reloadTimer = this.reloadTime;
 }
@@ -16,6 +16,9 @@ Turret.prototype = Object.create(Entity.prototype);
 Turret.prototype.update = function() {
     //Shoot Timer
     this.reloadTimer -= dt;
+
+    //Move
+    this.acc.y = 0.05;
 
     //Check if player within range of turret
     if (this.pos.dist(player.pos) < this.playerControlRadius + player.r) {
@@ -52,6 +55,9 @@ Turret.prototype.update = function() {
 
 Turret.prototype.shoot = function() {
     entities.push(new Bullet(this.pos.x, this.pos.y, this.direction, 10, this.colour));
+    var recoilForce = p5.Vector.fromAngle(this.direction).rotate(PI);
+    this.acc.add(recoilForce);
+
 };
 
 Turret.prototype.draw = function() {
