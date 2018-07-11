@@ -53,8 +53,10 @@ Entity.prototype.collide = function(entity) {
         var normal = p5.Vector.sub(this.pos, entity.pos);
         normal.normalize();
 
-        this.vel = reflectVector(this.vel, normal);
-        this.pos.add(p5.Vector.mult(this.vel, dt));
+        var reflectedVector = reflectVector(this.vel, normal);
+        this.vel = reflectedVector.copy();
+        //this.pos.add(p5.Vector.mult(this.vel, dt));
+        this.acc.add(normal);
         // console.log(this.vel);
     }
 };

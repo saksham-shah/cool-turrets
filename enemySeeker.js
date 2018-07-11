@@ -3,8 +3,8 @@ function EnemySeeker(x_, y_, colour_) {
     Enemy.call(this, x_, y_);
 
     this.colour = colour_;
-    this.maxVel = 1;
-    this.maxForce = 100;
+    this.maxVel = 10;
+    this.maxForce = 0.1;
 
     this.health = 10;
 }
@@ -18,7 +18,7 @@ EnemySeeker.prototype.update = function() {
     vectorEnemytoPlayer.setMag(this.maxForce);
     this.acc.add(vectorEnemytoPlayer);
 
-    
+
 }
 
 EnemySeeker.prototype.draw = function() {
