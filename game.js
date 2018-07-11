@@ -1,4 +1,6 @@
 function Game() {
+
+
     this.entities = [];
     this.bullets = [];
 
@@ -12,9 +14,11 @@ function Game() {
     this.lastUpdate = Date.now();
 
     this.xBound = 1000;
-    this.yBound = 1000;
+    this.yBound = 667;
 
     this.gameCam = new GameCam(this.xBound, this.yBound, this.player);
+
+
 }
 
 Game.prototype.update = function() {
@@ -30,10 +34,19 @@ Game.prototype.update = function() {
     for (var i = 0; i < this.bullets.length; i++) {
         this.bullets[i].update();
     }
-}
+
+    this.gameCam.update();
+};
 
 Game.prototype.draw = function() {
-    background(50);
+    background(0);
+    noFill();
+    fill(50);
+    stroke(255, 0, 0);
+    strokeWeight(5);
+    rectMode(CORNER);
+    var topLeft = this.gameCam.getDrawPos(createVector(0, 0));
+    rect(topLeft.x, topLeft.y, 960, 640);
 
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].draw();
@@ -41,4 +54,4 @@ Game.prototype.draw = function() {
     for (var i = 0; i < this.bullets.length; i++) {
         this.bullets[i].draw();
     }
-}
+};

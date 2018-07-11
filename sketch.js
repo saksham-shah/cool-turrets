@@ -5,8 +5,7 @@ var game;
 
 function setup() {
     var canvas = createCanvas(960, 640);
-    gameWidth = 960;
-    gameHeight = 640;
+
 
     lastUpdate = Date.now();
 

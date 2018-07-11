@@ -13,6 +13,7 @@ function GameCam(xBound_, yBound_, toFollow_) {
 GameCam.prototype.update = function() {
     this.follow();
     this.borders();
+    console.log(this.x);
 };
 
 // Restricts the camera to the borders of the game

@@ -20,7 +20,7 @@ EnemySeeker.prototype.update = function() {
 EnemySeeker.prototype.draw = function() {
     push();
     fill(this.colour);
-    translate(this.pos.x, this.pos.y);
+    translate(this.drawPos.x, this.drawPos.y);
     ellipse(0, 0, this.r * 2, this.r * 2);
     pop();
 }

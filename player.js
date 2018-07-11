@@ -1,4 +1,3 @@
-
 // Player controlled entity
 function Player(x_, y_) {
     // Inherits from Entity (random number for size right now)
@@ -11,7 +10,7 @@ function Player(x_, y_) {
 Player.prototype = Object.create(Entity.prototype);
 
 Player.prototype.update = function() {
-    // this.seekMouse();
+    //this.seekMouse();
     //this.followMouse();
     this.moveUsingArrowKeys();
 }
@@ -21,7 +20,7 @@ Player.prototype.followMouse = function() {
     var mousePos = createVector(mouseX, mouseY);
     var d = p5.Vector.dist(this.pos, mousePos);
     if (d > this.r * 0.5) {
-        var vectorToMouse = p5.Vector.sub(mousePos, this.pos);
+        var vectorToMouse = p5.Vector.sub(mousePos, this.drawPos);
         vectorToMouse.normalize();
         vectorToMouse.mult(this.maxForce);
         this.acc.add(vectorToMouse);
@@ -42,7 +41,7 @@ Player.prototype.moveUsingArrowKeys = function() {
 // Follows mouse using desired velocity stuff
 Player.prototype.seekMouse = function() {
     var mousePos = createVector(mouseX, mouseY);
-    var vectorToMouse = p5.Vector.sub(mousePos, this.pos);
+    var vectorToMouse = p5.Vector.sub(mousePos, this.drawPos);
     vectorToMouse.normalize();
     vectorToMouse.mult(this.maxVel);
     vectorToMouse.sub(this.vel);
@@ -53,7 +52,8 @@ Player.prototype.seekMouse = function() {
 
 // Just a white circle right now
 Player.prototype.draw = function() {
+    var drawPos = game.gameCam.getDrawPos(this.pos);
     fill(255);
     noStroke();
-    ellipse(this.pos.x, this.pos.y, this.r * 2);
+    ellipse(drawPos.x, drawPos.y, this.r * 2);
 }

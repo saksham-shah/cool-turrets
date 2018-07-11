@@ -3,14 +3,14 @@ function TurretStandard(x_, y_, colour_) {
     Turret.call(this, x_, y_, colour_, 20); // 1 for friction means there is no friction - turrets glide forever
 
     this.playerControlRadius = 50;
-    this.maxVel = 1.2;
-    this.recoil = 8;
+    this.maxVel = 1;
+    this.recoil = 1;
 }
 // Adds the Turret prototype to the TurretStandard object
 TurretStandard.prototype = Object.create(Turret.prototype);
 
 TurretStandard.prototype.movement = function() {
-    this.acc.add(0, 0.1);
+    this.acc.add(0, 0.5);
 };
 
 TurretStandard.prototype.shoot = function() {
@@ -23,7 +23,7 @@ TurretStandard.prototype.shoot = function() {
 
 TurretStandard.prototype.draw = function() {
     push();
-    translate(this.pos.x, this.pos.y);
+    translate(this.drawPos.x, this.drawPos.y);
     rotate(this.direction);
 
     // Draw control radius
@@ -36,7 +36,7 @@ TurretStandard.prototype.draw = function() {
     ellipse(0, 0, this.r * 2);
 
     // Draw gun
-    rect(0, -3, 30, 6);
+    rect(0, -6, 30, 12);
 
     pop();
 };

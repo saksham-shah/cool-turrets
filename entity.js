@@ -10,6 +10,8 @@ function Entity(x_, y_, friction_, r_) {
 
     // R for radius
     this.r = r_;
+
+    this.drawPos = this.pos.copy();
 }
 
 // Moves using pos, vel and acc
@@ -21,4 +23,6 @@ Entity.prototype.move = function() {
 
     //Apply friction
     this.vel.mult(this.friction);
+
+    this.drawPos = game.gameCam.getDrawPos(this.pos);
 };
