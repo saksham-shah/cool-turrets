@@ -4,7 +4,7 @@ function Game() {
     this.entities = [];
     this.bullets = [];
 
-    this.player = new Player(width / 2, height / 2);
+    this.player = new Player(100, height / 2);
     this.entities.push(this.player);
 
     this.entities.push(new TurretStandard(width / 2, height / 2, color(255, 0, 0)));

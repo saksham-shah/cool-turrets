@@ -34,15 +34,16 @@ Entity.prototype.move = function(entities) {
     this.drawPos = game.gameCam.getDrawPos(this.pos);
 };
 
-Entity.prototype.collide = function(entity_) {
+Entity.prototype.collide = function(entity) {
     //stub
     this.collided = true;
 
     //Bounce
-    //var normal = p5.Vector.sub(this.pos, entity_.pos);
+    var normal = p5.Vector.sub(this.pos, entity.pos);
+    normal.normalize();
 
-    //this.vel = reflectVector(this.vel, normal);
-    //console.log(this.vel);
+    this.vel = reflectVector(this.vel, normal);
+    // console.log(this.vel);
 
 };
 
