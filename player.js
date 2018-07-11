@@ -4,6 +4,8 @@ function Player(x_, y_) {
     Entity.call(this, x_, y_, 0.96, 10);
     this.maxVel = 3.5;
     this.maxForce = 0.1;
+
+    this.health = 100;
 }
 
 // Adds the Entity prototype to the Player object

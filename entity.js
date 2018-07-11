@@ -56,3 +56,8 @@ Entity.prototype.checkCollisions = function(entities) {
         }
     }
 }
+
+Entity.prototype.hitByBullet = function(bullet) {
+    this.health -= bullet.damage;
+    console.log("Hit for " + bullet.damage + " damage, health left: " + this.health);
+}

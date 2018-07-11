@@ -5,6 +5,8 @@ function EnemySeeker(x_, y_, colour_) {
     this.colour = colour_;
     this.maxVel = 1;
     this.maxForce = 100;
+
+    this.health = 10;
 }
 
 // Adds the Enemy prototype to the Turret object

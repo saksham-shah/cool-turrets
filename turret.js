@@ -8,8 +8,7 @@ function Turret(x_, y_, colour_, r_) {
     this.playerControlRadius = 50;
     this.colour = colour_;
 
-    this.reloadTime = 60;
-    this.reloadTimer = this.reloadTime;
+    this.reloadTimer = 0;
 
     this.maxVel = 1;
 }
@@ -31,8 +30,8 @@ Turret.prototype.update = function() {
 
         this.direction = vectorPlayerToTurret.heading();
 
-
-        if (this.reloadTimer < 0) {
+        // 32 is the char code for space
+        if (this.reloadTimer < 0 && keyIsDown(32)) {
             this.reloadTimer = this.reloadTime;
             this.shoot();
         }

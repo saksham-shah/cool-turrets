@@ -2,8 +2,11 @@ function TurretStandard(x_, y_, colour_) {
     // Inherit from Entity
     Turret.call(this, x_, y_, colour_, 20); // 1 for friction means there is no friction - turrets glide forever
 
-    this.playerControlRadius = 50;
-    this.maxVel = 1;
+    this.health = 30;
+
+    this.playerControlRadius = 100;
+
+    this.reloadTime = 20;
     this.recoil = 1;
 }
 // Adds the Turret prototype to the TurretStandard object
@@ -14,7 +17,7 @@ TurretStandard.prototype.movement = function() {
 };
 
 TurretStandard.prototype.shoot = function() {
-    game.bullets.push(new Bullet(this.pos.copy(), this.direction, 10, this.colour));
+    game.bullets.push(new Bullet(this.pos.copy(), this.direction, 10, 10, 7, this));
 
     var recoilForce = p5.Vector.fromAngle(this.direction).rotate(PI);
     recoilForce.setMag(this.recoil);
