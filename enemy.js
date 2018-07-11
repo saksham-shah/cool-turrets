@@ -8,8 +8,5 @@ function Enemy(x_, y_) {
 Enemy.prototype = Object.create(Entity.prototype);
 
 Enemy.prototype.update = function() {
-    //Rudimentary default behavior
-    var vectorEnemytoPlayer = p5.Vector.sub(this.pos, player.pos);
-    vectorEnemytoPlayer.setMag(this.maxForce);
-    this.acc.add(vectorEnemytoPlayer);
+    //stub
 }

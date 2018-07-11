@@ -29,6 +29,13 @@ Game.prototype.update = function() {
 
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].update();
+        /*        this.entities[i].move();
+            }
+            for (var i = 0; i < this.bullets.length; i++) {
+                this.bullets[i].update();
+            }
+            //Test for collisions
+            for (var i = 0; i < this.entities.length; i++) {*/
         this.entities[i].move(this.entities);
 
         //Test for collisions

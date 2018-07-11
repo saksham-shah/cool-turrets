@@ -37,15 +37,22 @@ Entity.prototype.move = function(entities) {
 Entity.prototype.collide = function(entity_) {
     //stub
     this.collided = true;
+
+    //Bounce
+    //var normal = p5.Vector.sub(this.pos, entity_.pos);
+
+    //this.vel = reflectVector(this.vel, normal);
+    //console.log(this.vel);
+
 };
 
 Entity.prototype.borders = function() {
     if (!rectContains(this.pos, 0, 0, game.xBound, game.yBound)) {
-        var forceToCentre = p5.Vector.sub(createVector(game.xBound/2, game.yBound/2), this.pos);
+        var forceToCentre = p5.Vector.sub(createVector(game.xBound / 2, game.yBound / 2), this.pos);
         forceToCentre.setMag(0.3);
-          this.acc.add(forceToCentre);
+        this.acc.add(forceToCentre);
     }
-}
+};
 
 Entity.prototype.checkCollisions = function(entities) {
     for (var i = 0; i < entities.length; i++) {
