@@ -14,7 +14,8 @@ TurretStandard.prototype.movement = function() {
 };
 
 TurretStandard.prototype.shoot = function() {
-    bullets.push(new Bullet(this.pos.copy(), this.direction, 10, this.colour));
+    game.bullets.push(new Bullet(this.pos.copy(), this.direction, 10, this.colour));
+
     var recoilForce = p5.Vector.fromAngle(this.direction).rotate(PI);
     recoilForce.setMag(this.recoil);
     this.acc.add(recoilForce);
