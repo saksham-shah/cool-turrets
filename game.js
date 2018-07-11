@@ -30,6 +30,16 @@ Game.prototype.update = function() {
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].update();
         this.entities[i].move();
+
+        //Test for collisions
+        for (var j = 0; j < this.entities.length; j++) {
+            if (j != i) { //Don't test for collisions with self
+                if (circleCollision(this.entities[i], this.entities[j])) {
+                    this.entities[i].collide(this.entities[j]);
+                    this.entities[j].collide(this.entities[i]);
+                }
+            }
+        }
     }
     for (var i = 0; i < this.bullets.length; i++) {
         this.bullets[i].update();

@@ -54,6 +54,10 @@ Player.prototype.seekMouse = function() {
 Player.prototype.draw = function() {
     var drawPos = game.gameCam.getDrawPos(this.pos);
     fill(255);
+
+    if (this.collided) {
+        fill(255, 0, 255);
+    }
     noStroke();
     ellipse(drawPos.x, drawPos.y, this.r * 2);
 }

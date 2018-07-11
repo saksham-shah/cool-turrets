@@ -12,6 +12,8 @@ function Entity(x_, y_, friction_, r_) {
     this.r = r_;
 
     this.drawPos = this.pos.copy();
+
+    this.collided = false;
 }
 
 // Moves using pos, vel and acc
@@ -24,9 +26,15 @@ Entity.prototype.move = function() {
     //Apply friction
     this.vel.mult(this.friction);
 
+    //Get Position relative to camera
     this.drawPos = game.gameCam.getDrawPos(this.pos);
+
+    this.collided = false;
+
 };
 
 Entity.prototype.collide = function(entity_) {
     //stub
+    console.log('COL');
+    this.collided = true;
 };
