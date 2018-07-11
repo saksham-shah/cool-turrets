@@ -22,7 +22,6 @@ function Game() {
 }
 
 Game.prototype.update = function() {
-    console.log(this.entities.length);
     // Calculate Delta time in order to have smooth movement
     var now = Date.now();
     dt = (now - this.lastUpdate) / (1000 / 60); //dt will be 1 at 60fps

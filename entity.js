@@ -31,9 +31,10 @@ Entity.prototype.collisions = function(entities) {
 // Moves using pos, vel and acc
 Entity.prototype.move = function() {
 
-    this.pos.add(p5.Vector.mult(this.vel, dt));
+
     this.vel.add(this.acc);
     this.vel.limit(this.maxVel);
+    this.pos.add(p5.Vector.mult(this.vel, dt));
     this.acc.mult(0);
 
     //Apply friction
@@ -118,20 +119,28 @@ Entity.prototype.collide = function(other) {
 
 
     //Move objects away from each other if they intersect
-    var thisToThat = p5.Vector.sub(this.pos, other.pos);
-    var thatToThis = p5.Vector.sub(other.pos, this.pos);
-    if (thisToThat.mag() < this.r + other.r) {
-        pushForce = map(thisToThat.mag(), 0, this.r + other.r, 1.5, 0.2);
-        var force = thisToThat;
-        force.setMag(pushForce);
-        var force2 = thatToThis;
+    var maxForce = 3;
+    var d = this.pos.dist(other.pos);
+    if (d < this.r + other.r) {
+        var desired = p5.Vector.sub(other.pos, this.pos);
+        desired.normalize();
+        desired.rotate(PI);
+        desired.mult(map(d, 0, this.r + other.r, maxForce, 0.5));
 
-        force2.setMag(pushForce);
+        var steer = p5.Vector.sub(desired, this.vel);
+        steer.limit(maxForce);
 
-        this.acc.add(force2);
-        other.acc.add(force);
-        this.move();
-        other.move();
+        this.acc.add(steer);
+
+        var desired = p5.Vector.sub(this.pos, other.pos);
+        desired.normalize();
+        desired.rotate(PI);
+        desired.mult(map(d, 0, other.r + this.r, maxForce, 0.5));
+
+        var steer = p5.Vector.sub(desired, other.vel);
+        steer.limit(maxForce);
+
+        other.acc.add(steer);
     }
 };
 
@@ -161,6 +170,7 @@ Entity.prototype.checkCollisions = function(entities) {
         } else {
             if (circleCollision(this, entities[i])) {
                 this.collide(entities[i]);
+
             }
         }
     }
