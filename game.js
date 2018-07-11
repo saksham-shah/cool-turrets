@@ -48,8 +48,11 @@ Game.prototype.update = function() {
         //     }
         // }
     }
-
-
+    for (var i = 0; i < this.bullets.length; i++) {
+        if (!this.bullets[i].hit) {
+            this.bullets[i].update(this.entities);
+        }
+    }
 
     this.gameCam.update();
 };
@@ -68,6 +71,8 @@ Game.prototype.draw = function() {
         this.entities[i].draw();
     }
     for (var i = 0; i < this.bullets.length; i++) {
-        this.bullets[i].draw();
+        if (!this.bullets[i].hit) {
+            this.bullets[i].draw();
+        }
     }
 };
