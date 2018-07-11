@@ -14,3 +14,16 @@ function circleCollision(obj1, obj2) {
     }
     return false;
 }
+
+//Perhaps this can be moved to a different file
+function reflectVector(vector, normalVector) {
+
+    //Formula for reflecting a Vector
+    // r = v - 2<v, n> n
+
+    var a = p5.Vector.dot(vector, normalVector) * -2;
+    var b = normalVector.mult(a);
+    var reflectedVector = p5.Vector.add(vector, b);
+
+    return reflectedVector;
+}
