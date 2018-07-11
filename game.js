@@ -33,12 +33,6 @@ Game.prototype.update = function() {
 
     for (var i = 0; i < this.entities.length; i++) {
         if (this.entities[i].alive) {
-            this.entities[i].update();
-        }
-    }
-
-    for (var i = 0; i < this.entities.length; i++) {
-        if (this.entities[i].alive) {
             this.entities[i].move();
         }
     }
@@ -46,6 +40,12 @@ Game.prototype.update = function() {
     for (var i = 0; i < this.entities.length; i++) {
         if (this.entities[i].alive) {
             this.entities[i].collisions(this.entities);
+        }
+    }
+    
+    for (var i = 0; i < this.entities.length; i++) {
+        if (this.entities[i].alive) {
+            this.entities[i].update();
         }
     }
 
