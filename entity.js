@@ -17,8 +17,11 @@ function Entity(x_, y_, friction_, r_) {
 }
 
 // Moves using pos, vel and acc
-Entity.prototype.move = function() {
+Entity.prototype.move = function(entities) {
+    this.collided = false;
+
     this.borders();
+    this.checkCollisions(entities);
     this.pos.add(p5.Vector.mult(this.vel, dt));
     this.vel.add(this.acc);
     this.vel.limit(this.maxVel);
@@ -29,14 +32,10 @@ Entity.prototype.move = function() {
 
     //Get Position relative to camera
     this.drawPos = game.gameCam.getDrawPos(this.pos);
-
-    this.collided = false;
-
 };
 
 Entity.prototype.collide = function(entity_) {
     //stub
-    console.log('COL');
     this.collided = true;
 };
 
@@ -45,5 +44,15 @@ Entity.prototype.borders = function() {
         var forceToCentre = p5.Vector.sub(createVector(game.xBound/2, game.yBound/2), this.pos);
         forceToCentre.setMag(0.3);
           this.acc.add(forceToCentre);
+    }
+}
+
+Entity.prototype.checkCollisions = function(entities) {
+    for (var i = 0; i < entities.length; i++) {
+        if (entities[i] != this) { //Don't test for collisions with self
+            if (circleCollision(this, entities[i])) {
+                this.collide(entities[i]);
+            }
+        }
     }
 }

@@ -29,17 +29,17 @@ Game.prototype.update = function() {
 
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].update();
-        this.entities[i].move();
+        this.entities[i].move(this.entities);
 
         //Test for collisions
-        for (var j = 0; j < this.entities.length; j++) {
-            if (j != i) { //Don't test for collisions with self
-                if (circleCollision(this.entities[i], this.entities[j])) {
-                    this.entities[i].collide(this.entities[j]);
-                    this.entities[j].collide(this.entities[i]);
-                }
-            }
-        }
+        // for (var j = 0; j < this.entities.length; j++) {
+        //     if (j != i) { //Don't test for collisions with self
+        //         if (circleCollision(this.entities[i], this.entities[j])) {
+        //             this.entities[i].collide(this.entities[j]);
+        //             this.entities[j].collide(this.entities[i]);
+        //         }
+        //     }
+        // }
     }
     for (var i = 0; i < this.bullets.length; i++) {
         this.bullets[i].update();
@@ -56,7 +56,7 @@ Game.prototype.draw = function() {
     strokeWeight(5);
     rectMode(CORNER);
     var topLeft = this.gameCam.getDrawPos(createVector(0, 0));
-    rect(topLeft.x, topLeft.y, 960, 640);
+    rect(topLeft.x, topLeft.y, this.xBound, this.yBound);
 
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].draw();
