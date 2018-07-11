@@ -16,12 +16,17 @@ function Entity(x_, y_, friction_, r_) {
     this.collided = false;
 }
 
-// Moves using pos, vel and acc
-Entity.prototype.move = function(entities) {
+// Handles wall and entiity collisions
+Entity.prototype.collisions = function(entities) {
     this.collided = false;
 
     this.borderBounce();
     this.checkCollisions(entities);
+}
+
+// Moves using pos, vel and acc
+Entity.prototype.move = function() {
+
     this.pos.add(p5.Vector.mult(this.vel, dt));
     this.vel.add(this.acc);
     this.vel.limit(this.maxVel);
@@ -34,17 +39,24 @@ Entity.prototype.move = function(entities) {
     this.drawPos = game.gameCam.getDrawPos(this.pos);
 };
 
+Entity.prototype.futurePos = function() {
+    var future = this.pos.copy();
+    future.add(p5.Vector.mult(this.vel, dt));
+    return future;
+}
+
 Entity.prototype.collide = function(entity) {
-    //stub
-    this.collided = true;
+    if (p5.Vector.dist(this.futurePos(), entity.pos) <= this.r + entity.r) {
+        this.collided = true;
 
-    //Bounce
-    var normal = p5.Vector.sub(this.pos, entity.pos);
-    normal.normalize();
+        //Bounce
+        var normal = p5.Vector.sub(this.pos, entity.pos);
+        normal.normalize();
 
-    this.vel = reflectVector(this.vel, normal);
-    // console.log(this.vel);
-
+        this.vel = reflectVector(this.vel, normal);
+        this.pos.add(p5.Vector.mult(this.vel, dt));
+        // console.log(this.vel);
+    }
 };
 
 Entity.prototype.borderBounce = function() {
