@@ -1,13 +1,12 @@
-function Bullet(x_, y_, direction_, speed_, colour_) {
-    Entity.call(this, x_, y_, 1, 5);
+function Bullet(position_, direction_, speed_, colour_) {
     this.colour = colour_;
     this.vel = p5.Vector.fromAngle(direction_).mult(speed_);
+    this.pos = position_;
+    this.r = 5;
 }
 
-Bullet.prototype = Object.create(Entity.prototype);
-
 Bullet.prototype.update = function() {
-    //stub
+    this.pos.add(p5.Vector.mult(this.vel, dt));
 };
 
 Bullet.prototype.draw = function() {

@@ -1,20 +1,28 @@
 var player;
 var entities;
+var bullets;
 var dt;
+var gameWidth;
+var gameHeight;
 
 function setup() {
     var canvas = createCanvas(960, 640);
+    gameWidth = 960;
+    gameHeight = 640;
 
     entities = [];
-    player = new Player(width / 2, height / 2);
+    bullets = [];
+
+    player = new Player(gameWidth / 2, gameHeight / 2);
     entities.push(player);
 
-    entities.push(new Turret(width / 2, height / 2, color(255, 0, 0)));
+    entities.push(new TurretStandard(gameWidth / 2, gameHeight / 2, color(255, 0, 0)));
 
-    entities.push(new EnemySeeker(width / 3, height / 3, color(0, 255, 0)));
+    entities.push(new EnemySeeker(gameWidth / 3, gameHeight / 3, color(0, 255, 0)));
 
     lastUpdate = Date.now();
 }
+
 
 function draw() {
     // Calculate Delta time in order to have smooth movement
@@ -23,10 +31,15 @@ function draw() {
     lastUpdate = now;
 
     background(50);
-
+    for (var i = 0; i < bullets.length; i++) {
+        bullets[i].update();
+    }
     for (var i = 0; i < entities.length; i++) {
         entities[i].update();
         entities[i].move();
+    }
+    for (var i = 0; i < bullets.length; i++) {
+        bullets[i].draw();
     }
     for (var i = 0; i < entities.length; i++) {
         entities[i].draw();

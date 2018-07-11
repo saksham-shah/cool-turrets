@@ -1,6 +1,6 @@
-function Turret(x_, y_, colour_) {
+function Turret(x_, y_, colour_, r_) {
     // Inherit from Entity
-    Entity.call(this, x_, y_, 0.96, 20); // 1 for friction means there is no friction - turrets glide forever
+    Entity.call(this, x_, y_, 0.98, r_); // 1 for friction means there is no friction - turrets glide forever
 
     this.direction = 0;
     this.playerControlRadius = 50;
@@ -18,11 +18,10 @@ Turret.prototype.update = function() {
     this.reloadTimer -= dt;
 
     //Move
-    this.acc.y = 0.05;
+    this.movement();
 
     //Check if player within range of turret
     if (this.pos.dist(player.pos) < this.playerControlRadius + player.r) {
-        // Player controlled
         var vectorPlayerToTurret = p5.Vector.sub(this.pos, player.pos);
 
         this.direction = vectorPlayerToTurret.heading();
@@ -51,31 +50,4 @@ Turret.prototype.update = function() {
         this.pos.x = random(this.r, width - this.r);
 
     }
-};
-
-Turret.prototype.shoot = function() {
-    entities.push(new Bullet(this.pos.x, this.pos.y, this.direction, 10, this.colour));
-    var recoilForce = p5.Vector.fromAngle(this.direction).rotate(PI);
-    this.acc.add(recoilForce);
-
-};
-
-Turret.prototype.draw = function() {
-    push();
-    translate(this.pos.x, this.pos.y);
-    rotate(this.direction);
-
-    // Draw control radius
-    fill(0, 255, 0, 10);
-    ellipse(0, 0, this.playerControlRadius * 2);
-
-    // Draw turret body
-    fill(this.colour);
-    noStroke();
-    ellipse(0, 0, this.r * 2);
-
-    // Draw gun
-    rect(0, -3, 30, 6);
-
-    pop();
 };
