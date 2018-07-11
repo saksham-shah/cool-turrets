@@ -20,7 +20,7 @@ function Entity(x_, y_, friction_, r_) {
 Entity.prototype.collisions = function(entities) {
     this.collided = false;
 
-    this.borderBounce();
+    this.borders();
     this.checkCollisions(entities);
 }
 
