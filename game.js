@@ -7,7 +7,7 @@ function Game() {
     this.player = new Player(width / 2, height / 2);
     this.entities.push(this.player);
 
-    this.entities.push(new TurretStandard(width / 2, 0, color(255, 0, 0)));
+    this.entities.push(new TurretStandard(width / 2, height / 2, color(255, 0, 0)));
 
     this.entities.push(new EnemySeeker(width / 3, height / 3, color(0, 255, 0)));
 
