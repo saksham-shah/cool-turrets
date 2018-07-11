@@ -1,0 +1,37 @@
+function Game() {
+  this.entities = [];
+
+  this.player = new Player(width / 2, height / 2);
+  this.entities.push(this.player);
+
+  this.entities.push(new Turret(width / 2, height / 2, color(255, 0, 0)));
+
+  this.entities.push(new EnemySeeker(width / 3, height / 3, color(0, 255, 0)));
+
+  this.lastUpdate = Date.now();
+
+  this.xBound = 1000;
+  this.yBound = 1000;
+
+  this.gameCam = new GameCam(this.xBound, this.yBound, this.player)
+}
+
+Game.prototype.update = function() {
+  // Calculate Delta time in order to have smooth movement
+  var now = Date.now();
+  dt = (now - this.lastUpdate) / (1000 / 60); //dt will be 1 at 60fps
+  this.lastUpdate = now;
+
+  for (var i = 0; i < this.entities.length; i++) {
+      this.entities[i].update();
+      this.entities[i].move();
+  }
+}
+
+Game.prototype.draw = function() {
+  background(50);
+
+  for (var i = 0; i < this.entities.length; i++) {
+      this.entities[i].draw();
+  }
+}
