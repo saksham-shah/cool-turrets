@@ -1,8 +1,7 @@
 var player;
-var entities;
-var bullets;
+// var player;
+// var entities;
 var dt;
-var gameWidth;
 var gameHeight;
 
 function setup() {
@@ -21,6 +20,16 @@ function setup() {
     entities.push(new EnemySeeker(gameWidth / 3, gameHeight / 3, color(0, 255, 0)));
 
     lastUpdate = Date.now();
+    game = new Game();
+    //
+    // entities = [];
+    // entities.push(player);
+    //
+    // entities.push(new Turret(width / 2, height / 2, color(255, 0, 0)));
+    //
+    // entities.push(new EnemySeeker(width / 3, height / 3, color(0, 255, 0)));
+    //
+    // lastUpdate = Date.now();
 }
 
 
@@ -34,14 +43,20 @@ function draw() {
     for (var i = 0; i < bullets.length; i++) {
         bullets[i].update();
     }
-    for (var i = 0; i < entities.length; i++) {
-        entities[i].update();
-        entities[i].move();
-    }
-    for (var i = 0; i < bullets.length; i++) {
-        bullets[i].draw();
-    }
-    for (var i = 0; i < entities.length; i++) {
-        entities[i].draw();
-    }
+    // var now = Date.now();
+    // dt = (now - lastUpdate) / (1000 / 60); //dt will be 1 at 60fps
+    // lastUpdate = now;
+    //
+    // background(50);
+    //
+    // for (var i = 0; i < entities.length; i++) {
+    //     entities[i].update();
+    //     entities[i].move();
+    // }
+    // for (var i = 0; i < entities.length; i++) {
+    //     entities[i].draw();
+    // }
+    game.update();
+    game.draw();
+
 }
