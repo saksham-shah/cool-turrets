@@ -14,6 +14,8 @@ function Entity(x_, y_, friction_, r_) {
     this.drawPos = this.pos.copy();
 
     this.collided = false;
+
+    this.alive = true;
 }
 
 // Handles wall and entiity collisions
@@ -81,7 +83,7 @@ Entity.prototype.borders = function() {
 
 Entity.prototype.checkCollisions = function(entities) {
     for (var i = 0; i < entities.length; i++) {
-        if (entities[i] != this) { //Don't test for collisions with self
+        if (entities[i] != this && entities[i].alive) { //Don't test for collisions with self
             if (circleCollision(this, entities[i])) {
                 this.collide(entities[i]);
             }
@@ -94,6 +96,11 @@ Entity.prototype.hitByBullet = function(bullet) {
     var knockback = bullet.vel.copy().mult(bullet.r * 0.1);
 
     this.acc.add(knockback);
-    console.log(knockback.mag());
-    console.log("Hit for " + bullet.damage + " damage, health left: " + this.health);
+
+    if (this.health <= 0) {
+        this.alive = false;
+    }
+
+    // console.log(knockback.mag());
+     console.log("Hit for " + bullet.damage + " damage, health left: " + this.health);
 }

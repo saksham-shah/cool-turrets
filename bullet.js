@@ -25,7 +25,7 @@ Bullet.prototype.draw = function() {
 
 Bullet.prototype.checkHits = function(entities) {
     for (var i = 0; i < entities.length; i++) {
-        if (entities[i] !== this.fromTurret) {
+        if (entities[i] !== this.fromTurret && entities[i].alive) {
             if (circleCollision(this, entities[i])) {
                 entities[i].hitByBullet(this);
                 this.hit = true;

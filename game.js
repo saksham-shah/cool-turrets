@@ -27,16 +27,26 @@ Game.prototype.update = function() {
     dt = (now - this.lastUpdate) / (1000 / 60); //dt will be 1 at 60fps
     this.lastUpdate = now;
 
-    for (var i = 0; i < this.entities.length; i++) {
-        this.entities[i].update();
+    if (random() < 0.004) {
+        this.entities.push(new EnemySeeker(random(0, this.xBound), random(0, this.yBound) / 3, color(0, 255, 0)));
     }
 
     for (var i = 0; i < this.entities.length; i++) {
-        this.entities[i].collisions(this.entities);
+        if (this.entities[i].alive) {
+            this.entities[i].update();
+        }
     }
 
     for (var i = 0; i < this.entities.length; i++) {
-        this.entities[i].move();
+        if (this.entities[i].alive) {
+            this.entities[i].collisions(this.entities);
+        }
+    }
+
+    for (var i = 0; i < this.entities.length; i++) {
+        if (this.entities[i].alive) {
+            this.entities[i].move();
+        }
     }
 
     for (var i = 0; i < this.bullets.length; i++) {
@@ -59,7 +69,9 @@ Game.prototype.draw = function() {
     rect(topLeft.x, topLeft.y, this.xBound, this.yBound);
 
     for (var i = 0; i < this.entities.length; i++) {
-        this.entities[i].draw();
+        if (this.entities[i].alive) {
+            this.entities[i].draw();
+        }
     }
     for (var i = 0; i < this.bullets.length; i++) {
         if (!this.bullets[i].hit) {
