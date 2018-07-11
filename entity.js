@@ -4,8 +4,8 @@ function Entity(x_, y_, friction_, r_) {
     this.vel = createVector(0, 0);
     this.acc = createVector(0, 0);
 
-    this.maxVel = 3;
-    this.maxForce = 0.1;
+    this.maxVel = 3.5;
+    this.maxForce = 0.11;
     this.friction = friction_;
 
     // R for radius
