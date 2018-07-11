@@ -1,9 +1,13 @@
-function Bullet(position_, direction_, speed_, damage_, r_, fromTurret_) {
+function Bullet(position_, direction_, fromTurret_) {
+
+
     this.fromTurret = fromTurret_;
-    this.vel = p5.Vector.fromAngle(direction_).mult(speed_);
+    this.speed = this.fromTurret.bulletTemplate.speed;
+    this.damage = this.fromTurret.bulletTemplate.damage;
+    this.r = this.fromTurret.bulletTemplate.r;
+
+    this.vel = p5.Vector.fromAngle(direction_).mult(this.speed);
     this.pos = position_;
-    this.damage = damage_;
-    this.r = r_;
 
     this.hit = false;
 }

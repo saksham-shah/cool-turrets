@@ -8,6 +8,12 @@ function TurretStandard(x_, y_, colour_) {
 
     this.reloadTime = 20;
     this.recoil = 1;
+
+    this.bulletTemplate = {
+        speed: 10,
+        damage: 10,
+        r: 7
+    }
 }
 // Adds the Turret prototype to the TurretStandard object
 TurretStandard.prototype = Object.create(Turret.prototype);
@@ -17,7 +23,7 @@ TurretStandard.prototype.movement = function() {
 };
 
 TurretStandard.prototype.shoot = function() {
-    game.bullets.push(new Bullet(this.pos.copy(), this.direction, 10, 10, 7, this));
+    game.bullets.push(new Bullet(this.pos.copy(), this.direction, this));
 
     var recoilForce = p5.Vector.fromAngle(this.direction).rotate(PI);
     recoilForce.setMag(this.recoil);
