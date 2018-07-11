@@ -18,13 +18,7 @@ EnemySeeker.prototype.update = function() {
     vectorEnemytoPlayer.setMag(this.maxForce);
     this.acc.add(vectorEnemytoPlayer);
 
-    //Bounce off walls
-    if (this.pos.x < this.r || this.pos.x > width - this.r) {
-        this.vel = reflectVector(this.vel, createVector(1, 0));
-    }
-    if (this.pos.y < this.r || this.pos.y > height - this.r) {
-        this.vel = reflectVector(this.vel, createVector(0, 1));
-    }
+    
 }
 
 EnemySeeker.prototype.draw = function() {

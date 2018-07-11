@@ -20,7 +20,7 @@ function Entity(x_, y_, friction_, r_) {
 Entity.prototype.move = function(entities) {
     this.collided = false;
 
-    this.borders();
+    this.borderBounce();
     this.checkCollisions(entities);
     this.pos.add(p5.Vector.mult(this.vel, dt));
     this.vel.add(this.acc);
@@ -45,6 +45,16 @@ Entity.prototype.collide = function(entity_) {
     //console.log(this.vel);
 
 };
+
+Entity.prototype.borderBounce = function() {
+    //Bounce off walls
+    if (this.pos.x < this.r || this.pos.x > game.xBound - this.r) {
+        this.vel = reflectVector(this.vel, createVector(1, 0));
+    }
+    if (this.pos.y < this.r || this.pos.y > game.yBound - this.r) {
+        this.vel = reflectVector(this.vel, createVector(0, 1));
+    }
+}
 
 Entity.prototype.borders = function() {
     if (!rectContains(this.pos, 0, 0, game.xBound, game.yBound)) {

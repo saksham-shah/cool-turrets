@@ -65,7 +65,7 @@ Game.prototype.draw = function() {
     strokeWeight(5);
     rectMode(CORNER);
     var topLeft = this.gameCam.getDrawPos(createVector(0, 0));
-    rect(topLeft.x, topLeft.y, width, height);
+    rect(topLeft.x, topLeft.y, this.xBound, this.yBound);
 
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].draw();
