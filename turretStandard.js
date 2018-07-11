@@ -10,7 +10,7 @@ function TurretStandard(x_, y_, colour_) {
 TurretStandard.prototype = Object.create(Turret.prototype);
 
 TurretStandard.prototype.movement = function() {
-    this.acc.add(0, 0.5);
+    // this.acc.add(0, 0.5);
 };
 
 TurretStandard.prototype.shoot = function() {

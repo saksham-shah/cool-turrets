@@ -5,7 +5,7 @@ function Entity(x_, y_, friction_, r_) {
     this.acc = createVector(0, 0);
 
     this.maxVel = 3.5;
-    this.maxForce = 0.11;
+    this.maxForce = 0.1;
     this.friction = friction_;
 
     // R for radius
@@ -17,7 +17,11 @@ function Entity(x_, y_, friction_, r_) {
 }
 
 // Moves using pos, vel and acc
-Entity.prototype.move = function() {
+Entity.prototype.move = function(entities) {
+    this.collided = false;
+
+    this.borders();
+    this.checkCollisions(entities);
     this.pos.add(p5.Vector.mult(this.vel, dt));
     this.vel.add(this.acc);
     this.vel.limit(this.maxVel);
@@ -28,9 +32,6 @@ Entity.prototype.move = function() {
 
     //Get Position relative to camera
     this.drawPos = game.gameCam.getDrawPos(this.pos);
-
-    this.collided = false;
-
 };
 
 Entity.prototype.collide = function(entity_) {
@@ -42,4 +43,23 @@ Entity.prototype.collide = function(entity_) {
 
     //this.vel = reflectVector(this.vel, normal);
     //console.log(this.vel);
+
 };
+
+Entity.prototype.borders = function() {
+    if (!rectContains(this.pos, 0, 0, game.xBound, game.yBound)) {
+        var forceToCentre = p5.Vector.sub(createVector(game.xBound / 2, game.yBound / 2), this.pos);
+        forceToCentre.setMag(0.3);
+        this.acc.add(forceToCentre);
+    }
+};
+
+Entity.prototype.checkCollisions = function(entities) {
+    for (var i = 0; i < entities.length; i++) {
+        if (entities[i] != this) { //Don't test for collisions with self
+            if (circleCollision(this, entities[i])) {
+                this.collide(entities[i]);
+            }
+        }
+    }
+}

@@ -30,3 +30,10 @@ function reflectVector(vector, normalVector) {
 
     return reflectedVector;
 }
+
+function rectContains(pos, x, y, w, h) {
+    if (pos.x < x || pos.y < y || pos.x > x + w || pos.y > y + h) {
+        return false;
+    }
+    return true;
+}
