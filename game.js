@@ -39,13 +39,13 @@ Game.prototype.update = function() {
 
     for (var i = 0; i < this.entities.length; i++) {
         if (this.entities[i].alive) {
-            this.entities[i].collisions(this.entities);
+            this.entities[i].move();
         }
     }
-
+    
     for (var i = 0; i < this.entities.length; i++) {
         if (this.entities[i].alive) {
-            this.entities[i].move();
+            this.entities[i].collisions(this.entities);
         }
     }
 
