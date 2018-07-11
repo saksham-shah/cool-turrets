@@ -14,3 +14,10 @@ function circleCollision(obj1, obj2) {
     }
     return false;
 }
+
+function rectContains(pos, x, y, w, h) {
+  if (pos.x < x || pos.y < y || pos.x > x + w || pos.y > y + h) {
+    return false;
+  }
+  return true;
+}

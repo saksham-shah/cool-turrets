@@ -5,7 +5,7 @@ function Entity(x_, y_, friction_, r_) {
     this.acc = createVector(0, 0);
 
     this.maxVel = 3.5;
-    this.maxForce = 0.11;
+    this.maxForce = 0.1;
     this.friction = friction_;
 
     // R for radius
@@ -18,6 +18,7 @@ function Entity(x_, y_, friction_, r_) {
 
 // Moves using pos, vel and acc
 Entity.prototype.move = function() {
+    this.borders();
     this.pos.add(p5.Vector.mult(this.vel, dt));
     this.vel.add(this.acc);
     this.vel.limit(this.maxVel);
@@ -38,3 +39,11 @@ Entity.prototype.collide = function(entity_) {
     console.log('COL');
     this.collided = true;
 };
+
+Entity.prototype.borders = function() {
+    if (!rectContains(this.pos, 0, 0, game.xBound, game.yBound)) {
+        var forceToCentre = p5.Vector.sub(createVector(game.xBound/2, game.yBound/2), this.pos);
+        forceToCentre.setMag(0.3);
+          this.acc.add(forceToCentre);
+    }
+}
