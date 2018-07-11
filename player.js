@@ -14,11 +14,19 @@ Player.prototype.update = function() {
     //this.followMouse();
     this.moveUsingArrowKeys();
 
+
+    //Prevent Player moving out of arena
+    if (this.pos.x < 0) this.pos.x = this.r;
+    if (this.pos.y < 0) this.pos.y = this.r;
+    if (this.pos.x > width) this.pos.x = width - this.r;
+    if (this.pos.y > height) this.pos.x = height - this.r;
+
+
     //Bounce off walls
-    if (this.pos.x < this.r || this.pos.x > width - this.r) {
+    if (this.pos.x <= this.r || this.pos.x >= width - this.r) {
         this.vel = reflectVector(this.vel, createVector(1, 0));
     }
-    if (this.pos.y < this.r || this.pos.y > height - this.r) {
+    if (this.pos.y <= this.r || this.pos.y >= height - this.r) {
         this.vel = reflectVector(this.vel, createVector(0, 1));
     }
 };

@@ -7,7 +7,7 @@ function Game() {
     this.player = new Player(width / 2, height / 2);
     this.entities.push(this.player);
 
-    this.entities.push(new TurretStandard(width / 2, height / 2, color(255, 0, 0)));
+    this.entities.push(new TurretStandard(width / 2, 0, color(255, 0, 0)));
 
     this.entities.push(new EnemySeeker(width / 3, height / 3, color(0, 255, 0)));
 
@@ -30,7 +30,12 @@ Game.prototype.update = function() {
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].update();
         this.entities[i].move();
-
+    }
+    for (var i = 0; i < this.bullets.length; i++) {
+        this.bullets[i].update();
+    }
+    //Test for collisions
+    for (var i = 0; i < this.entities.length; i++) {
         //Test for collisions
         for (var j = 0; j < this.entities.length; j++) {
             if (j != i) { //Don't test for collisions with self
@@ -41,9 +46,8 @@ Game.prototype.update = function() {
             }
         }
     }
-    for (var i = 0; i < this.bullets.length; i++) {
-        this.bullets[i].update();
-    }
+
+
 
     this.gameCam.update();
 };

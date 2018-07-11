@@ -9,9 +9,12 @@ function rectCollision(obj1, obj2) {
 }
 
 function circleCollision(obj1, obj2) {
-    if (p5.Vector.dist(obj1.pos, obj2.pos) <= obj1.r + obj2.r) {
-        return true;
+    if (rectCollision(obj1, obj2)) {
+        if (p5.Vector.dist(obj1.pos, obj2.pos) <= obj1.r + obj2.r) {
+            return true;
+        }
     }
+
     return false;
 }
 

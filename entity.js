@@ -35,6 +35,11 @@ Entity.prototype.move = function() {
 
 Entity.prototype.collide = function(entity_) {
     //stub
-    console.log('COL');
     this.collided = true;
+
+    //Bounce
+    //var normal = p5.Vector.sub(this.pos, entity_.pos);
+
+    //this.vel = reflectVector(this.vel, normal);
+    //console.log(this.vel);
 };
