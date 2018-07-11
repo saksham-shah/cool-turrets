@@ -26,3 +26,7 @@ Entity.prototype.move = function() {
 
     this.drawPos = game.gameCam.getDrawPos(this.pos);
 };
+
+Entity.prototype.collide = function(entity_) {
+    //stub
+};
