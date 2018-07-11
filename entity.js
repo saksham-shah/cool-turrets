@@ -50,85 +50,71 @@ Entity.prototype.futurePos = function() {
 };
 
 Entity.prototype.collide = function(other) {
-    if (p5.Vector.dist(this.futurePos(), other.pos) <= this.r + other.r) {
-        this.collided = true;
+    this.collided = true;
 
-        //taken from https://stackoverflow.com/questions/35907053/including-the-law-of-conservation-of-momentum-in-a-simple-collision
+    //taken from https://stackoverflow.com/questions/35907053/including-the-law-of-conservation-of-momentum-in-a-simple-collision
 
-        //Bounce
-        var bVect = p5.Vector.sub(other.pos, this.pos);
+    //Bounce
+    var bVect = p5.Vector.sub(other.pos, this.pos);
 
-        // precalculate trig values
-        var theta = bVect.heading();
-        var sine = sin(theta);
-        var cosine = cos(theta);
+    // precalculate trig values
+    var theta = bVect.heading();
+    var sine = sin(theta);
+    var cosine = cos(theta);
 
-        /* bTemp will hold rotated ball positions. You 
+    /* bTemp will hold rotated ball positions. You 
        just need to worry about bTemp[1] position*/
-        bTemp = [createVector(0, 0), createVector(0, 0)];
-        bTemp[1].x = cosine * bVect.x + sine * bVect.y;
-        bTemp[1].y = cosine * bVect.y - sine * bVect.x;
+    bTemp = [createVector(0, 0), createVector(0, 0)];
+    bTemp[1].x = cosine * bVect.x + sine * bVect.y;
+    bTemp[1].y = cosine * bVect.y - sine * bVect.x;
 
-        vTemp = [createVector(0, 0), createVector(0, 0)];
+    vTemp = [createVector(0, 0), createVector(0, 0)];
 
-        vTemp[0].x = cosine * this.vel.x + sine * this.vel.y;
-        vTemp[0].y = cosine * this.vel.y - sine * this.vel.x;
-        vTemp[1].x = cosine * other.vel.x + sine * other.vel.y;
-        vTemp[1].y = cosine * other.vel.y - sine * other.vel.x;
+    vTemp[0].x = cosine * this.vel.x + sine * this.vel.y;
+    vTemp[0].y = cosine * this.vel.y - sine * this.vel.x;
+    vTemp[1].x = cosine * other.vel.x + sine * other.vel.y;
+    vTemp[1].y = cosine * other.vel.y - sine * other.vel.x;
 
-        /* Now that velocities are rotated, you can use 1D
+    /* Now that velocities are rotated, you can use 1D
        conservation of momentum equations to calculate 
        the final velocity along the x-axis. */
 
-        vFinal = [createVector(0, 0), createVector(0, 0)];
+    vFinal = [createVector(0, 0), createVector(0, 0)];
 
-        // final rotated velocity for b[0]
-        vFinal[0].x = ((this.mass - other.mass) * vTemp[0].x + 2 * other.mass * vTemp[1].x) / (this.mass + other.mass);
-        vFinal[0].y = vTemp[0].y;
+    // final rotated velocity for b[0]
+    vFinal[0].x = ((this.mass - other.mass) * vTemp[0].x + 2 * other.mass * vTemp[1].x) / (this.mass + other.mass);
+    vFinal[0].y = vTemp[0].y;
 
-        // final rotated velocity for b[0]
-        vFinal[1].x = ((other.mass - this.mass) * vTemp[1].x + 2 * this.mass * vTemp[0].x) / (this.mass + other.mass);
-        vFinal[1].y = vTemp[1].y;
+    // final rotated velocity for b[0]
+    vFinal[1].x = ((other.mass - this.mass) * vTemp[1].x + 2 * this.mass * vTemp[0].x) / (this.mass + other.mass);
+    vFinal[1].y = vTemp[1].y;
 
-        // hack to avoid clumping
-        bTemp[0].x += vFinal[0].x;
-        bTemp[1].x += vFinal[1].x;
+    // hack to avoid clumping
+    bTemp[0].x += vFinal[0].x;
+    bTemp[1].x += vFinal[1].x;
 
-        /* Rotate ball positions and velocities back
-               Reverse signs in trig expressions to rotate 
-               in the opposite direction */
-        // rotate balls
-        bFinal = [createVector(0, 0), createVector(0, 0)];
+    /* Rotate ball positions and velocities back
+           Reverse signs in trig expressions to rotate 
+           in the opposite direction */
+    // rotate balls
+    bFinal = [createVector(0, 0), createVector(0, 0)];
 
-        bFinal[0].x = cosine * bTemp[0].x - sine * bTemp[0].y;
-        bFinal[0].y = cosine * bTemp[0].y + sine * bTemp[0].x;
-        bFinal[1].x = cosine * bTemp[1].x - sine * bTemp[1].y;
-        bFinal[1].y = cosine * bTemp[1].y + sine * bTemp[1].x;
+    bFinal[0].x = cosine * bTemp[0].x - sine * bTemp[0].y;
+    bFinal[0].y = cosine * bTemp[0].y + sine * bTemp[0].x;
+    bFinal[1].x = cosine * bTemp[1].x - sine * bTemp[1].y;
+    bFinal[1].y = cosine * bTemp[1].y + sine * bTemp[1].x;
 
-        // update balls to screen position
-        other.pos.x = this.pos.x + bFinal[1].x;
-        other.pos.y = this.pos.y + bFinal[1].y;
+    // update balls to screen position
+    other.pos.x = this.pos.x + bFinal[1].x;
+    other.pos.y = this.pos.y + bFinal[1].y;
 
-        this.pos.add(bFinal[0]);
+    this.pos.add(bFinal[0]);
 
-        // update velocities
-        this.vel.x = cosine * vFinal[0].x - sine * vFinal[0].y;
-        this.vel.y = cosine * vFinal[0].y + sine * vFinal[0].x;
-        other.vel.x = cosine * vFinal[1].x - sine * vFinal[1].y;
-        other.vel.y = cosine * vFinal[1].y + sine * vFinal[1].x;
-
-
-
-
-        /*      var normal = p5.Vector.sub(this.pos, entity.pos);
-              normal.normalize();
-
-              var reflectedVector = reflectVector(this.vel, normal);
-              this.vel = reflectedVector.copy();
-              //this.pos.add(p5.Vector.mult(this.vel, dt));
-              this.acc.add(normal);
-              // console.log(this.vel);*/
-    }
+    // update velocities
+    this.vel.x = cosine * vFinal[0].x - sine * vFinal[0].y;
+    this.vel.y = cosine * vFinal[0].y + sine * vFinal[0].x;
+    other.vel.x = cosine * vFinal[1].x - sine * vFinal[1].y;
+    other.vel.y = cosine * vFinal[1].y + sine * vFinal[1].x;
 };
 
 Entity.prototype.borderBounce = function() {
@@ -150,14 +136,23 @@ Entity.prototype.borders = function() {
 };
 
 Entity.prototype.checkCollisions = function(entities) {
+    var found = false;
     for (var i = 0; i < entities.length; i++) {
-        if (entities[i] != this && entities[i].alive) { //Don't test for collisions with self
+        if (entities[i] == this || found == false) {
+            found = true;
+        } else {
             if (circleCollision(this, entities[i])) {
                 this.collide(entities[i]);
             }
         }
+
+        /*if (entities[i] != this && entities[i].alive) { //Don't test for collisions with self
+            if (circleCollision(this, entities[i])) {
+                this.collide(entities[i]);
+            }
+        }*/
     }
-}
+};
 
 Entity.prototype.hitByBullet = function(bullet) {
     this.health -= bullet.damage;
