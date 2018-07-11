@@ -22,6 +22,7 @@ function Game() {
 }
 
 Game.prototype.update = function() {
+    console.log(this.entities.length);
     // Calculate Delta time in order to have smooth movement
     var now = Date.now();
     dt = (now - this.lastUpdate) / (1000 / 60); //dt will be 1 at 60fps
@@ -32,26 +33,26 @@ Game.prototype.update = function() {
     }
 
     for (var i = 0; i < this.entities.length; i++) {
-        if (this.entities[i].alive) {
-            this.entities[i].update();
+        this.entities[i].update();
+        if (!this.entities[i].alive) {
+            this.entities.splice(i, 1);
+            i--;
         }
     }
 
     for (var i = 0; i < this.entities.length; i++) {
-        if (this.entities[i].alive) {
-            this.entities[i].collisions(this.entities);
-        }
+        this.entities[i].collisions(this.entities);
     }
 
     for (var i = 0; i < this.entities.length; i++) {
-        if (this.entities[i].alive) {
-            this.entities[i].move();
-        }
+        this.entities[i].move();
     }
 
     for (var i = 0; i < this.bullets.length; i++) {
-        if (!this.bullets[i].hit) {
-            this.bullets[i].update(this.entities);
+        this.bullets[i].update(this.entities);
+        if (this.bullets[i].hit) {
+            this.bullets.splice(i, 1);
+            i--;
         }
     }
 

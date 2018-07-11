@@ -115,6 +115,24 @@ Entity.prototype.collide = function(other) {
     this.vel.y = cosine * vFinal[0].y + sine * vFinal[0].x;
     other.vel.x = cosine * vFinal[1].x - sine * vFinal[1].y;
     other.vel.y = cosine * vFinal[1].y + sine * vFinal[1].x;
+
+
+    //Move objects away from each other if they intersect
+    var thisToThat = p5.Vector.sub(this.pos, other.pos);
+    var thatToThis = p5.Vector.sub(other.pos, this.pos);
+    if (thisToThat.mag() < this.r + other.r) {
+        pushForce = map(thisToThat.mag(), 0, this.r + other.r, 1.5, 0.2);
+        var force = thisToThat;
+        force.setMag(pushForce);
+        var force2 = thatToThis;
+
+        force2.setMag(pushForce);
+
+        this.acc.add(force2);
+        other.acc.add(force);
+        this.move();
+        other.move();
+    }
 };
 
 Entity.prototype.borderBounce = function() {
@@ -145,12 +163,6 @@ Entity.prototype.checkCollisions = function(entities) {
                 this.collide(entities[i]);
             }
         }
-
-        /*if (entities[i] != this && entities[i].alive) { //Don't test for collisions with self
-            if (circleCollision(this, entities[i])) {
-                this.collide(entities[i]);
-            }
-        }*/
     }
 };
 
