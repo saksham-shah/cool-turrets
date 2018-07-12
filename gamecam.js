@@ -7,6 +7,8 @@ function GameCam(xBound_, yBound_, toFollow_) {
     this.buffer = 100;
     this.toFollow = toFollow_;
 
+    this.zoom = 1;
+
 }
 
 // Updates the position of the camera
@@ -37,7 +39,11 @@ GameCam.prototype.follow = function() {
 
 // Converts a game position to a draw reposition
 GameCam.prototype.getDrawPos = function(gamePos) {
-    var drawX = gamePos.x - this.x + width / 2;
-    var drawY = gamePos.y - this.y + height / 2;
+    var drawX = this.zoom * (gamePos.x - this.x) + width / 2;
+    var drawY = this.zoom * (gamePos.y - this.y) + height / 2;
     return createVector(drawX, drawY);
 };
+
+GameCam.prototype.getDrawSize = function(gameSize) {
+    return gameSize * this.zoom;
+}

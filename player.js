@@ -78,5 +78,5 @@ Player.prototype.draw = function() {
     //     fill(255, 0, 255);
     // }
     noStroke();
-    ellipse(this.drawPos.x, this.drawPos.y, this.r * 2);
+    ellipse(this.drawPos.x, this.drawPos.y, this.drawR * 2);
 }

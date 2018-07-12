@@ -20,8 +20,9 @@ Bullet.prototype.update = function(entities) {
 Bullet.prototype.draw = function() {
     fill(this.fromTurret.colour);
     noStroke();
-    let drawPos = game.gameCam.getDrawPos(this.pos);
-    ellipse(drawPos.x, drawPos.y, this.r * 2, this.r * 2);
+    var drawPos = game.gameCam.getDrawPos(this.pos);
+    var drawR = game.gameCam.getDrawSize(this.r);
+    ellipse(drawPos.x, drawPos.y, drawR * 2, drawR * 2);
 };
 
 Bullet.prototype.checkHits = function(entities) {

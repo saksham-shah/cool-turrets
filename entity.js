@@ -43,6 +43,7 @@ Entity.prototype.move = function() {
 
     //Get Position relative to camera
     this.drawPos = game.gameCam.getDrawPos(this.pos);
+    this.drawR = game.gameCam.getDrawSize(this.r);
 
     // General updates
     this.showHealthBar -= dt;

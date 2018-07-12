@@ -44,7 +44,7 @@ TurretStandard.prototype.draw = function() {
     // Draw turret body
     fill(this.colour);
     noStroke();
-    ellipse(0, 0, this.r * 2);
+    ellipse(0, 0, this.drawR * 2);
 
     // Draw gun
     rect(0, -6, 30, 12);
