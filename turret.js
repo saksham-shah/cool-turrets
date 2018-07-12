@@ -10,7 +10,9 @@ function Turret(x_, y_, health_, colour_, r_) {
 
     this.reloadTimer = 0;
 
-    this.maxVel = 1;
+    this.maxVel = 5;
+
+    this.mass = 300;
 }
 
 // Adds the Entity prototype to the Turret object
@@ -40,48 +42,13 @@ Turret.prototype.update = function() {
             this.shoot();
         }
     }
-
-
-
-    // When off the screen, reposition turret
-    // if (this.pos.x - this.r > width) {
-    //     this.pos.x = -this.r;
-    //     this.pos.y = random(this.r, height - this.r);
-    // } else if (this.pos.y - this.r > height) {
-    //     this.pos.y = -this.r;
-    //     this.pos.x = random(this.r, width - this.r);
-    // } else if (this.pos.x + this.r < 0) {
-    //     this.pos.y = random(this.r, height - this.r);
-    //     this.pos.x = width + this.r;
-    // } else if (this.pos.y + this.r < 0) {
-    //     this.pos.y = height + this.r;
-    //     this.pos.x = random(this.r, width - this.r);
-    //
-    // }
 };
 
-// Turret.prototype.shoot = function() {
-//     game.entities.push(new Bullet(this.pos.x, this.pos.y, this.direction, 10, this.colour));
-//     var recoilForce = p5.Vector.fromAngle(this.direction).rotate(PI);
-//     this.acc.add(recoilForce.div(3));
-// };
-//
-// Turret.prototype.draw = function() {
-//     push();
-//     translate(this.pos.x, this.pos.y);
-//     rotate(this.direction);
-//
-//     // Draw control radius
-//     fill(0, 255, 0, 10);
-//     ellipse(0, 0, this.playerControlRadius * 2);
-//
-//     // Draw turret body
-//     fill(this.colour);
-//     noStroke();
-//     ellipse(0, 0, this.r * 2);
-//
-//     // Draw gun
-//     rect(0, -3, 30, 6);
-//
-//     pop();
-// };
+Turret.prototype.shoot = function() {
+    var shootBullet = new Bullet(this.pos.copy(), this.direction, this);
+    game.bullets.push(shootBullet);
+
+    var recoilForce = p5.Vector.fromAngle(this.direction).rotate(PI);
+    recoilForce.setMag(shootBullet.r * shootBullet.r * shootBullet.speed);
+    this.applyForce(recoilForce);
+};

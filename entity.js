@@ -26,6 +26,13 @@ function Entity(x_, y_, health_, r_) {
         //(entity) => entity.health);
 }
 
+Entity.prototype.applyForce = function(force) {
+    // F = ma
+    var acceleration = force.div(this.mass);
+    console.log(acceleration.mag());
+    this.acc.add(acceleration);
+}
+
 // Handles wall and entiity collisions
 Entity.prototype.collisions = function(entities) {
     this.collided = false;
@@ -194,9 +201,9 @@ Entity.prototype.loseHealth = function(healthLost) {
 }
 
 Entity.prototype.hitByBullet = function(bullet) {
-    var knockback = bullet.vel.copy().mult(bullet.r * 0.1);
-
-    this.acc.add(knockback);
+    var knockbackForce = bullet.vel.copy()
+    knockbackForce.setMag(bullet.r * bullet.r * bullet.speed);
+    this.applyForce(knockbackForce);
 
     this.loseHealth(bullet.damage);
 

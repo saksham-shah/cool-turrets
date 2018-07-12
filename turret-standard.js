@@ -20,18 +20,6 @@ function TurretStandard(x_, y_, colour_) {
 // Adds the Turret prototype to the TurretStandard object
 TurretStandard.prototype = Object.create(Turret.prototype);
 
-TurretStandard.prototype.movement = function() {
-    // this.acc.add(0, 0.5);
-};
-
-TurretStandard.prototype.shoot = function() {
-    game.bullets.push(new Bullet(this.pos.copy(), this.direction, this));
-
-    var recoilForce = p5.Vector.fromAngle(this.direction).rotate(PI);
-    recoilForce.setMag(this.recoil);
-    this.acc.add(recoilForce);
-};
-
 TurretStandard.prototype.draw = function() {
     push();
     translate(this.drawPos.x, this.drawPos.y);
