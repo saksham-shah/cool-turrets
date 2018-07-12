@@ -29,7 +29,7 @@ function Entity(x_, y_, health_, r_) {
 Entity.prototype.applyForce = function(force) {
     // F = ma
     var acceleration = force.div(this.mass);
-    console.log(acceleration.mag());
+    // console.log(acceleration.mag());
     this.acc.add(acceleration);
 }
 
@@ -67,7 +67,7 @@ Entity.prototype.futurePos = function() {
 };
 
 Entity.prototype.collide = function(other) {
-    if (!(this instanceof EnemySeeker) || !(other instanceof EnemySeeker)) {
+    if (!(this instanceof Enemy) || !(other instanceof Enemy)) {
         this.loseHealth(other.bodyDamage);
         other.loseHealth(this.bodyDamage);
     }
@@ -212,5 +212,5 @@ Entity.prototype.hitByBullet = function(bullet) {
     this.loseHealth(bullet.damage);
 
     // console.log(knockback.mag());
-    console.log("Hit for " + bullet.damage + " damage, health left: " + this.health);
+    // console.log("Hit for " + bullet.damage + " damage, health left: " + this.health);
 }

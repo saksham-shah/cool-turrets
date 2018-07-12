@@ -22,12 +22,15 @@ function draw() {
 
 function keyPressed() {
     if (keyCode == 49) { // number 1 key
-        game.entities.push(new EnemySeeker(random(0, game.xBound), random(0, game.yBound), color(0, 255, 0)));
+        game.entities.push(new EnemySeeker(random(0, game.xBound), random(0, game.yBound)));
     }
     if (keyCode == 50) { // number 2 key
+        game.entities.push(new EnemyShooter(random(0, game.xBound), random(0, game.yBound)));
+    }
+    if (keyCode == 54) { // number 6 key
         game.entities.push(new TurretStandard(random(0, game.xBound), random(0, game.yBound), color(255, 0, 0)));
     }
-    if (keyCode == 51) { // number 3 key
+    if (keyCode == 55) { // number 7 key
         game.entities.push(new TurretSniper(random(0, game.xBound), random(0, game.yBound), color(255, 0, 0)));
     }
 }

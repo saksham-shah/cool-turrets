@@ -42,9 +42,11 @@ Bullet.prototype.draw = function() {
 Bullet.prototype.checkHits = function(entities) {
     for (var i = 0; i < entities.length; i++) {
         if (entities[i] !== this.parent && entities[i].alive) {
-            if (circleCollision(this, entities[i])) {
-                entities[i].hitByBullet(this);
-                this.hit = true;
+            if (!(this.parent instanceof Enemy) || !(entities[i] instanceof Enemy)) {
+                if (circleCollision(this, entities[i])) {
+                    entities[i].hitByBullet(this);
+                    this.hit = true;
+                }
             }
         }
     }
