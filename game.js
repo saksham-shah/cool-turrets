@@ -68,7 +68,7 @@ Game.prototype.draw = function() {
     strokeWeight(5);
     rectMode(CORNER);
     var topLeft = this.gameCam.getDrawPos(createVector(0, 0));
-    rect(topLeft.x, topLeft.y, this.xBound, this.yBound);
+    rect(topLeft.x, topLeft.y, this.gameCam.getDrawSize(this.xBound), this.gameCam.getDrawSize(this.yBound));
 
     for (var i = 0; i < this.bullets.length; i++) {
         if (!this.bullets[i].hit) {

@@ -39,7 +39,7 @@ TurretStandard.prototype.draw = function() {
     // Draw control radius
     fill(0, 255, 0, 10);
     noStroke();
-    ellipse(0, 0, this.playerControlRadius * 2);
+    ellipse(0, 0, game.gameCam.getDrawSize(this.playerControlRadius) * 2);
 
     // Draw turret body
     fill(this.colour);
