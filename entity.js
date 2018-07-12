@@ -19,7 +19,11 @@ function Entity(x_, y_, health_, r_) {
 
     this.alive = true;
     this.health = health_;
-    this.healthBar = new StatBar(this.health, this, (entity) => entity.health);
+    this.healthBar = new StatBar(this.health, this,
+        function(entity) {
+            return entity.health;
+        });
+        //(entity) => entity.health);
 }
 
 // Handles wall and entiity collisions
