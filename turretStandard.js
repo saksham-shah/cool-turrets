@@ -1,8 +1,8 @@
 function TurretStandard(x_, y_, colour_) {
     // Inherit from Entity
-    Turret.call(this, x_, y_, colour_, 20); // 1 for friction means there is no friction - turrets glide forever
+    Turret.call(this, x_, y_, 30, colour_, 20); // 1 for friction means there is no friction - turrets glide forever
 
-    this.health = 30;
+    // this.health = 30;
 
     this.playerControlRadius = 100;
 

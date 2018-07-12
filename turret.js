@@ -1,7 +1,7 @@
-function Turret(x_, y_, colour_, r_) {
+function Turret(x_, y_, health_, colour_, r_) {
     // Inherit from Entity
 
-    Entity.call(this, x_, y_, 0.98, r_); // 1 for friction means there is no friction - turrets glide forever
+    Entity.call(this, x_, y_, health_, r_); // 1 for friction means there is no friction - turrets glide forever
 
 
     this.direction = 0;

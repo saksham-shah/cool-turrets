@@ -1,12 +1,12 @@
 function EnemySeeker(x_, y_, colour_) {
     // Inherit from Enemy
-    Enemy.call(this, x_, y_);
+    Enemy.call(this, x_, y_, 20);
 
     this.colour = colour_;
     this.maxVel = 10;
     this.maxForce = 0.1;
 
-    this.health = 10;
+    // this.health = 10;
 }
 
 // Adds the Enemy prototype to the Turret object

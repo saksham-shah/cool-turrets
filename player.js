@@ -1,12 +1,12 @@
 // Player controlled entity
 function Player(x_, y_) {
     // Inherits from Entity (random number for size right now)
-    Entity.call(this, x_, y_, 0.96, 10);
+    Entity.call(this, x_, y_, 100, 10);
     this.maxVel = 3.5;
     this.maxForce = 0.1;
     this.mass = 1000;
 
-    this.health = 100;
+    // this.health = 100;
 }
 
 // Adds the Entity prototype to the Player object

@@ -70,15 +70,21 @@ Game.prototype.draw = function() {
     var topLeft = this.gameCam.getDrawPos(createVector(0, 0));
     rect(topLeft.x, topLeft.y, this.xBound, this.yBound);
 
-    for (var i = 0; i < this.entities.length; i++) {
-        if (this.entities[i].alive) {
-            this.entities[i].draw();
-        }
-    }
     for (var i = 0; i < this.bullets.length; i++) {
         if (!this.bullets[i].hit) {
             this.bullets[i].draw();
         }
     }
-    this.playerBar.draw();
+
+    for (var i = 0; i < this.entities.length; i++) {
+        if (this.entities[i].alive) {
+            this.entities[i].draw();
+        }
+    }
+
+    for (var i = 0; i < this.entities.length; i++) {
+        if (this.entities[i].alive && this.entities[i].showHealthBar > 0) {
+            this.entities[i].healthBar.draw();
+        }
+    }
 };

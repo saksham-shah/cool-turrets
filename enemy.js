@@ -1,6 +1,6 @@
-function Enemy(x_, y_) {
+function Enemy(x_, y_, health_) {
     // Inherit from Entity
-    Entity.call(this, x_, y_, 0.96, 20);
+    Entity.call(this, x_, y_, health_, 20);
 
 }
 

@@ -1,12 +1,12 @@
 // Base object for game objects that have a pos, vel and acc (all vectors)
-function Entity(x_, y_, friction_, r_) {
+function Entity(x_, y_, health_, r_) {
     this.pos = createVector(x_, y_);
     this.vel = createVector(0, 0);
     this.acc = createVector(0, 0);
 
     this.maxVel = 3.5;
     this.maxForce = 0.1;
-    this.friction = friction_;
+    this.friction = 0.96;
 
     // R for radius
     this.r = r_;
@@ -18,6 +18,8 @@ function Entity(x_, y_, friction_, r_) {
     this.collided = false;
 
     this.alive = true;
+    this.health = health_;
+    this.healthBar = new StatBar(this.health, this, (entity) => entity.health);
 }
 
 // Handles wall and entiity collisions
@@ -31,7 +33,6 @@ Entity.prototype.collisions = function(entities) {
 // Moves using pos, vel and acc
 Entity.prototype.move = function() {
 
-
     this.vel.add(this.acc);
     this.vel.limit(this.maxVel);
     this.pos.add(p5.Vector.mult(this.vel, dt));
@@ -42,6 +43,9 @@ Entity.prototype.move = function() {
 
     //Get Position relative to camera
     this.drawPos = game.gameCam.getDrawPos(this.pos);
+
+    // General updates
+    this.showHealthBar -= dt;
 };
 
 Entity.prototype.futurePos = function() {
@@ -63,7 +67,7 @@ Entity.prototype.collide = function(other) {
     var sine = sin(theta);
     var cosine = cos(theta);
 
-    /* bTemp will hold rotated ball positions. You 
+    /* bTemp will hold rotated ball positions. You
        just need to worry about bTemp[1] position*/
     bTemp = [createVector(0, 0), createVector(0, 0)];
     bTemp[1].x = cosine * bVect.x + sine * bVect.y;
@@ -77,7 +81,7 @@ Entity.prototype.collide = function(other) {
     vTemp[1].y = cosine * other.vel.y - sine * other.vel.x;
 
     /* Now that velocities are rotated, you can use 1D
-       conservation of momentum equations to calculate 
+       conservation of momentum equations to calculate
        the final velocity along the x-axis. */
 
     vFinal = [createVector(0, 0), createVector(0, 0)];
@@ -95,7 +99,7 @@ Entity.prototype.collide = function(other) {
     bTemp[1].x += vFinal[1].x;
 
     /* Rotate ball positions and velocities back
-           Reverse signs in trig expressions to rotate 
+           Reverse signs in trig expressions to rotate
            in the opposite direction */
     // rotate balls
     bFinal = [createVector(0, 0), createVector(0, 0)];
@@ -176,15 +180,20 @@ Entity.prototype.checkCollisions = function(entities) {
     }
 };
 
+Entity.prototype.loseHealth = function(healthLost) {
+    this.health -= healthLost;
+    this.showHealthBar = 250;
+    if (this.health <= 0) {
+        this.alive = false;
+    }
+}
+
 Entity.prototype.hitByBullet = function(bullet) {
-    this.health -= bullet.damage;
     var knockback = bullet.vel.copy().mult(bullet.r * 0.1);
 
     this.acc.add(knockback);
 
-    if (this.health <= 0) {
-        this.alive = false;
-    }
+    this.loseHealth(bullet.damage);
 
     // console.log(knockback.mag());
     console.log("Hit for " + bullet.damage + " damage, health left: " + this.health);
