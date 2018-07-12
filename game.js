@@ -9,7 +9,7 @@ function Game() {
 
     this.entities.push(new TurretStandard(width / 2, height / 2, color(255, 0, 0)));
 
-    this.entities.push(new EnemySeeker(width / 3, height / 3, color(0, 255, 0)));
+    // this.entities.push(new EnemySeeker(width / 3, height / 3, color(0, 255, 0)));
 
     this.lastUpdate = Date.now();
 
@@ -28,10 +28,6 @@ Game.prototype.update = function() {
     var now = Date.now();
     dt = (now - this.lastUpdate) / (1000 / 60); //dt will be 1 at 60fps
     this.lastUpdate = now;
-
-    if (random() < 0.004) {
-        this.entities.push(new EnemySeeker(random(0, this.xBound), random(0, this.yBound) / 3, color(0, 255, 0)));
-    }
 
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].update();
