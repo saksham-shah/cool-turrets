@@ -10,15 +10,22 @@ function Bullet(position_, direction_, fromTurret_) {
     this.pos = position_;
 
     this.hit = false;
-    this.maxDistance = 100;
+    this.range = 300;
 
     this.timeAlive = 0;
 }
 
 Bullet.prototype.update = function(entities) {
-    if (this.speed * this.timeAlive > this.maxDistance) {
+    //Destroy bullet after it's travelled for it's range
+    if (this.speed * this.timeAlive > this.range) {
         this.hit = true; //Perhaps change this later
     }
+
+    //Destroy bullet if it's out of the map
+    if (!rectContains(this.pos, 0, 0, game.xBound, game.yBound)) {
+        this.hit = true;
+    }
+
     this.pos.add(p5.Vector.mult(this.vel, dt));
     this.checkHits(entities);
     this.timeAlive += dt;
