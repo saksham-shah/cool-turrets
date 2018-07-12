@@ -13,8 +13,8 @@ function Game() {
 
     this.lastUpdate = Date.now();
 
-    this.xBound = 1000;
-    this.yBound = 667;
+    this.xBound = 1200;
+    this.yBound = 700;
 
     this.gameCam = new GameCam(this.xBound, this.yBound, this.player);
 
