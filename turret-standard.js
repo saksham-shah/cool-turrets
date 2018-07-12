@@ -1,6 +1,6 @@
 function TurretStandard(x_, y_, colour_) {
     // Inherit from Entity
-    Turret.call(this, x_, y_, 30, colour_, 20);
+    Turret.call(this, x_, y_, 50, colour_, 20);
 
     // this.health = 30;
 

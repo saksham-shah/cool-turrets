@@ -7,8 +7,6 @@ function Game() {
     this.player = new Player(100, height / 2);
     this.entities.push(this.player);
 
-    this.entities.push(new TurretSniper(width / 2, height / 2, color(255, 0, 0)));
-
     // this.entities.push(new EnemySeeker(width / 3, height / 3, color(0, 255, 0)));
 
     this.lastUpdate = Date.now();
