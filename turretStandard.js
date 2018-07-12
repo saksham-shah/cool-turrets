@@ -47,7 +47,8 @@ TurretStandard.prototype.draw = function() {
     ellipse(0, 0, this.drawR * 2);
 
     // Draw gun
-    rect(0, -6, 30, 12);
+    var mult = game.gameCam.getDrawSize(1);
+    rect(0, -6 * mult, 30 * mult, 12 * mult);
 
     pop();
 };

@@ -17,17 +17,24 @@ StatBar.prototype.draw = function() {
     push();
     translate(this.parent.drawPos.x, this.parent.drawPos.y);
 
+
+
+    var drawW = game.gameCam.getDrawSize(this.w);
+    var drawH = game.gameCam.getDrawSize(this.h);
+    var mult = game.gameCam.getDrawSize(1);
+
     stroke(0);
-    strokeWeight(1);
+    strokeWeight(mult);
     fill(200);
 
-    rect(-this.w, -this.parent.r - this.h - 5, this.w * 2, this.h);
+
+    rect(-drawW, -this.parent.drawR - drawH - 5 * mult, drawW * 2, drawH);
 
     var currentValue = this.getValueFunction(this.parent);
     var percentageFill = currentValue / this.maxValue;
 
     fill(0, 255, 0);
-    rect(-this.w, -this.parent.r - this.h - 5, this.w * 2 * percentageFill, this.h);
+    rect(-drawW, -this.parent.drawR - drawH - 5 * mult, drawW * 2 * percentageFill, drawH);
 
 
 
