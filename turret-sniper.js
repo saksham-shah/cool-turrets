@@ -1,30 +1,30 @@
-function TurretStandard(x_, y_, colour_) {
+function TurretSniper(x_, y_, colour_) {
     // Inherit from Entity
     Turret.call(this, x_, y_, 30, colour_, 20);
 
     // this.health = 30;
 
-    this.playerControlRadius = 100;
+    this.playerControlRadius = 75;
 
-    this.reloadTime = 20;
+    this.reloadTime = 100;
 
     this.bulletTemplate = {
-        speed: 10,
-        damage: 10,
-        range: 300,
-        r: 7
+        speed: 15,
+        damage: 30,
+        range: 600,
+        r: 4
     };
 
     this.recoil = this.bulletTemplate.r * 0.1;
 }
 // Adds the Turret prototype to the TurretStandard object
-TurretStandard.prototype = Object.create(Turret.prototype);
+TurretSniper.prototype = Object.create(Turret.prototype);
 
-TurretStandard.prototype.movement = function() {
+TurretSniper.prototype.movement = function() {
     // this.acc.add(0, 0.5);
 };
 
-TurretStandard.prototype.shoot = function() {
+TurretSniper.prototype.shoot = function() {
     game.bullets.push(new Bullet(this.pos.copy(), this.direction, this));
 
     var recoilForce = p5.Vector.fromAngle(this.direction).rotate(PI);
@@ -32,7 +32,7 @@ TurretStandard.prototype.shoot = function() {
     this.acc.add(recoilForce);
 };
 
-TurretStandard.prototype.draw = function() {
+TurretSniper.prototype.draw = function() {
     push();
     translate(this.drawPos.x, this.drawPos.y);
     rotate(this.direction);
@@ -49,7 +49,7 @@ TurretStandard.prototype.draw = function() {
 
     // Draw gun
     var mult = game.gameCam.getDrawSize(1);
-    rect(0, -6 * mult, 30 * mult, 12 * mult);
+    rect(0, -6 * mult, 40 * mult, 12 * mult);
 
     pop();
 };
