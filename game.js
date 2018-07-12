@@ -18,6 +18,8 @@ function Game() {
 
     this.gameCam = new GameCam(this.xBound, this.yBound, this.player);
 
+    this.playerBar = new StatBar(100, this.player, (player) => player.health);
+
 
 }
 
@@ -78,4 +80,5 @@ Game.prototype.draw = function() {
             this.bullets[i].draw();
         }
     }
+    this.playerBar.draw();
 };
