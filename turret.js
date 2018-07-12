@@ -12,7 +12,9 @@ function Turret(x_, y_, health_, colour_, r_) {
 
     this.maxVel = 5;
 
-    this.mass = 300;
+    this.mass = 30;
+
+    this.bodyDamage = 1;
 }
 
 // Adds the Entity prototype to the Turret object

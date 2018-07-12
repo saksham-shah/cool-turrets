@@ -54,6 +54,12 @@ Game.prototype.update = function() {
     }
 
     this.gameCam.update();
+
+    //Revive player
+    if (!this.player.alive) {
+        this.player.alive = true;
+        this.player.health = 100;
+    }
 };
 
 Game.prototype.draw = function() {

@@ -6,6 +6,8 @@ function EnemySeeker(x_, y_, colour_) {
     this.maxVel = 10;
     this.maxForce = 0.1;
 
+    this.bodyDamage = 10;
+
     // this.health = 10;
 }
 

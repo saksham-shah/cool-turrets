@@ -23,7 +23,7 @@ function Entity(x_, y_, health_, r_) {
         function(entity) {
             return entity.health;
         });
-        //(entity) => entity.health);
+    //(entity) => entity.health);
 }
 
 Entity.prototype.applyForce = function(force) {
@@ -67,6 +67,8 @@ Entity.prototype.futurePos = function() {
 };
 
 Entity.prototype.collide = function(other) {
+    this.loseHealth(other.bodyDamage);
+    other.loseHealth(this.bodyDamage);
     this.collided = true;
 
     //taken from https://stackoverflow.com/questions/35907053/including-the-law-of-conservation-of-momentum-in-a-simple-collision
@@ -201,7 +203,7 @@ Entity.prototype.loseHealth = function(healthLost) {
 }
 
 Entity.prototype.hitByBullet = function(bullet) {
-    var knockbackForce = bullet.vel.copy()
+    var knockbackForce = bullet.vel.copy();
     knockbackForce.setMag(bullet.r * bullet.r * bullet.speed);
     this.applyForce(knockbackForce);
 
