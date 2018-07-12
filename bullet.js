@@ -10,11 +10,18 @@ function Bullet(position_, direction_, fromTurret_) {
     this.pos = position_;
 
     this.hit = false;
+    this.maxDistance = 100;
+
+    this.timeAlive = 0;
 }
 
 Bullet.prototype.update = function(entities) {
+    if (this.speed * this.timeAlive > this.maxDistance) {
+        this.hit = true; //Perhaps change this later
+    }
     this.pos.add(p5.Vector.mult(this.vel, dt));
     this.checkHits(entities);
+    this.timeAlive += dt;
 };
 
 Bullet.prototype.draw = function() {
