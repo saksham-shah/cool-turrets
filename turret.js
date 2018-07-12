@@ -30,6 +30,10 @@ Turret.prototype.update = function() {
 
         this.direction = vectorPlayerToTurret.heading();
 
+        if (this instanceof TurretSniper) {
+            game.gameCam.targetZoom = 0.9;
+        }
+
         // 32 is the char code for space
         if (this.reloadTimer < 0 && keyIsDown(32)) {
             this.reloadTimer = this.reloadTime;
