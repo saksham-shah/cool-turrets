@@ -67,8 +67,10 @@ Entity.prototype.futurePos = function() {
 };
 
 Entity.prototype.collide = function(other) {
-    this.loseHealth(other.bodyDamage);
-    other.loseHealth(this.bodyDamage);
+    if (!(this instanceof EnemySeeker) || !(other instanceof EnemySeeker)) {
+        this.loseHealth(other.bodyDamage);
+        other.loseHealth(this.bodyDamage);
+    }
     this.collided = true;
 
     //taken from https://stackoverflow.com/questions/35907053/including-the-law-of-conservation-of-momentum-in-a-simple-collision
@@ -204,7 +206,7 @@ Entity.prototype.loseHealth = function(healthLost) {
 
 Entity.prototype.hitByBullet = function(bullet) {
     var knockbackForce = bullet.vel.copy();
-    knockbackForce.setMag(bullet.r * bullet.r * bullet.speed);
+    knockbackForce.setMag(bullet.r * bullet.r * bullet.speed * 0.1);
     this.applyForce(knockbackForce);
 
     this.loseHealth(bullet.damage);

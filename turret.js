@@ -51,6 +51,6 @@ Turret.prototype.shoot = function() {
     game.bullets.push(shootBullet);
 
     var recoilForce = p5.Vector.fromAngle(this.direction).rotate(PI);
-    recoilForce.setMag(shootBullet.r * shootBullet.r * shootBullet.speed);
+    recoilForce.setMag(shootBullet.r * shootBullet.r * shootBullet.speed * 0.1);
     this.applyForce(recoilForce);
 };
