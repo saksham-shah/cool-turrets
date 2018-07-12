@@ -14,7 +14,9 @@ function GameCam(xBound_, yBound_, toFollow_) {
 
 // Updates the position of the camera
 GameCam.prototype.update = function() {
-    this.zoom = this.baseZoom - this.baseZoom * map(max(abs(this.toFollow.vel.x), abs(this.toFollow.vel.y)), 0, 10, 0, 0.3);
+    //dynamic zoom
+    //this.zoom = this.baseZoom - this.baseZoom * map(max(abs(this.toFollow.vel.x), abs(this.toFollow.vel.y)), 0, 10, 0, 0.3);
+    this.zoom = this.baseZoom;
     this.follow();
     // this.borders();
 };
