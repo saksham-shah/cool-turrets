@@ -1,4 +1,4 @@
-function AreaEffect(x_, y_, r_, effect_) {
+function AreaEffect(x_, y_, r_, effect_, data_) {
 	this.pos = createVector(x_, y_);
 	this.r = r_;
 	this.currentR = 0;
@@ -11,6 +11,9 @@ function AreaEffect(x_, y_, r_, effect_) {
 
 	// An array of entities that have been affected (so they only lose health once)
 	this.affected = [];
+
+	// Any data can be passed in - used for bomb.js
+	this.data = data_;
 
 	this.done = false;
 }

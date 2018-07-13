@@ -25,6 +25,8 @@ function Entity(x_, y_, health_, r_) {
         function(entity) {
             return entity.health;
         });
+
+    this.timeAlive = 0;
     //(entity) => entity.health);
 }
 
@@ -45,6 +47,8 @@ Entity.prototype.collisions = function(entities) {
 
 // Moves using pos, vel and acc
 Entity.prototype.move = function() {
+
+    this.timeAlive += dt;
 
     this.vel.add(this.acc);
     this.vel.limit(this.maxVel);
@@ -199,10 +203,13 @@ Entity.prototype.checkCollisions = function(entities) {
 };
 
 Entity.prototype.loseHealth = function(healthLost) {
-    this.health -= healthLost;
-    this.showHealthBar = 250;
-    if (this.health <= 0) {
-        this.alive = false;
+
+    if (this.timeAlive > 10) {
+        this.health -= healthLost;
+        this.showHealthBar = 250;
+        if (this.health <= 0) {
+            this.alive = false;
+        }
     }
 }
 

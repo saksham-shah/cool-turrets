@@ -46,5 +46,8 @@ function mousePressed() {
     //         entity.applyForce(knockbackForce);
     //         return true;
     //     }));
-    game.entities.push(new Bomb(gamePos.x, gamePos.y, createVector(0, 0)));
+    var direction = p5.Vector.sub(gamePos, game.player.pos);
+    direction.setMag(5);
+    var offset = direction.copy().setMag(20 + game.player.r);
+    game.entities.push(new Bomb(game.player.pos.x + offset.x, game.player.pos.y + offset.y, direction, 10));
 }
