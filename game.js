@@ -30,9 +30,17 @@ Game.prototype.update = function() {
 
     this.gameCam.targetZoom = 1;
 
+    for (var i = 0; i < this.bullets.length; i++) {
+        this.bullets[i].update(this.entities);
+        if (this.bullets[i].hit) {
+            this.bullets.splice(i, 1);
+            i--;
+        }
+    }
+
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].update();
-        if (!this.entities[i].alive) {
+        if (!this.entities[i].alive && this.entities[i] !== this.player) {
             this.entities.splice(i, 1);
             i--;
         }
@@ -44,14 +52,6 @@ Game.prototype.update = function() {
 
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].move();
-    }
-
-    for (var i = 0; i < this.bullets.length; i++) {
-        this.bullets[i].update(this.entities);
-        if (this.bullets[i].hit) {
-            this.bullets.splice(i, 1);
-            i--;
-        }
     }
 
     for (var i = 0; i < this.areaEffects.length; i++) {

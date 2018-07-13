@@ -62,9 +62,21 @@ EnemyShooter.prototype.draw = function() {
 EnemyShooter.prototype.shoot = function() {
     var shootBullet = new Bullet(this.pos.copy(), this.direction + random(-0.1, 0.1), this,
         function(bullet) {
+            // Spawns a second bullet targeted at the player
             var direction = p5.Vector.sub(game.player.pos, bullet.pos).heading();
             var secondBullet = new Bullet(bullet.pos.copy(), direction, bullet.parent);
             game.bullets.push(secondBullet);
+
+            // Blows up like a bomb
+            // var areaEffect = new AreaEffect(bullet.pos.x, bullet.pos.y, 100,
+            //     function(areaEffect, entity) {
+            //         entity.loseHealth(10);
+            //         var knockbackForce = p5.Vector.sub(entity.pos, areaEffect.pos);
+            //         knockbackForce.setMag(100);
+            //         entity.applyForce(knockbackForce);
+            //         return true;
+            //     }, {})
+            // game.areaEffects.push(areaEffect);
         });
     game.bullets.push(shootBullet);
 
