@@ -13,6 +13,8 @@ function Entity(x_, y_, health_, r_) {
 
     this.mass = 10;
 
+    this.bodyDamage = 1;
+
     this.drawPos = this.pos.copy();
 
     this.collided = false;

@@ -3,6 +3,7 @@ function Game() {
 
     this.entities = [];
     this.bullets = [];
+    this.areaEffects = [];
 
     this.player = new Player(100, height / 2);
     this.entities.push(this.player);
@@ -53,6 +54,14 @@ Game.prototype.update = function() {
         }
     }
 
+    for (var i = 0; i < this.areaEffects.length; i++) {
+        this.areaEffects[i].update(this.entities);
+        if (this.areaEffects[i].done) {
+            this.areaEffects.splice(i, 1);
+            i--;
+        }
+    }
+
     this.gameCam.update();
 
     //Revive player
@@ -71,6 +80,10 @@ Game.prototype.draw = function() {
     rectMode(CORNER);
     var topLeft = this.gameCam.getDrawPos(createVector(0, 0));
     rect(topLeft.x, topLeft.y, this.gameCam.getDrawSize(this.xBound), this.gameCam.getDrawSize(this.yBound));
+
+    for (var i = 0; i < this.areaEffects.length; i++) {
+        this.areaEffects[i].draw();
+    }
 
     for (var i = 0; i < this.bullets.length; i++) {
         if (!this.bullets[i].hit) {

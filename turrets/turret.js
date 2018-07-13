@@ -1,7 +1,7 @@
 function Turret(x_, y_, health_, colour_, r_) {
     // Inherit from Entity
 
-    Entity.call(this, x_, y_, health_, r_); // 1 for friction means there is no friction - turrets glide forever
+    Entity.call(this, x_, y_, health_, r_);
 
 
     this.direction = 0;
@@ -35,7 +35,7 @@ Turret.prototype.update = function() {
         this.direction = vectorPlayerToTurret.heading();
 
         if (this instanceof TurretSniper) {
-            game.gameCam.targetZoom = 0.9;
+            game.gameCam.targetZoom = 0.8;
         }
 
         // 32 is the char code for space

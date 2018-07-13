@@ -46,7 +46,7 @@ GameCam.prototype.follow = function() {
     this.y = this.toFollow.pos.y;
 };
 
-// Converts a game position to a draw reposition
+// Converts a game position to a draw position
 GameCam.prototype.getDrawPos = function(gamePos) {
     var drawX = this.zoom * (gamePos.x - this.x) + width / 2;
     var drawY = this.zoom * (gamePos.y - this.y) + height / 2;
@@ -55,4 +55,12 @@ GameCam.prototype.getDrawPos = function(gamePos) {
 
 GameCam.prototype.getDrawSize = function(gameSize) {
     return gameSize * this.zoom;
+}
+
+// Used to convert mouse position into game position
+GameCam.prototype.getGamePos = function(drawPos) {
+    // Just the inverse function of getDrawPos
+    var gameX = (drawPos.x - width / 2) / this.zoom + this.x;
+    var gameY = (drawPos.y - height / 2) / this.zoom + this.y;
+    return createVector(gameX, gameY);
 }
