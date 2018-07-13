@@ -19,6 +19,9 @@ function Game() {
 
     this.playerBar = new StatBar(100, this.player, (player) => player.health);
 
+    //Interesting effect
+    this.gameCam.zoom = 0.1;
+
 
 }
 
