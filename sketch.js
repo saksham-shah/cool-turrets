@@ -27,6 +27,9 @@ function keyPressed() {
     if (keyCode == 50) { // number 2 key
         game.entities.push(new EnemyShooter(random(0, game.xBound), random(0, game.yBound)));
     }
+    if (keyCode == 51) { // number 3 key
+        game.entities.push(new EnemyMissile(random(0, game.xBound), random(0, game.yBound)));
+    }
     if (keyCode == 54) { // number 6 key
         game.entities.push(new TurretStandard(random(0, game.xBound), random(0, game.yBound), color(255, 0, 0)));
     }
@@ -46,9 +49,9 @@ function mousePressed() {
     //         entity.applyForce(knockbackForce);
     //         return true;
     //     }));
-    // var direction = p5.Vector.sub(gamePos, game.player.pos);
-    // direction.setMag(5);
-    // var offset = direction.copy().setMag(20 + game.player.r);
-    // game.entities.push(new Bomb(game.player.pos.x + offset.x, game.player.pos.y + offset.y, direction, 10));
-    game.bullets.push(new Missile(gamePos.x, gamePos.y, 75));
+    var direction = p5.Vector.sub(gamePos, game.player.pos);
+    direction.setMag(5);
+    var offset = direction.copy().setMag(20 + game.player.r);
+    game.entities.push(new Bomb(game.player.pos.x + offset.x, game.player.pos.y + offset.y, direction, 10));
+    //game.bullets.push(new Missile(gamePos, 75));
 }

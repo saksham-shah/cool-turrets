@@ -1,5 +1,5 @@
-function Missile(x_, y_, damage_) {
-    this.pos = createVector(x_, y_);
+function Missile(position_, damage_) {
+    this.pos = position_.copy();
 
     this.damage = damage_;
 
@@ -49,7 +49,9 @@ Missile.prototype.land = function() {
             knockbackForce.setMag(100);
             entity.applyForce(knockbackForce);
             return true;
-        }, {damage: this.damage}));
+        }, {
+            damage: this.damage
+        }));
     this.hit = true;
 }
 

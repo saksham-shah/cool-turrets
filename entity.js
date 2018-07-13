@@ -178,7 +178,7 @@ Entity.prototype.borderBounce = function() {
     if (this.pos.y < this.r || this.pos.y > game.yBound - this.r) {
         this.vel = reflectVector(this.vel, createVector(0, 1));
     }
-}
+};
 
 Entity.prototype.borders = function() {
     if (!rectContains(this.pos, 0, 0, game.xBound, game.yBound)) {
@@ -211,7 +211,7 @@ Entity.prototype.loseHealth = function(healthLost) {
             this.alive = false;
         }
     }
-}
+};
 
 Entity.prototype.hitByBullet = function(bullet) {
     var knockbackForce = bullet.vel.copy();
@@ -222,4 +222,4 @@ Entity.prototype.hitByBullet = function(bullet) {
 
     // console.log(knockback.mag());
     // console.log("Hit for " + bullet.damage + " damage, health left: " + this.health);
-}
+};
