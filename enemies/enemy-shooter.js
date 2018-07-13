@@ -13,8 +13,8 @@ function EnemyShooter(x_, y_) {
 
     this.bulletTemplate = {
         speed: 5,
-        damage: 30,
-        range: 500,
+        damage: 15,
+        range: 250,
         r: 7
     };
 
@@ -60,7 +60,12 @@ EnemyShooter.prototype.draw = function() {
 }
 
 EnemyShooter.prototype.shoot = function() {
-    var shootBullet = new Bullet(this.pos.copy(), this.direction + random(-0.1, 0.1), this);
+    var shootBullet = new Bullet(this.pos.copy(), this.direction + random(-0.1, 0.1), this,
+        function(bullet) {
+            var direction = p5.Vector.sub(game.player.pos, bullet.pos).heading();
+            var secondBullet = new Bullet(bullet.pos.copy(), direction, bullet.parent);
+            game.bullets.push(secondBullet);
+        });
     game.bullets.push(shootBullet);
 
     var recoilForce = p5.Vector.fromAngle(shootBullet.vel.heading()).rotate(PI);

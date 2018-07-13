@@ -1,5 +1,4 @@
-function Bullet(position_, direction_, parent_) {
-
+function Bullet(position_, direction_, parent_, onHit_) {
 
     this.parent = parent_;
     this.speed = this.parent.bulletTemplate.speed;
@@ -13,17 +12,20 @@ function Bullet(position_, direction_, parent_) {
     this.range = this.parent.bulletTemplate.range;
 
     this.timeAlive = 0;
+
+    // This function is called when the bullet hits. Used for bullets that e.g. split into three.
+    this.onHit = onHit_
 }
 
 Bullet.prototype.update = function(entities) {
     //Destroy bullet after it's travelled for it's range
     if (this.speed * this.timeAlive > this.range) {
-        this.hit = true; //Perhaps change this later
+        this.hasHit(); //Perhaps change this later
     }
 
     //Destroy bullet if it's out of the map
     if (!rectContains(this.pos, 0, 0, game.xBound, game.yBound)) {
-        this.hit = true;
+        this.hasHit();
     }
 
     this.pos.add(p5.Vector.mult(this.vel, dt));
@@ -45,9 +47,16 @@ Bullet.prototype.checkHits = function(entities) {
             if (!(this.parent instanceof Enemy) || !(entities[i] instanceof Enemy)) {
                 if (circleCollision(this, entities[i])) {
                     entities[i].hitByBullet(this);
-                    this.hit = true;
+                    this.hasHit();
                 }
             }
         }
+    }
+}
+
+Bullet.prototype.hasHit = function() {
+    this.hit = true;
+    if (this.onHit !== undefined) {
+        this.onHit(this);
     }
 }

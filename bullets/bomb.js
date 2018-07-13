@@ -1,6 +1,6 @@
 function Bomb(x_, y_, initialVel_, damage_) {
 	// Inherit from Entity
-	Entity.call(this, x_, y_, 5, 20);
+	Entity.call(this, x_, y_, 1, 20);
 
 	this.acc.add(initialVel_);
 
@@ -15,9 +15,9 @@ function Bomb(x_, y_, initialVel_, damage_) {
 Bomb.prototype = Object.create(Entity.prototype);
 
 Bomb.prototype.update = function() {
-	this.loseHealth(dt * 0.1);
+	this.loseHealth(dt * 0.02);
 
-	if (this.health < 0) {
+	if (this.health <= 0) {
 		this.blowUp();
 	}
 }
