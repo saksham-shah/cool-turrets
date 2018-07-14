@@ -15,13 +15,13 @@ function SeekingMissile(position_, damage_, parent_, target_) {
 
     this.r = 6;
 
-    this.lifeTime = 60 * 4; //Better name??
+    this.lifeTime = 60 * 4;
 
     this.timeAlive = 0;
 
-    this.seekingForce = 0.1;
+    this.seekingForce = 0.2;
 
-    this.friction = 0.99;
+    this.friction = 0.98;
 
     this.accTowardsTarget();
 }
@@ -54,7 +54,20 @@ SeekingMissile.prototype.update = function(entities) {
 };
 
 SeekingMissile.prototype.die = function() {
-    this.hasHit() // this.hit = true;
+    this.hasHit();
+};
+
+SeekingMissile.prototype.seekTarget = function() {
+
+    var targetPos = p5.Vector.add(this.target.pos, this.target.vel * dt);
+
+    var desired = p5.Vector.sub(targetPos, this.pos);
+    desired.setMag(10);
+
+    var steer = p5.Vector.sub(desired, this.vel);
+    steer.limit(this.seekingForce);
+
+    this.acc.add(steer);
 };
 
 SeekingMissile.prototype.accTowardsTarget = function() {
@@ -71,7 +84,7 @@ SeekingMissile.prototype.checkHits = function(entities) {
                 this.speed = this.vel.mag();
                 entities[i].hitByBullet(this);
 
-                this.hasHit() // this.hit = true;
+                this.hasHit();
             }
             //}
         }
