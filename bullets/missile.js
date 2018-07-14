@@ -43,7 +43,7 @@ Missile.prototype.update = function() {
     }
 
     this.moveToTarget();
-}
+};
 
 Missile.prototype.land = function() {
     game.areaEffects.push(new AreaEffect(this.pos.x, this.pos.y, 200,
@@ -57,26 +57,26 @@ Missile.prototype.land = function() {
             damage: this.damage
         }));
     this.hit = true;
-}
+};
 
 Missile.prototype.moveToTarget = function() {
     var vectorToTarget = p5.Vector.sub(this.target.pos, this.pos);
     vectorToTarget.setMag(this.targetSpeed);
     this.pos.add(vectorToTarget);
-}
+};
 
 Missile.prototype.draw = function() {
     var drawPos = game.gameCam.getDrawPos(this.pos);
     var drawR = game.gameCam.getDrawSize(this.r);
 
-    push()
+    push();
 
     translate(drawPos.x, drawPos.y);
 
     if (this.flash) {
-        fill(255, 0, 0);
+        fill(0, 100, 100);
     } else {
-        fill(255, 255, 0);
+        fill(60, 100, 100);
     }
 
 

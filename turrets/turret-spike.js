@@ -2,21 +2,9 @@ function TurretSpike(x_, y_) {
     // Inherit from Entity
     Turret.call(this, x_, y_, 75, 30);
 
-    // this.health = 30;
-
     this.playerControlRadius = 100;
 
     this.reloadTime = 100;
-
-    // No bullets
-    // this.bulletTemplate = {
-    //     speed: 10,
-    //     damage: 10,
-    //     range: 300,
-    //     r: 7
-    // };
-
-    //this.recoil = this.bulletTemplate.r * 0.1;
 
     this.maxVel = 20;
 
@@ -31,7 +19,7 @@ TurretSpike.prototype.shoot = function() {
     var recoilForce = p5.Vector.fromAngle(this.direction);
     recoilForce.setMag(1500);
     this.applyForce(recoilForce);
-}
+};
 
 
 TurretSpike.prototype.draw = function() {
@@ -40,7 +28,7 @@ TurretSpike.prototype.draw = function() {
     rotate(this.direction);
 
     // Draw control radius
-    fill(0, 255, 0, 10);
+    fill(120, 100, 100, 0.1);
     noStroke();
     ellipse(0, 0, game.gameCam.getDrawSize(this.playerControlRadius) * 2);
 
@@ -53,10 +41,10 @@ TurretSpike.prototype.draw = function() {
     beginShape();
 
     var mult = game.gameCam.getDrawSize(1);
-    vertex(0, - this.drawR);
+    vertex(0, -this.drawR);
     vertex(0, this.drawR);
     vertex((this.r + 20) * mult, 0);
-    vertex(0, - this.drawR);
+    vertex(0, -this.drawR);
     endShape();
 
     pop();

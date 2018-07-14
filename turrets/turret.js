@@ -6,7 +6,7 @@ function Turret(x_, y_, health_, r_) {
 
     this.direction = 0;
     this.playerControlRadius = 50;
-    this.colour = color(255, 0, 0);
+    this.colour = color(0, 100, 100);
 
     this.reloadTimer = 0;
 

@@ -14,7 +14,7 @@ function Bullet(position_, direction_, parent_, onHit_) {
     this.timeAlive = 0;
 
     // This function is called when the bullet hits. Used for bullets that e.g. split into three.
-    this.onHit = onHit_
+    this.onHit = onHit_;
 }
 
 Bullet.prototype.update = function(entities) {

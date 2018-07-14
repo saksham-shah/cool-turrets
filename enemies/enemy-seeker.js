@@ -2,7 +2,7 @@ function EnemySeeker(x_, y_) {
     // Inherit from Enemy
     Enemy.call(this, x_, y_, 20);
 
-    this.colour = color(0, 255, 0);
+    this.colour = color(120, 100, 100);
     this.maxVel = 10;
     this.maxForce = 0.1;
 

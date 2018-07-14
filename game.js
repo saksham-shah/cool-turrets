@@ -96,8 +96,8 @@ Game.prototype.update = function() {
 Game.prototype.draw = function() {
     background(0);
     noFill();
-    fill(50);
-    stroke(255, 0, 0);
+    fill(0, 0, 19.6);
+    stroke(0, 100, 100);
     strokeWeight(5);
     rectMode(CORNER);
     var topLeft = this.gameCam.getDrawPos(createVector(0, 0));

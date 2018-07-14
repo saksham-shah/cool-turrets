@@ -2,7 +2,7 @@ function EnemyMissile(x_, y_) {
     // Inherit from Enemy
     Enemy.call(this, x_, y_, 50);
 
-    this.colour = color(0, 129, 255);
+    this.colour = color(210, 100, 100);
     this.maxVel = 1;
     this.maxForce = 0.1;
 

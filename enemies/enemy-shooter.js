@@ -2,7 +2,7 @@ function EnemyShooter(x_, y_) {
     // Inherit from Enemy
     Enemy.call(this, x_, y_, 50);
 
-    this.colour = color(0, 0, 255);
+    this.colour = color(240, 100, 100);
     this.maxVel = 1;
     this.maxForce = 0.1;
 

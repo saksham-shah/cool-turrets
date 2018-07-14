@@ -25,7 +25,7 @@ StatBar.prototype.draw = function() {
 
     stroke(0);
     strokeWeight(mult);
-    fill(200);
+    fill(0, 0, 78.4);
 
 
     rect(-drawW, -this.parent.drawR - drawH - 5 * mult, drawW * 2, drawH);
@@ -33,7 +33,7 @@ StatBar.prototype.draw = function() {
     var currentValue = this.getValueFunction(this.parent);
     var percentageFill = currentValue / this.maxValue;
 
-    fill(0, 255, 0);
+    fill(120, 100, 100);
     rect(-drawW, -this.parent.drawR - drawH - 5 * mult, drawW * 2 * percentageFill, drawH);
 
 

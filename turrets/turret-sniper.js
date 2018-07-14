@@ -26,7 +26,7 @@ TurretSniper.prototype.draw = function() {
     rotate(this.direction);
 
     // Draw control radius
-    fill(0, 255, 0, 10);
+    fill(120, 100, 100, 0.1);
     noStroke();
     ellipse(0, 0, game.gameCam.getDrawSize(this.playerControlRadius) * 2);
 
@@ -39,7 +39,7 @@ TurretSniper.prototype.draw = function() {
     var barrelWidth = 8;
     var barrelLength = 40;
     var mult = game.gameCam.getDrawSize(1);
-    rect(0, - barrelWidth * 0.5 * mult, barrelLength * mult, barrelWidth * mult);
+    rect(0, -barrelWidth * 0.5 * mult, barrelLength * mult, barrelWidth * mult);
 
     pop();
 };
