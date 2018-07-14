@@ -45,7 +45,12 @@ SeekingMissile.prototype.update = function(entities) {
     this.timeAlive += dt;
 
     if (!this.target.alive) {
-        this.timeAlive = this.lifeTime;
+        if (this.parent.alive) {
+            var temp = this.target;
+            this.target = this.parent;
+            this.parent = temp;
+        }
+        // this.timeAlive = this.lifeTime;
     } else {
         this.accTowardsTarget();
     }

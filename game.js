@@ -37,9 +37,6 @@ Game.prototype.update = function() {
 
     this.gameCam.targetZoom = 1;
 
-    this.timePassed += dt;
-
-
     for (var i = 0; i < this.bullets.length; i++) {
         this.bullets[i].update(this.entities);
         if (this.bullets[i].hit) {
@@ -84,13 +81,16 @@ Game.prototype.update = function() {
 
     //Revive player
     if (!this.player.alive) {
-        this.player.alive = true;
-        this.player.health = 100;
+        this.timePassed += dt;
+        // this.player.alive = true;
+        // this.player.health = 100;
+        if (this.timePassed > 60) {
+            this.player.respawn();
+            this.timePassed = 0;
+        }
     }
 
-    if (this.timePassed % 600 < 1) {
-        // game.bullets.push(new Missile(this.player.pos, 75, this.player));
-    }
+
 };
 
 Game.prototype.draw = function() {

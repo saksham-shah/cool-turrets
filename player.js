@@ -70,6 +70,10 @@ Player.prototype.seekMouse = function() {
     this.acc.add(vectorToMouse);
 }
 
+Player.prototype.respawn = function() {
+    this.alive = true;
+    this.health = 100;
+}
 
 // Just a white circle right now
 Player.prototype.draw = function() {
