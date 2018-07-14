@@ -15,25 +15,9 @@ function Player(x_, y_) {
 Player.prototype = Object.create(Entity.prototype);
 
 Player.prototype.update = function() {
-    //this.seekMouse();
-    //this.followMouse();
     this.moveUsingArrowKeys();
 
-
-    //Prevent Player moving out of arena
-    /*if (this.pos.x < 0) this.pos.x = this.r;
-    if (this.pos.y < 0) this.pos.y = this.r;
-    if (this.pos.x > width) this.pos.x = width - this.r;
-    if (this.pos.y > height) this.pos.x = height - this.r;*/
-
-
-    //Bounce off walls
-    // if (this.pos.x <= this.r || this.pos.x >= game.xBound - this.r) {
-    //     this.vel = reflectVector(this.vel, createVector(1, 0));
-    // }
-    // if (this.pos.y <= this.r || this.pos.y >= game.yBound - this.r) {
-    //     this.vel = reflectVector(this.vel, createVector(0, 1));
-    // }
+    game.particles.push(new TrailParticle(this.pos, createVector(0, 0)));
 };
 
 // Follows mouse by accelerating towards it
@@ -48,7 +32,7 @@ Player.prototype.followMouse = function() {
     } else {
         this.acc.sub(this.vel);
     }
-}
+};
 
 Player.prototype.moveUsingArrowKeys = function() {
     //Controls
@@ -56,8 +40,7 @@ Player.prototype.moveUsingArrowKeys = function() {
     if (keyIsDown(UP_ARROW) || keyIsDown(87)) this.acc.y -= this.maxForce;
     if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) this.acc.x += this.maxForce;
     if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) this.acc.y += this.maxForce;
-
-}
+};
 
 // Follows mouse using desired velocity stuff
 Player.prototype.seekMouse = function() {
@@ -68,21 +51,17 @@ Player.prototype.seekMouse = function() {
     vectorToMouse.sub(this.vel);
     vectorToMouse.limit(this.maxForce);
     this.acc.add(vectorToMouse);
-}
+};
 
 Player.prototype.respawn = function() {
     this.alive = true;
     this.health = 100;
-}
+};
 
 // Just a white circle right now
 Player.prototype.draw = function() {
-    // var drawPos = game.gameCam.getDrawPos(this.pos);
-    fill(255);
+    fill(0, 0, 255);
 
-    // if (this.collided) {
-    //     fill(255, 0, 255);
-    // }
     noStroke();
     ellipse(this.drawPos.x, this.drawPos.y, this.drawR * 2);
-}
+};

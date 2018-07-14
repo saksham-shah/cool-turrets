@@ -45,7 +45,7 @@ SeekingMissile.prototype.update = function(entities) {
     if (this.seeking) {
         //Create particles
         var particleV = p5.Vector.add(this.vel, this.vel.copy().rotate(PI).setMag(5));
-        game.particles.push(new CircleParticle(this.pos, particleV, PI / 4, 15, 15, color(150)));
+        game.particles.push(new SmokeParticle(this.pos, particleV));
 
         if (!this.target.alive) {
             this.seeking = false;
@@ -62,15 +62,6 @@ SeekingMissile.prototype.update = function(entities) {
             this.seeking = true;
         }
     }
-
-
-
-
-
-
-
-
-
     this.checkHits(entities);
 };
 
@@ -124,7 +115,7 @@ SeekingMissile.prototype.hasHit = function() {
             damage: this.damage
         }));
     this.hit = true;
-}
+};
 
 SeekingMissile.prototype.draw = function() {
     var drawPos = game.gameCam.getDrawPos(this.pos);
@@ -138,15 +129,15 @@ SeekingMissile.prototype.draw = function() {
     translate(drawPos.x, drawPos.y);
     rotate(this.vel.heading());
 
-    fill(120, 0, 0);
+    fill(0, 100, 47.1);
 
 
 
     ellipse(0, 0, drawR * 2);
-    fill(111);
+    fill(0, 0, 43.5);
     rectMode(CORNER);
     rect(0, -drawR, -drawR * 2, drawR * 2);
 
 
     pop();
-}
+};
