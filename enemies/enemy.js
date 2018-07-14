@@ -1,6 +1,11 @@
-function Enemy(x_, y_, health_, parent_, parentRange_) {
+function Enemy(x_, y_, health_, parent_, parentRange_, r_) {
+
+    if (r_ === undefined) {
+        r_ = 20;
+    }
+
     // Inherit from Entity
-    Entity.call(this, x_, y_, health_, 20);
+    Entity.call(this, x_, y_, health_, r_);
 
     this.state = "wander";
 

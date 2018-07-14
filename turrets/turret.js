@@ -1,6 +1,10 @@
 function Turret(x_, y_, health_, r_) {
-    // Inherit from Entity
 
+    if (r_ === undefined) {
+        r_ = 20;
+    }
+
+    // Inherit from Entity
     Entity.call(this, x_, y_, health_, r_);
 
 

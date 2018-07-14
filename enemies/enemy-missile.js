@@ -9,13 +9,6 @@ function EnemyMissile(x_, y_, parent_, parentRange_) {
     this.reloadTimer = 0;
     this.reloadTime = 60 * 4;
 
-    this.bulletTemplate = {
-        speed: 5,
-        damage: 15,
-        range: 250,
-        r: 7
-    };
-
     // this.health = 10;
 }
 

@@ -1,6 +1,6 @@
 function TurretSpike(x_, y_) {
     // Inherit from Entity
-    Turret.call(this, x_, y_, 75, 30);
+    Turret.call(this, x_, y_, 150, 30);
 
     this.playerControlRadius = 100;
 
@@ -10,7 +10,7 @@ function TurretSpike(x_, y_) {
 
     this.mass = 100;
 
-    this.bodyDamage = 15;
+    this.bodyDamage = 10;
 }
 // Adds the Turret prototype to the TurretSpike object
 TurretSpike.prototype = Object.create(Turret.prototype);

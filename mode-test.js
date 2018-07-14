@@ -21,7 +21,7 @@ function help() {
         console.log("2: EnemyShooter");
         console.log("3: EnemyMissile");
         console.log("4: Launch a Missile (not the EnemyMissile missile)");
-        console.log("5: Not currently in use");
+        console.log("5: EnemyBossSeeker");
         console.log("6: TurretStandard");
         console.log("7: TurretSniper");
         console.log("8: TurretSpike");
@@ -52,7 +52,7 @@ function keyPressed() {
         }
         if (keyCode == 53) { // number 5 key
             spawn = 5;
-            console.log("Key not being used right now.");
+            console.log("Spawn set to EnemyBossSeeker. Click to spawn.");
         }
         if (keyCode == 54) { // number 6 key
             spawn = 6;
@@ -79,7 +79,7 @@ function mousePressed() {
 
         switch (spawn) {
             case 1:
-                game.entities.push(new EnemySeeker(gamePos.x, gamePos.y, game.player, 200));
+                game.entities.push(new EnemySeeker(gamePos.x, gamePos.y));
                 break;
             case 2:
                 game.entities.push(new EnemyShooter(gamePos.x, gamePos.y));
@@ -90,9 +90,9 @@ function mousePressed() {
             case 4:
                 game.bullets.push(new Missile(gamePos, 75, game.player));
                 break;
-            // case 5:
-            //     game.entities.push(new EnemySeeker(gamePos.x, gamePos.y));
-            //     break;
+            case 5:
+                game.entities.push(new EnemyBossSeeker(gamePos.x, gamePos.y));
+                break;
             case 6:
                 game.entities.push(new TurretStandard(gamePos.x, gamePos.y));
                 break;

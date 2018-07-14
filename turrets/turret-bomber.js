@@ -1,6 +1,6 @@
 function TurretBomber(x_, y_) {
     // Inherit from Entity
-    Turret.call(this, x_, y_, 50, 20);
+    Turret.call(this, x_, y_, 100);
 
     this.playerControlRadius = 150;
 
