@@ -36,6 +36,9 @@ function keyPressed() {
     if (keyCode == 55) { // number 7 key
         game.entities.push(new TurretSniper(random(0, game.xBound), random(0, game.yBound), color(255, 0, 0)));
     }
+    if (keyCode == 56) { // number 8 key
+        game.entities.push(new TurretSpike(random(0, game.xBound), random(0, game.yBound), color(255, 0, 0)));
+    }
 }
 
 function mousePressed() {

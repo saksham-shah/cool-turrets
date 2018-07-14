@@ -89,7 +89,7 @@ Game.prototype.update = function() {
     }
 
     if (this.timePassed % 600 < 1) {
-        game.bullets.push(new Missile(this.player.pos, 75, this.player));
+        // game.bullets.push(new Missile(this.player.pos, 75, this.player));
     }
 };
 

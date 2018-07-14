@@ -10,7 +10,7 @@ function TurretSniper(x_, y_, colour_) {
 
     this.bulletTemplate = {
         speed: 15,
-        damage: 30,
+        damage: 50,
         range: 600,
         r: 4
     };
