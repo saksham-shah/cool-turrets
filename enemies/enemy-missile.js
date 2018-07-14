@@ -25,29 +25,51 @@ function EnemyMissile(x_, y_) {
 EnemyMissile.prototype = Object.create(Enemy.prototype);
 
 EnemyMissile.prototype.update = function() {
-    //Move perpendicular to player
-    var vectorEnemytoPlayer = p5.Vector.sub(game.player.pos, this.pos);
-    this.direction = vectorEnemytoPlayer.heading();
-    vectorEnemytoPlayer.setMag(this.maxForce);
-    vectorEnemytoPlayer.rotate(this.reloadTimer > this.reloadTime / 2 ? HALF_PI : -HALF_PI);
+    switch (this.state) {
+        case "wander":
+            // A slow wander
+            this.wander();
+            this.maxVel = 1;
 
+            // If within range, shoot at the player
+            if (this.playerInRange(750)) {
+                this.state = "camp";
+            }
+            break;
+        case "camp":
+            //Move perpendicular to player
+            var vectorEnemytoPlayer = p5.Vector.sub(game.player.pos, this.pos);
+            this.direction = vectorEnemytoPlayer.heading();
+            vectorEnemytoPlayer.setMag(this.maxForce);
+            vectorEnemytoPlayer.rotate(this.reloadTimer > this.reloadTime / 2 ? HALF_PI : -HALF_PI);
+            this.acc.add(vectorEnemytoPlayer);
 
+            if (this.reloadTimer < 0) {
+                this.reloadTimer = this.reloadTime;
+                this.shoot();
+            }
 
-    this.acc.add(vectorEnemytoPlayer);
+            // If out of range, stop chasing
+            if (!this.playerInRange(1000)) {
+                this.state = "wander";
+            }
+            break;
+    }
 
     //Shoot Timer
     this.reloadTimer -= dt;
 
-    if (this.reloadTimer < 0) {
-        this.reloadTimer = this.reloadTime;
-        this.shoot();
-    }
 };
 
 EnemyMissile.prototype.draw = function() {
     push();
     fill(this.colour);
-    noStroke();
+    if (this.state != "wander") {
+        stroke(0, 100, 100);
+        strokeWeight(game.gameCam.getDrawSize(2));
+    } else {
+        noStroke();
+    }
     translate(this.drawPos.x, this.drawPos.y);
     rotate(this.direction);
 
@@ -55,6 +77,7 @@ EnemyMissile.prototype.draw = function() {
     ellipse(0, 0, this.drawR * 2);
 
     // Draw gun
+    noStroke();
     var mult = game.gameCam.getDrawSize(1);
     var barrelWidth = 20;
     rect(0, -barrelWidth * mult / 2, 30 * mult, barrelWidth * mult);
