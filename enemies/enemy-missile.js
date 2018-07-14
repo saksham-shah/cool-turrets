@@ -56,8 +56,8 @@ EnemyMissile.prototype.draw = function() {
 
     // Draw gun
     var mult = game.gameCam.getDrawSize(1);
-    var barrrelWidth = 20;
-    rect(0, -barrrelWidth * mult / 2, 30 * mult, barrrelWidth * mult);
+    var barrelWidth = 20;
+    rect(0, -barrelWidth * mult / 2, 30 * mult, barrelWidth * mult);
     pop();
 };
 

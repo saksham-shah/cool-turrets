@@ -1,6 +1,6 @@
 function TurretSniper(x_, y_, colour_) {
     // Inherit from Entity
-    Turret.call(this, x_, y_, 30, colour_, 20);
+    Turret.call(this, x_, y_, 50, colour_, 20);
 
     // this.health = 30;
 
@@ -36,8 +36,10 @@ TurretSniper.prototype.draw = function() {
     ellipse(0, 0, this.drawR * 2);
 
     // Draw gun
+    var barrelWidth = 8;
+    var barrelLength = 40;
     var mult = game.gameCam.getDrawSize(1);
-    rect(0, -6 * mult, 40 * mult, 12 * mult);
+    rect(0, - barrelWidth * 0.5 * mult, barrelLength * mult, barrelWidth * mult);
 
     pop();
 };

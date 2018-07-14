@@ -1,10 +1,11 @@
-function Bomb(x_, y_, initialVel_, damage_) {
+function Bomb(x_, y_, initialVel_, damage_, radius_) {
 	// Inherit from Entity
 	Entity.call(this, x_, y_, 1, 20);
 
 	this.acc.add(initialVel_);
 
 	this.damage = damage_;
+	this.radius = radius_;
 
 	this.maxVel = 20;
 
@@ -23,14 +24,14 @@ Bomb.prototype.update = function() {
 }
 
 Bomb.prototype.blowUp = function() {
-	game.areaEffects.push(new AreaEffect(this.pos.x, this.pos.y, 100,
+	game.areaEffects.push(new AreaEffect(this.pos.x, this.pos.y, this.radius,
         function(areaEffect, entity) {
             entity.loseHealth(areaEffect.data.damage);
             var knockbackForce = p5.Vector.sub(entity.pos, areaEffect.pos);
             knockbackForce.setMag(100);
             entity.applyForce(knockbackForce);
             return true;
-        }, {damage: this.damage}));
+        }, {damage: this.damage, radius: this.radius}));
 }
 
 Bomb.prototype.draw = function() {

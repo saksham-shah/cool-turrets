@@ -1,6 +1,6 @@
 function TurretSpike(x_, y_, colour_) {
     // Inherit from Entity
-    Turret.call(this, x_, y_, 100, colour_, 30);
+    Turret.call(this, x_, y_, 75, colour_, 30);
 
     // this.health = 30;
 

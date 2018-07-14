@@ -204,7 +204,7 @@ Entity.prototype.checkCollisions = function(entities) {
 
 Entity.prototype.loseHealth = function(healthLost) {
 
-    if (this.timeAlive > 10) {
+    if (this.timeAlive > 1) {
         this.health -= healthLost;
         this.showHealthBar = 250;
         if (this.health <= 0) {

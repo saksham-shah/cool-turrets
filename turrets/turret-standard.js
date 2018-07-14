@@ -6,7 +6,7 @@ function TurretStandard(x_, y_, colour_) {
 
     this.playerControlRadius = 100;
 
-    this.reloadTime = 20;
+    this.reloadTime = 50;
 
     this.bulletTemplate = {
         speed: 10,
@@ -36,8 +36,10 @@ TurretStandard.prototype.draw = function() {
     ellipse(0, 0, this.drawR * 2);
 
     // Draw gun
+    var barrelWidth = 12;
+    var barrelLength = 30;
     var mult = game.gameCam.getDrawSize(1);
-    rect(0, -6 * mult, 30 * mult, 12 * mult);
+    rect(0, - barrelWidth * 0.5 * mult, barrelLength * mult, barrelWidth * mult);
 
     pop();
 };
