@@ -1,4 +1,4 @@
-function Turret(x_, y_, health_, colour_, r_) {
+function Turret(x_, y_, health_, r_) {
     // Inherit from Entity
 
     Entity.call(this, x_, y_, health_, r_);
@@ -6,7 +6,7 @@ function Turret(x_, y_, health_, colour_, r_) {
 
     this.direction = 0;
     this.playerControlRadius = 50;
-    this.colour = colour_;
+    this.colour = color(255, 0, 0);
 
     this.reloadTimer = 0;
 

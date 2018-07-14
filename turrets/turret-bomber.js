@@ -1,6 +1,6 @@
-function TurretBomber(x_, y_, colour_) {
+function TurretBomber(x_, y_) {
     // Inherit from Entity
-    Turret.call(this, x_, y_, 50, colour_, 20);
+    Turret.call(this, x_, y_, 50, 20);
 
     // this.health = 30;
 
