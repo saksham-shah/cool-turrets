@@ -79,7 +79,7 @@ function mousePressed() {
 
         switch (spawn) {
             case 1:
-                game.entities.push(new EnemySeeker(gamePos.x, gamePos.y));
+                game.entities.push(new EnemySeeker(gamePos.x, gamePos.y, game.player, 200));
                 break;
             case 2:
                 game.entities.push(new EnemyShooter(gamePos.x, gamePos.y));

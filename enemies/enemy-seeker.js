@@ -1,10 +1,9 @@
-function EnemySeeker(x_, y_) {
+function EnemySeeker(x_, y_, parent_, parentRange_) {
     // Inherit from Enemy
-    Enemy.call(this, x_, y_, 20);
+    Enemy.call(this, x_, y_, 20, parent_, parentRange_);
 
     this.colour = color(120, 100, 100);
     this.maxVel = 10;
-    this.maxForce = 0.1;
 
     this.bodyDamage = 10;
 
@@ -14,7 +13,7 @@ function EnemySeeker(x_, y_) {
 // Adds the Enemy prototype to the Turret object
 EnemySeeker.prototype = Object.create(Enemy.prototype);
 
-EnemySeeker.prototype.update = function() {
+EnemySeeker.prototype.stateUpdate = function() {
     switch (this.state) {
         case "wander":
             // A slow wander
@@ -22,7 +21,7 @@ EnemySeeker.prototype.update = function() {
             this.maxVel = 1;
 
             // If within range, chase the player
-            if (this.playerInRange(300)) {
+            if (this.inRange(game.player, 300)) {
                 this.state = "chase";
             }
             break;
@@ -34,11 +33,15 @@ EnemySeeker.prototype.update = function() {
             this.maxVel = 10;
 
             // If out of range, stop chasing
-            if (!this.playerInRange(500)) {
+            if (!this.inRange(game.player, 500)) {
                 this.state = "wander";
             }
             break;
     }
+}
+
+EnemySeeker.prototype.generalUpdate = function() {
+    // nothing
 }
 
 EnemySeeker.prototype.draw = function() {

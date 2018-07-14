@@ -1,10 +1,8 @@
-function EnemyMissile(x_, y_) {
+function EnemyMissile(x_, y_, parent_, parentRange_) {
     // Inherit from Enemy
-    Enemy.call(this, x_, y_, 50);
+    Enemy.call(this, x_, y_, 50, parent_, parentRange_);
 
     this.colour = color(210, 100, 100);
-    this.maxVel = 1;
-    this.maxForce = 0.1;
 
     this.bodyDamage = 1;
 
@@ -24,15 +22,17 @@ function EnemyMissile(x_, y_) {
 // Adds the Enemy prototype to the Turret object
 EnemyMissile.prototype = Object.create(Enemy.prototype);
 
-EnemyMissile.prototype.update = function() {
+EnemyMissile.prototype.stateUpdate = function() {
     switch (this.state) {
         case "wander":
             // A slow wander
             this.wander();
+            this.direction = this.vel.heading();
+
             this.maxVel = 1;
 
             // If within range, shoot at the player
-            if (this.playerInRange(750)) {
+            if (this.inRange(game.player, 750)) {
                 this.state = "camp";
             }
             break;
@@ -44,20 +44,24 @@ EnemyMissile.prototype.update = function() {
             vectorEnemytoPlayer.rotate(this.reloadTimer > this.reloadTime / 2 ? HALF_PI : -HALF_PI);
             this.acc.add(vectorEnemytoPlayer);
 
-            if (this.reloadTimer < 0) {
-                this.reloadTimer = this.reloadTime;
-                this.shoot();
-            }
-
             // If out of range, stop chasing
-            if (!this.playerInRange(1000)) {
+            if (!this.inRange(game.player, 1000)) {
                 this.state = "wander";
             }
             break;
     }
+}
 
+EnemyMissile.prototype.generalUpdate = function() {
     //Shoot Timer
     this.reloadTimer -= dt;
+
+    if (!(this.state == "wander")) {
+        if (this.reloadTimer < 0) {
+            this.reloadTimer = this.reloadTime;
+            this.shoot();
+        }
+    }
 
 };
 

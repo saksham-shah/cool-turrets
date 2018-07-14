@@ -1,10 +1,8 @@
-function EnemyShooter(x_, y_) {
+function EnemyShooter(x_, y_, parent_, parentRange_) {
     // Inherit from Enemy
-    Enemy.call(this, x_, y_, 50);
+    Enemy.call(this, x_, y_, 50, parent_, parentRange_);
 
     this.colour = color(240, 100, 100);
-    this.maxVel = 1;
-    this.maxForce = 0.1;
 
     this.bodyDamage = 1;
 
@@ -24,15 +22,15 @@ function EnemyShooter(x_, y_) {
 // Adds the Enemy prototype to the Turret object
 EnemyShooter.prototype = Object.create(Enemy.prototype);
 
-EnemyShooter.prototype.update = function() {
-
+EnemyShooter.prototype.stateUpdate = function() {
     switch (this.state) {
         case "wander":
             // A slow wander
             this.wander();
+            this.direction = this.vel.heading();
 
             // If within range, chase the player
-            if (this.playerInRange(600)) {
+            if (this.inRange(game.player, 600)) {
                 this.state = "chase";
             }
             break;
@@ -43,17 +41,17 @@ EnemyShooter.prototype.update = function() {
             this.acc.add(vectorEnemytoPlayer);
 
             // If out of range, stop chasing
-            if (!this.playerInRange(750)) {
+            if (!this.inRange(game.player, 750)) {
                 this.state = "wander";
-            } else if (this.playerInRange(350)) {
+            } else if (this.inRange(game.player, 350)) {
                 this.state = "camp";
             }
             break;
         case "camp":
             // Stay still and shoot from a distance
-            if (!this.playerInRange(450)) {
+            if (!this.inRange(game.player, 450)) {
                 this.state = "chase";
-            } else if (this.playerInRange(150)) {
+            } else if (this.inRange(game.player, 150)) {
                 this.state = "flee";
             }
             break;
@@ -63,12 +61,14 @@ EnemyShooter.prototype.update = function() {
             vectorPlayertoEnemy.setMag(this.maxForce);
             this.acc.add(vectorPlayertoEnemy);
 
-            if (!this.playerInRange(300)) {
+            if (!this.inRange(game.player, 300)) {
                 this.state = "camp";
             }
             break;
     }
+}
 
+EnemyShooter.prototype.generalUpdate = function() {
     //Shoot Timer
     this.reloadTimer -= dt;
 
