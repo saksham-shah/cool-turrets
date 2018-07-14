@@ -3,13 +3,13 @@ function SeekingMissile(position_, damage_, parent_, target_) {
 
     this.acc = createVector(0, 0);
 
-    this.vel = createVector(0, 0);
-
     this.damage = damage_;
 
     this.target = target_;
 
     this.parent = parent_;
+
+    this.vel = p5.Vector.fromAngle(this.parent.direction, 5);
 
     this.hit = false;
 
@@ -21,6 +21,8 @@ function SeekingMissile(position_, damage_, parent_, target_) {
 
     this.seekingForce = 0.1;
 
+    this.seeking = false;
+
     this.friction = 0.98;
 
     this.accTowardsTarget();
@@ -31,10 +33,6 @@ SeekingMissile.prototype.update = function(entities) {
     this.pos.add(p5.Vector.mult(this.vel, dt));
     this.acc.mult(0);
 
-    //Create particles
-    var particleV = p5.Vector.add(this.vel, this.vel.copy().rotate(PI).setMag(5));
-    game.particles.push(new CircleParticle(this.pos, particleV, PI / 4, 15, 15, color(150)));
-
     //Apply friction
     this.vel.mult(this.friction);
 
@@ -44,16 +42,34 @@ SeekingMissile.prototype.update = function(entities) {
 
     this.timeAlive += dt;
 
-    if (!this.target.alive) {
-        if (this.parent.alive) {
-            var temp = this.target;
-            this.target = this.parent;
-            this.parent = temp;
+    if (this.seeking) {
+        //Create particles
+        var particleV = p5.Vector.add(this.vel, this.vel.copy().rotate(PI).setMag(5));
+        game.particles.push(new CircleParticle(this.pos, particleV, PI / 4, 15, 15, color(150)));
+
+        if (!this.target.alive) {
+            this.seeking = false;
+            /*if (this.parent.alive) {
+                var temp = this.target;
+                this.target = this.parent;
+                this.parent = temp;
+            }*/
+        } else {
+            this.accTowardsTarget();
         }
-        // this.timeAlive = this.lifeTime;
     } else {
-        this.accTowardsTarget();
+        if (this.timeAlive > 40) {
+            this.seeking = true;
+        }
     }
+
+
+
+
+
+
+
+
 
     this.checkHits(entities);
 };
