@@ -23,6 +23,9 @@ function Game() {
     //Interesting effect
     this.gameCam.zoom = 0.1;
 
+    // Test, will be commented out later
+    this.timePassed = 0;
+
 
 }
 
@@ -34,6 +37,7 @@ Game.prototype.update = function() {
 
     this.gameCam.targetZoom = 1;
 
+    this.timePassed += dt;
 
 
     for (var i = 0; i < this.bullets.length; i++) {
@@ -82,6 +86,10 @@ Game.prototype.update = function() {
     if (!this.player.alive) {
         this.player.alive = true;
         this.player.health = 100;
+    }
+
+    if (this.timePassed % 600 < 1) {
+        game.bullets.push(new Missile(this.player.pos, 75, this.player));
     }
 };
 

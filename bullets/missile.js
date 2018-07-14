@@ -1,4 +1,4 @@
-function Missile(position_, damage_) {
+function Missile(position_, damage_, target_) {
     this.pos = position_.copy();
 
     this.damage = damage_;
@@ -11,6 +11,9 @@ function Missile(position_, damage_) {
     this.timeToHit = 360;
 
     this.flash = true;
+
+    this.target = target_;
+    this.targetSpeed = 0.5;
 }
 
 Missile.prototype.update = function() {
@@ -39,6 +42,7 @@ Missile.prototype.update = function() {
         }
     }
 
+    this.moveToTarget();
 }
 
 Missile.prototype.land = function() {
@@ -53,6 +57,12 @@ Missile.prototype.land = function() {
             damage: this.damage
         }));
     this.hit = true;
+}
+
+Missile.prototype.moveToTarget = function() {
+    var vectorToTarget = p5.Vector.sub(this.target.pos, this.pos);
+    vectorToTarget.setMag(this.targetSpeed);
+    this.pos.add(vectorToTarget);
 }
 
 Missile.prototype.draw = function() {

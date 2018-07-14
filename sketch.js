@@ -49,9 +49,13 @@ function mousePressed() {
     //         entity.applyForce(knockbackForce);
     //         return true;
     //     }));
+
+    // Throw bomb
     var direction = p5.Vector.sub(gamePos, game.player.pos);
     direction.setMag(5);
     var offset = direction.copy().setMag(20 + game.player.r);
     game.entities.push(new Bomb(game.player.pos.x + offset.x, game.player.pos.y + offset.y, direction, 10));
-    //game.bullets.push(new Missile(gamePos, 75));
+
+    // Launch missile
+    // game.bullets.push(new Missile(gamePos, 75, game.player));
 }
