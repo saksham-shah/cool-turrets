@@ -19,7 +19,7 @@ function SeekingMissile(position_, damage_, parent_, target_) {
 
     this.timeAlive = 0;
 
-    this.seekingForce = 0.2;
+    this.seekingForce = 0.1;
 
     this.friction = 0.98;
 
