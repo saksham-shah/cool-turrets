@@ -10,6 +10,6 @@ SmokeParticle.prototype = Object.create(CircleParticle.prototype);
 
 SmokeParticle.prototype.update = function() {
     this.radius = map(this.life, this.maxLife, 0, 0, this.maxRadius); //Get bigger as time goes past
-    this.colour = color(map(this.life, this.maxLife, 0, 200, 50)); // From whitish to greyish
+    this.colour = color(0, 0, map(this.life, this.maxLife, 0, 100, 20)); // From whitish to greyish
     this.move();
 };
