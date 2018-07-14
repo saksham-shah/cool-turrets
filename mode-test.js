@@ -1,7 +1,12 @@
-var testMode = false;
+var testMode = true;
 var spawn = 0;
 
-console.log("Test mode is currently disabled. To enable it, type test()");
+if (!testMode){
+    console.log("Test mode is currently disabled. To enable it, type test()");
+} else {
+    console.log( "Test mode enabled. Type help() for help.");
+}
+
 
 function test() {
     testMode = true;

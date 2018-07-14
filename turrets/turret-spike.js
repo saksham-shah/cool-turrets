@@ -29,7 +29,7 @@ TurretSpike.prototype = Object.create(Turret.prototype);
 
 TurretSpike.prototype.shoot = function() {
     var recoilForce = p5.Vector.fromAngle(this.direction);
-    recoilForce.setMag(1000);
+    recoilForce.setMag(1500);
     this.applyForce(recoilForce);
 }
 
