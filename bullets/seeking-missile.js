@@ -54,7 +54,7 @@ SeekingMissile.prototype.update = function(entities) {
 };
 
 SeekingMissile.prototype.die = function() {
-    this.hit = true;
+    this.hasHit() // this.hit = true;
 };
 
 SeekingMissile.prototype.accTowardsTarget = function() {
@@ -71,12 +71,26 @@ SeekingMissile.prototype.checkHits = function(entities) {
                 this.speed = this.vel.mag();
                 entities[i].hitByBullet(this);
 
-                this.hit = true;
+                this.hasHit() // this.hit = true;
             }
             //}
         }
     }
 };
+
+SeekingMissile.prototype.hasHit = function() {
+    game.areaEffects.push(new AreaEffect(this.pos.x, this.pos.y, 50,
+        function(areaEffect, entity) {
+            entity.loseHealth(areaEffect.data.damage);
+            var knockbackForce = p5.Vector.sub(entity.pos, areaEffect.pos);
+            knockbackForce.setMag(100);
+            entity.applyForce(knockbackForce);
+            return true;
+        }, {
+            damage: this.damage
+        }));
+    this.hit = true;
+}
 
 SeekingMissile.prototype.draw = function() {
     var drawPos = game.gameCam.getDrawPos(this.pos);
