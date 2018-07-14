@@ -31,6 +31,10 @@ SeekingMissile.prototype.update = function(entities) {
     this.pos.add(p5.Vector.mult(this.vel, dt));
     this.acc.mult(0);
 
+    //Create particles
+    var particleV = p5.Vector.add(this.vel, this.vel.copy().rotate(PI).setMag(5));
+    game.particles.push(new CircleParticle(this.pos, particleV, PI / 4, 15, 15, color(150)));
+
     //Apply friction
     this.vel.mult(this.friction);
 

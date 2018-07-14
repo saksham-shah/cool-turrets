@@ -31,12 +31,12 @@ EnemyMissile.prototype.update = function() {
     vectorEnemytoPlayer.setMag(this.maxForce);
     vectorEnemytoPlayer.rotate(this.reloadTimer > this.reloadTime / 2 ? HALF_PI : -HALF_PI);
 
+
+
     this.acc.add(vectorEnemytoPlayer);
 
     //Shoot Timer
     this.reloadTimer -= dt;
-
-
 
     if (this.reloadTimer < 0) {
         this.reloadTimer = this.reloadTime;
