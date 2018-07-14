@@ -94,14 +94,7 @@ Game.prototype.update = function() {
 };
 
 Game.prototype.draw = function() {
-    background(0);
-    noFill();
-    fill(0, 0, 19.6);
-    stroke(0, 100, 100);
-    strokeWeight(5);
-    rectMode(CORNER);
-    var topLeft = this.gameCam.getDrawPos(createVector(0, 0));
-    rect(topLeft.x, topLeft.y, this.gameCam.getDrawSize(this.xBound), this.gameCam.getDrawSize(this.yBound));
+    this.drawBackground();
 
 
     for (var i = 0; i < this.areaEffects.length; i++) {
@@ -129,4 +122,27 @@ Game.prototype.draw = function() {
             this.entities[i].healthBar.draw();
         }
     }
+};
+
+Game.prototype.drawBackground = function() {
+    background(0);
+    noFill();
+    fill(0, 0, 19.6);
+    stroke(0, 100, 100);
+    strokeWeight(5);
+    rectMode(CORNER);
+    var topLeft = this.gameCam.getDrawPos(createVector(0, 0));
+    var mult = this.gameCam.getDrawSize(1);
+    rect(topLeft.x, topLeft.y, this.xBound * mult, this.yBound * mult);
+
+    strokeWeight(1);
+    //Draw some graphics
+    var centre = this.gameCam.getDrawPos(createVector(this.xBound / 2, this.yBound / 2));
+    var agons = [];
+    for (var i = -16; i < 16; i++) {
+        for (var j = -10; j < 11; j++) {
+            agons.push([i, j]);
+        }
+    }
+    drawHexes(centre.x, centre.y, 20 * mult, 2 * mult, color(0, 0, 25, 0.5), agons);
 };
