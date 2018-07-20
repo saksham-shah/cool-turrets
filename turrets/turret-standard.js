@@ -6,12 +6,12 @@ function TurretStandard(x_, y_) {
 
     this.playerControlRadius = 100;
 
-    this.reloadTime = 50;
+    this.reloadTime = 30;
 
     this.bulletTemplate = {
         speed: 10,
         damage: 10,
-        range: 300,
+        range: 400,
         r: 7
     };
 

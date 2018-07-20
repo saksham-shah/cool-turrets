@@ -56,6 +56,7 @@ Player.prototype.seekMouse = function() {
 Player.prototype.respawn = function() {
     this.alive = true;
     this.health = 100;
+    game.score = 0;
 };
 
 // Just a white circle right now
