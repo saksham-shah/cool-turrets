@@ -25,6 +25,7 @@ function Entity(x_, y_, health_, r_) {
         function(entity) {
             return entity.health;
         });
+    this.showHealthBar = 0;
 
     this.timeAlive = 0;
     //(entity) => entity.health);
@@ -216,11 +217,12 @@ Entity.prototype.checkCollisions = function(entities) {
 
 Entity.prototype.loseHealth = function(healthLost) {
 
-    if (this.timeAlive > 1) {
+    if (this.timeAlive > 0) {
         this.health -= healthLost;
         this.showHealthBar = 250;
         if (this.health <= 0) {
             this.alive = false;
+            this.die();
         }
     }
 };
@@ -235,3 +237,7 @@ Entity.prototype.hitByBullet = function(bullet) {
     // console.log(knockback.mag());
     // console.log("Hit for " + bullet.damage + " damage, health left: " + this.health);
 };
+
+Entity.prototype.die = function() {
+    // stub
+}

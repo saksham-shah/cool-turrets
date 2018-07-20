@@ -11,7 +11,7 @@ function TurretSniper(x_, y_) {
     this.bulletTemplate = {
         speed: 15,
         damage: 50,
-        range: 600,
+        range: 800,
         r: 4
     };
 

@@ -16,6 +16,8 @@ function EnemyShooter(x_, y_, parent_, parentRange_) {
         r: 7
     };
 
+    this.scoreValue = 20;
+
     // this.health = 10;
 }
 
@@ -27,6 +29,7 @@ EnemyShooter.prototype.stateUpdate = function() {
         case "wander":
             // A slow wander
             this.wander();
+            this.maxVel = 1;
             this.direction = this.vel.heading();
 
             // If within range, chase the player
@@ -39,6 +42,7 @@ EnemyShooter.prototype.stateUpdate = function() {
             var vectorEnemytoPlayer = p5.Vector.sub(game.player.pos, this.pos);
             vectorEnemytoPlayer.setMag(this.maxForce);
             this.acc.add(vectorEnemytoPlayer);
+            this.maxVel = 1;
 
             // If out of range, stop chasing
             if (!this.inRange(game.player, 750)) {
@@ -49,6 +53,7 @@ EnemyShooter.prototype.stateUpdate = function() {
             break;
         case "camp":
             // Stay still and shoot from a distance
+            this.maxVel = 1;
             if (!this.inRange(game.player, 450)) {
                 this.state = "chase";
             } else if (this.inRange(game.player, 150)) {
@@ -60,6 +65,7 @@ EnemyShooter.prototype.stateUpdate = function() {
             var vectorPlayertoEnemy = p5.Vector.sub(this.pos, game.player.pos);
             vectorPlayertoEnemy.setMag(this.maxForce);
             this.acc.add(vectorPlayertoEnemy);
+            this.maxVel = 1.5;
 
             if (!this.inRange(game.player, 300)) {
                 this.state = "camp";

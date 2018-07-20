@@ -9,6 +9,8 @@ function EnemyMissile(x_, y_, parent_, parentRange_) {
     this.reloadTimer = 0;
     this.reloadTime = 60 * 4;
 
+    this.scoreValue = 50;
+
     // this.health = 10;
 }
 

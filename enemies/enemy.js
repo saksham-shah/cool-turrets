@@ -19,6 +19,8 @@ function Enemy(x_, y_, health_, parent_, parentRange_, r_) {
     this.maxVel = 1;
     this.maxForce = 0.1;
 
+    game.enemyCount++;
+
 };
 
 // Adds the Entity prototype to the Enemy object
@@ -60,3 +62,11 @@ Enemy.prototype.inRange = function(entity, range) {
     }
     return false;
 };
+
+Enemy.prototype.die = function() {
+    game.enemyCount--;
+    if (this.parent !== undefined) {
+        this.parent.children--;
+    }
+    game.score += this.scoreValue;
+}

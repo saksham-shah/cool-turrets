@@ -6,6 +6,9 @@ function Game() {
     this.areaEffects = [];
     this.particles = [];
 
+    this.enemyCount = 0;
+    this.turretCount = 0;
+
     this.player = new Player(100, height / 2);
     this.entities.push(this.player);
 
@@ -13,8 +16,8 @@ function Game() {
 
     this.lastUpdate = Date.now();
 
-    this.xBound = 1200;
-    this.yBound = 700;
+    this.xBound = XBOUND;
+    this.yBound = YBOUND;
 
     this.gameCam = new GameCam(this.xBound, this.yBound, this.player);
 
@@ -26,6 +29,8 @@ function Game() {
     // Test, will be commented out later
     this.timePassed = 0;
 
+    this.score = 0;
+
 
 }
 
@@ -34,6 +39,10 @@ Game.prototype.update = function() {
     var now = Date.now();
     dt = (now - this.lastUpdate) / (1000 / 60); //dt will be 1 at 60fps
     this.lastUpdate = now;
+
+    if (!testMode) {
+        this.addEntities();
+    }
 
     this.gameCam.targetZoom = 1;
 
@@ -93,7 +102,46 @@ Game.prototype.update = function() {
 
 };
 
+Game.prototype.addEntities = function() {
+    while (this.enemyCount < ENEMYLIMIT) {
+        var toSpawn = randomFromWeights(ENEMYSPAWN);
+        switch (toSpawn) {
+            case 0:
+                this.entities.push(new EnemySeeker(random(0, this.xBound), random(0, this.yBound)));
+                break;
+            case 1:
+                this.entities.push(new EnemyShooter(random(0, this.xBound), random(0, this.yBound)));
+                break;
+            case 2:
+                this.entities.push(new EnemyMissile(random(0, this.xBound), random(0, this.yBound)));
+                break;
+            case 3:
+                this.entities.push(new EnemyBossSeeker(random(0, this.xBound), random(0, this.yBound)));
+                break;
+        }
+    }
+    while (this.turretCount < TURRETLIMIT) {
+        var toSpawn = randomFromWeights(TURRETSPAWN);
+        switch (toSpawn) {
+            case 0:
+                this.entities.push(new TurretStandard(random(0, this.xBound), random(0, this.yBound)));
+                break;
+            case 1:
+                this.entities.push(new TurretSniper(random(0, this.xBound), random(0, this.yBound)));
+                break;
+            case 2:
+                this.entities.push(new TurretBomber(random(0, this.xBound), random(0, this.yBound)));
+                break;
+            case 3:
+                this.entities.push(new TurretSpike(random(0, this.xBound), random(0, this.yBound)));
+                break;
+        }
+    }
+}
+
 Game.prototype.draw = function() {
+
+    // background(0);
     this.drawBackground();
 
 
@@ -122,6 +170,13 @@ Game.prototype.draw = function() {
             this.entities[i].healthBar.draw();
         }
     }
+
+    // Draw score - could be seperate function?
+    fill(255);
+    noStroke();
+    textSize(50);
+    textAlign(CENTER);
+    text(this.score, width / 2, 50);
 };
 
 Game.prototype.drawBackground = function() {
@@ -135,14 +190,16 @@ Game.prototype.drawBackground = function() {
     var mult = this.gameCam.getDrawSize(1);
     rect(topLeft.x, topLeft.y, this.xBound * mult, this.yBound * mult);
 
-    strokeWeight(1);
-    //Draw some graphics
-    var centre = this.gameCam.getDrawPos(createVector(this.xBound / 2, this.yBound / 2));
-    var agons = [];
-    for (var i = -16; i < 16; i++) {
-        for (var j = -10; j < 11; j++) {
-            agons.push([i, j]);
-        }
-    }
-    drawHexes(centre.x, centre.y, 20 * mult, 2 * mult, color(0, 0, 25, 0.5), agons);
+    // Commented because I made the map bigger
+
+    // strokeWeight(1);
+    // //Draw some graphics
+    // var centre = this.gameCam.getDrawPos(createVector(this.xBound / 2, this.yBound / 2));
+    // var agons = [];
+    // for (var i = -16; i < 16; i++) {
+    //     for (var j = -10; j < 11; j++) {
+    //         agons.push([i, j]);
+    //     }
+    // }
+    // drawHexes(centre.x, centre.y, 20 * mult, 2 * mult, color(0, 0, 25, 0.5), agons);
 };

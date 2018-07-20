@@ -1,21 +1,24 @@
-var testMode = true;
+var testMode = false;
 var spawn = 0;
 
-if (!testMode){
-    console.log("Test mode is currently disabled. To enable it, type test()");
-} else {
-    console.log( "Test mode enabled. Type help() for help.");
+function helpMessage() {
+   if (!testMode){
+        return "Test mode disabled. To enable it, type test()";
+    } else {
+        return "Test mode enabled. Type help() for help.";
+    } 
 }
 
+console.log(helpMessage());
 
 function test() {
-    testMode = true;
-    return "Test mode enabled. Type help() for help.";
+    testMode = !testMode;
+    return helpMessage();
 }
 
 function help() {
     if (testMode) {
-        console.log("Welcome to test mode.");
+        console.log("Welcome to test mode. To disable it, type test()");
         console.log("");
         console.log("1: EnemySeeker");
         console.log("2: EnemyShooter");
@@ -108,8 +111,6 @@ function mousePressed() {
             default:
                 console.log("No spawn selected. Press a number key (1-9).")
         }
-    } else {
-        console.log("Test mode is currently disabled. To enable it, type test()");
     }
 }
 

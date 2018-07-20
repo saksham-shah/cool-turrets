@@ -7,7 +7,7 @@ function EnemyBossSeeker(x_, y_, parent_, parentRange_) {
     this.bodyDamage = 10;
 
     this.reloadTimer = 60;
-    this.reloadTime = 60 * 17;
+    this.reloadTime = 60 * 29;
 
     this.spawnTimer = 60;
     this.spawnTime = 60 * 11;
@@ -15,6 +15,11 @@ function EnemyBossSeeker(x_, y_, parent_, parentRange_) {
     this.mass = 100;
 
     this.maxVel = 0.3;
+
+    this.maxChildren = 5;
+    this.children = 0;
+
+    this.scoreValue = 200;
 
     // this.health = 10;
 }
@@ -52,11 +57,13 @@ EnemyBossSeeker.prototype.generalUpdate = function() {
     this.reloadTimer -= dt;
     this.spawnTimer -= dt;
 
-    if (this.reloadTimer < 0) {
-        this.reloadTimer = this.reloadTime;
-        this.launchMissle();
+    if (!(this.state == "wander")) {
+        if (this.reloadTimer < 0) { 
+            this.reloadTimer = this.reloadTime;
+            this.launchMissle();
+        }
     }
-    if (this.spawnTimer < 0) {
+    if (this.spawnTimer < 0 && this.children < this.maxChildren) {
         this.spawnTimer = this.spawnTime;
         this.spawnSeeker();
     }
@@ -85,6 +92,7 @@ EnemyBossSeeker.prototype.spawnSeeker = function() {
     var offset = vector.setMag(20 + this.r);
     var spawnedSeeker = new EnemySeeker(this.pos.x + offset.x, this.pos.y + offset.y, this, 400);
     game.entities.push(spawnedSeeker);
+    this.children++;
 };
 
 EnemyBossSeeker.prototype.launchMissle = function() {

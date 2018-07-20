@@ -19,6 +19,8 @@ function Turret(x_, y_, health_, r_) {
     this.mass = 30;
 
     this.bodyDamage = 1;
+
+    game.turretCount++;
 }
 
 // Adds the Entity prototype to the Turret object
@@ -39,7 +41,7 @@ Turret.prototype.update = function() {
         this.direction = vectorPlayerToTurret.heading();
 
         if (this instanceof TurretSniper) {
-            game.gameCam.targetZoom = 0.8;
+            game.gameCam.targetZoom = 0.7;
         }
 
         // 32 is the char code for space
@@ -58,3 +60,7 @@ Turret.prototype.shoot = function() {
     recoilForce.setMag(shootBullet.r * shootBullet.r * shootBullet.speed * 0.1);
     this.applyForce(recoilForce);
 };
+
+Turret.prototype.die = function() {
+    game.turretCount--;
+}
