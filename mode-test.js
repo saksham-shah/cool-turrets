@@ -6,7 +6,7 @@ function helpMessage() {
         return "Test mode disabled. To enable it, type test()";
     } else {
         return "Test mode enabled. Type help() for help.";
-    } 
+    }
 }
 
 console.log(helpMessage());

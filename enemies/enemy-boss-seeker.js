@@ -10,7 +10,7 @@ function EnemyBossSeeker(x_, y_, parent_, parentRange_) {
     this.reloadTime = 60 * 29;
 
     this.spawnTimer = 60;
-    this.spawnTime = 60 * 11;
+    this.spawnTime = 60 * 7;
 
     this.mass = 100;
 
@@ -58,7 +58,7 @@ EnemyBossSeeker.prototype.generalUpdate = function() {
     this.spawnTimer -= dt;
 
     if (!(this.state == "wander")) {
-        if (this.reloadTimer < 0) { 
+        if (this.reloadTimer < 0) {
             this.reloadTimer = this.reloadTime;
             this.launchMissle();
         }

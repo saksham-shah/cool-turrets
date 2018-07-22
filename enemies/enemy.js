@@ -28,7 +28,8 @@ Enemy.prototype = Object.create(Entity.prototype);
 
 Enemy.prototype.update = function() {
     if (this.parent !== undefined) {
-        if (this.inRange(this.parent, this.parentRange) || !this.parent.alive) {
+        this.state = this.parent.state;
+        if (this.inRange(this.parent, this.parentRange) || !this.parent.alive || this.state != "wander") {
             this.stateUpdate();
         } else {
             this.stayWithParent();
@@ -43,7 +44,7 @@ Enemy.prototype.stayWithParent = function() {
     var vectorToParent = p5.Vector.sub(this.parent.pos, this.pos);
     vectorToParent.setMag(this.maxForce);
     this.acc.add(vectorToParent);
-    this.maxVel = 1;
+    this.maxVel = 2;
 };
 
 Enemy.prototype.wander = function() {
