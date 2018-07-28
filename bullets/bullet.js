@@ -11,6 +11,12 @@ function Bullet(position_, direction_, parent_, onHit_) {
     this.hit = false;
     this.range = this.parent.bulletTemplate.range;
 
+    this.colour = this.parent.colour;
+
+    if (this.parent instanceof Turret) {
+        this.fromPlayer = this.parent.controller;
+    }
+
     this.timeAlive = 0;
 
     // This function is called when the bullet hits. Used for bullets that e.g. split into three.
@@ -34,7 +40,7 @@ Bullet.prototype.update = function(entities) {
 };
 
 Bullet.prototype.draw = function() {
-    fill(this.parent.colour);
+    fill(this.colour);
     noStroke();
     var drawPos = game.gameCam.getDrawPos(this.pos);
     var drawR = game.gameCam.getDrawSize(this.r);

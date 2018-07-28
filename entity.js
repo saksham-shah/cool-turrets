@@ -75,8 +75,8 @@ Entity.prototype.futurePos = function() {
 
 Entity.prototype.collide = function(other) {
     if (!(this instanceof Enemy) || !(other instanceof Enemy)) {
-        this.loseHealth(other.bodyDamage);
-        other.loseHealth(this.bodyDamage);
+        this.loseHealth(other.bodyDamage, this);
+        other.loseHealth(this.bodyDamage, other);
     }
     this.collided = true;
 
@@ -215,8 +215,7 @@ Entity.prototype.checkCollisions = function(entities) {
     }
 };
 
-Entity.prototype.loseHealth = function(healthLost) {
-
+Entity.prototype.loseHealth = function(healthLost, causedBy) {
     if (this.timeAlive > 0) {
         this.health -= healthLost;
         this.showHealthBar = 250;
@@ -232,7 +231,13 @@ Entity.prototype.hitByBullet = function(bullet) {
     knockbackForce.setMag(bullet.r * bullet.r * bullet.speed * 0.1);
     this.applyForce(knockbackForce);
 
-    this.loseHealth(bullet.damage);
+    if (bullet.fromPlayer !== undefined) {
+        var parent = bullet.fromPlayer;
+    } else {
+        var parent = bullet.parent;
+    }
+
+    this.loseHealth(bullet.damage, parent);
 
     // console.log(knockback.mag());
     // console.log("Hit for " + bullet.damage + " damage, health left: " + this.health);

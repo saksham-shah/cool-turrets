@@ -96,5 +96,5 @@ EnemyBossSeeker.prototype.spawnSeeker = function() {
 };
 
 EnemyBossSeeker.prototype.launchMissle = function() {
-    game.bullets.push(new Missile(game.player.pos, 75, game.player));
+    game.bullets.push(new Missile(game.player.pos, 75, game.player, this));
 }

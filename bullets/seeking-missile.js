@@ -106,13 +106,14 @@ SeekingMissile.prototype.checkHits = function(entities) {
 SeekingMissile.prototype.hasHit = function() {
     game.areaEffects.push(new AreaEffect(this.pos.x, this.pos.y, 50,
         function(areaEffect, entity) {
-            entity.loseHealth(areaEffect.data.damage);
+            entity.loseHealth(areaEffect.data.damage, areaEffect.data.parent);
             var knockbackForce = p5.Vector.sub(entity.pos, areaEffect.pos);
             knockbackForce.setMag(100);
             entity.applyForce(knockbackForce);
             return true;
         }, {
-            damage: this.damage
+            damage: this.damage,
+            parent: this.parent
         }));
     this.hit = true;
 };

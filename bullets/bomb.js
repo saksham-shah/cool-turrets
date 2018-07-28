@@ -1,4 +1,4 @@
-function Bomb(x_, y_, initialVel_, damage_, radius_) {
+function Bomb(x_, y_, initialVel_, damage_, radius_, parent_) {
     // Inherit from Entity
     Entity.call(this, x_, y_, 1, 20);
 
@@ -8,6 +8,8 @@ function Bomb(x_, y_, initialVel_, damage_, radius_) {
     this.radius = radius_;
 
     this.maxVel = 20;
+
+    this.parent = parent_;
 
     this.countdown = false;
 }
@@ -26,14 +28,15 @@ Bomb.prototype.update = function() {
 Bomb.prototype.blowUp = function() {
     game.areaEffects.push(new AreaEffect(this.pos.x, this.pos.y, this.radius,
         function(areaEffect, entity) {
-            entity.loseHealth(areaEffect.data.damage);
+            entity.loseHealth(areaEffect.data.damage, areaEffect.data.parent);
             var knockbackForce = p5.Vector.sub(entity.pos, areaEffect.pos);
             knockbackForce.setMag(100);
             entity.applyForce(knockbackForce);
             return true;
         }, {
             damage: this.damage,
-            radius: this.radius
+            radius: this.radius,
+            parent: this.parent
         }));
 };
 

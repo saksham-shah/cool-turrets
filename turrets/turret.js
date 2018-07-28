@@ -20,6 +20,8 @@ function Turret(x_, y_, health_, r_) {
 
     this.bodyDamage = 1;
 
+    this.controller = null;
+
     game.turretCount++;
 }
 
@@ -39,6 +41,8 @@ Turret.prototype.update = function() {
         var vectorPlayerToTurret = p5.Vector.sub(this.pos, game.player.pos);
 
         this.direction = vectorPlayerToTurret.heading();
+
+        this.controller = game.player;
 
         if (this instanceof TurretSniper) {
             game.gameCam.targetZoom = 0.7;
