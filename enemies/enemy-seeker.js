@@ -7,7 +7,7 @@ function EnemySeeker(x_, y_, parent_, parentRange_) {
 
     this.bodyDamage = 10;
 
-    this.scoreValue = 10;
+    this.scoreValue = 100;
 
     // this.health = 10;
 }

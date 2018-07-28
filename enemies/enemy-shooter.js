@@ -16,7 +16,7 @@ function EnemyShooter(x_, y_, parent_, parentRange_) {
         r: 7
     };
 
-    this.scoreValue = 30;
+    this.scoreValue = 300;
 
     // this.health = 10;
 }

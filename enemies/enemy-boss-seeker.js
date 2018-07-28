@@ -10,7 +10,7 @@ function EnemyBossSeeker(x_, y_, parent_, parentRange_) {
     this.reloadTime = 60 * 29;
 
     this.spawnTimer = 60;
-    this.spawnTime = 60 * 7;
+    this.spawnTime = 60 * 11;
 
     this.mass = 100;
 
@@ -19,7 +19,7 @@ function EnemyBossSeeker(x_, y_, parent_, parentRange_) {
     this.maxChildren = 5;
     this.children = 0;
 
-    this.scoreValue = 200;
+    this.scoreValue = 2000;
 
     // this.health = 10;
 }
