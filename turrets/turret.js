@@ -32,24 +32,46 @@ Turret.prototype.update = function() {
     //Shoot Timer
     this.reloadTimer -= dt;
 
-    //Move
-    // this.movement(); commented for now
+    if (this.controller) {
+        // If current controller is no longer in range
+        if (!(this.pos.dist(this.controller.pos) < this.playerControlRadius + this.controller.r)) {
+            this.controller = null;
+        }
+    }
 
-    //Check if player within range of turret
-    if (this.pos.dist(game.player.pos) < this.playerControlRadius + game.player.r) {
+    var count = 0;
+    if (!this.controller) {
+        for (var i = 0; i < game.players.length; i++) {
+            var player = game.players[i];
+            // If the player is in range, it controls the turret
+            if (this.pos.dist(player.pos) < this.playerControlRadius + player.r) {
+                this.controller = player;
+                count++;
+            }
+        }
+        // If there is more than one player, no one can control it
+        if (count !== 1) {
+            this.controller = null;
+        }
+    }
+
+    //Check if being controlled
+    if (this.controller) {
         // Player controlled
-        var vectorPlayerToTurret = p5.Vector.sub(this.pos, game.player.pos);
+        // this.controller = game.player;
+
+        var vectorPlayerToTurret = p5.Vector.sub(this.pos, this.controller.pos);
 
         this.direction = vectorPlayerToTurret.heading();
 
-        this.controller = game.player;
+
 
         if (this instanceof TurretSniper) {
             game.gameCam.targetZoom = 0.7;
         }
 
         // 32 is the char code for space
-        if (this.reloadTimer < 0 && keyIsDown(32)) {
+        if (this.reloadTimer < 0 && keyIsDown(this.controller.controls.shoot)) {
             this.reloadTimer = this.reloadTime;
             this.shoot();
         }

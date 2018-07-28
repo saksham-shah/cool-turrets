@@ -26,21 +26,26 @@ EnemyMissile.prototype.stateUpdate = function() {
 
             this.maxVel = 1;
 
-            // If within range, shoot at the player
-            if (this.inRange(game.player, 750)) {
+            // If within range of any players, chase the player
+            this.target = this.getTarget(game.players, 750);
+            if (this.target) {
                 this.state = "camp";
             }
+            // // If within range, shoot at the player
+            // if (this.inRange(game.player, 750)) {
+            //     this.state = "camp";
+            // }
             break;
         case "camp":
             //Move perpendicular to player
-            var vectorEnemytoPlayer = p5.Vector.sub(game.player.pos, this.pos);
+            var vectorEnemytoPlayer = p5.Vector.sub(this.target.pos, this.pos);
             this.direction = vectorEnemytoPlayer.heading();
             vectorEnemytoPlayer.setMag(this.maxForce);
             vectorEnemytoPlayer.rotate(this.reloadTimer > this.reloadTime / 2 ? HALF_PI : -HALF_PI);
             this.acc.add(vectorEnemytoPlayer);
 
             // If out of range, stop chasing
-            if (!this.inRange(game.player, 1000)) {
+            if (!this.inRange(this.target, 1000)) {
                 this.state = "wander";
             }
             break;
@@ -84,7 +89,7 @@ EnemyMissile.prototype.draw = function() {
 };
 
 EnemyMissile.prototype.shoot = function() {
-    var shootBullet = new SeekingMissile(this.pos.copy(), 20, this, game.player);
+    var shootBullet = new SeekingMissile(this.pos.copy(), 20, this, this.target);
     game.bullets.push(shootBullet);
 
     //var recoilForce = p5.Vector.fromAngle(shootBullet.vel.heading()).rotate(PI);

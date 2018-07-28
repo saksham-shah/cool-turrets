@@ -22,20 +22,21 @@ EnemySeeker.prototype.stateUpdate = function() {
             this.wander();
             this.maxVel = 1;
 
-            // If within range, chase the player
-            if (this.inRange(game.player, 300)) {
+            // If within range of any players, chase the player
+            this.target = this.getTarget(game.players, 300);
+            if (this.target) {
                 this.state = "chase";
             }
             break;
         case "chase":
             // Chase the player
-            var vectorEnemytoPlayer = p5.Vector.sub(game.player.pos, this.pos);
+            var vectorEnemytoPlayer = p5.Vector.sub(this.target.pos, this.pos);
             vectorEnemytoPlayer.setMag(this.maxForce);
             this.acc.add(vectorEnemytoPlayer);
             this.maxVel = 10;
 
             // If out of range, stop chasing
-            if (!this.inRange(game.player, 500)) {
+            if (!this.inRange(this.target, 500)) {
                 this.state = "wander";
             }
             break;

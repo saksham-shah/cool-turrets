@@ -19,6 +19,8 @@ function Enemy(x_, y_, health_, parent_, parentRange_, r_) {
     this.maxVel = 1;
     this.maxForce = 0.1;
 
+    this.target = null;
+
     game.enemyCount++;
 
 };
@@ -27,8 +29,14 @@ function Enemy(x_, y_, health_, parent_, parentRange_, r_) {
 Enemy.prototype = Object.create(Entity.prototype);
 
 Enemy.prototype.update = function() {
+    if (this.target) {
+        if (!this.target.alive) {
+            this.state = "wander";
+        }
+    }
     if (this.parent !== undefined) {
         this.state = this.parent.state;
+        this.target = this.parent.target;
         if (this.inRange(this.parent, this.parentRange) || !this.parent.alive || this.state != "wander") {
             this.stateUpdate();
         } else {
@@ -38,6 +46,16 @@ Enemy.prototype.update = function() {
         this.stateUpdate();
     }
     this.generalUpdate();
+};
+
+Enemy.prototype.getTarget = function (possibleTargets, radius) {
+    var target = null;
+    for (var i = 0; i < possibleTargets.length; i++) {
+        if (this.inRange(possibleTargets[i], radius)) {
+            target = possibleTargets[i];
+        }
+    }
+    return target;
 };
 
 Enemy.prototype.stayWithParent = function() {

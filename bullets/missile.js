@@ -3,6 +3,8 @@ function Missile(position_, damage_, target_, parent_) {
 
     this.damage = damage_;
 
+    this.parent = parent_;
+
     this.hit = false;
 
     this.r = 20;

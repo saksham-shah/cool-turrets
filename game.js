@@ -2,6 +2,7 @@ function Game() {
 
 
     this.entities = [];
+    this.players = [];
     this.bullets = [];
     this.areaEffects = [];
     this.particles = [];
@@ -9,8 +10,12 @@ function Game() {
     this.enemyCount = 0;
     this.turretCount = 0;
 
-    this.player = new Player(100, height / 2);
-    this.entities.push(this.player);
+     var player = new Player(100, height / 2, [UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, 13]);
+    this.entities.push(player);
+    this.players.push(player);
+    var second = new Player(100, height / 2, [87, 83, 65, 68, 32]);
+    this.entities.push(second);
+    this.players.push(second);
 
     // this.entities.push(new EnemySeeker(width / 3, height / 3, color(0, 255, 0)));
 
@@ -19,9 +24,9 @@ function Game() {
     this.xBound = XBOUND;
     this.yBound = YBOUND;
 
-    this.gameCam = new GameCam(this.xBound, this.yBound, this.player);
+    this.gameCam = new GameCam(this.xBound, this.yBound, this.players[0]);
 
-    this.playerBar = new StatBar(100, this.player, (player) => player.health);
+    // this.playerBar = new StatBar(100, this.player, (player) => player.health);
 
     //Interesting effect
     this.gameCam.zoom = 0.1;
@@ -88,16 +93,16 @@ Game.prototype.update = function() {
 
     this.gameCam.update();
 
-    //Revive player
-    if (!this.player.alive) {
-        this.timePassed += dt;
-        // this.player.alive = true;
-        // this.player.health = 100;
-        if (this.timePassed > 60) {
-            this.player.respawn();
-            this.timePassed = 0;
-        }
-    }
+    //Revive players
+    // if (!this.player.alive) {
+    //     this.timePassed += dt;
+    //     // this.player.alive = true;
+    //     // this.player.health = 100;
+    //     if (this.timePassed > 60) {
+    //         this.player.respawn();
+    //         this.timePassed = 0;
+    //     }
+    // }
 
 
 };

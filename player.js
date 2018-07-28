@@ -1,5 +1,5 @@
 // Player controlled entity
-function Player(x_, y_) {
+function Player(x_, y_, controls_) {
     // Inherits from Entity (random number for size right now)
     Entity.call(this, x_, y_, 100, 10);
     this.maxVel = 3.5;
@@ -7,6 +7,17 @@ function Player(x_, y_) {
     this.mass = 20;
 
     this.bodyDamage = 5;
+
+    if (controls_ === undefined) {
+        controls_ = [UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, 32];
+    }
+    this.controls = {
+        up: controls_[0],
+        down: controls_[1],
+        left: controls_[2],
+        right: controls_[3],
+        shoot: controls_[4]
+    }
 
     // this.health = 100;
 }
@@ -36,10 +47,10 @@ Player.prototype.followMouse = function() {
 
 Player.prototype.moveUsingArrowKeys = function() {
     //Controls
-    if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) this.acc.x -= this.maxForce;
-    if (keyIsDown(UP_ARROW) || keyIsDown(87)) this.acc.y -= this.maxForce;
-    if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) this.acc.x += this.maxForce;
-    if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) this.acc.y += this.maxForce;
+    if (keyIsDown(this.controls.left)) this.acc.x -= this.maxForce;
+    if (keyIsDown(this.controls.up)) this.acc.y -= this.maxForce;
+    if (keyIsDown(this.controls.right)) this.acc.x += this.maxForce;
+    if (keyIsDown(this.controls.down)) this.acc.y += this.maxForce;
 };
 
 // Follows mouse using desired velocity stuff
@@ -53,7 +64,7 @@ Player.prototype.seekMouse = function() {
     this.acc.add(vectorToMouse);
 };
 
-Player.prototype.respawn = function() {
+Player.prototype.die = function() {
     this.alive = true;
     this.health = 100;
     game.score = 0;

@@ -32,42 +32,47 @@ EnemyShooter.prototype.stateUpdate = function() {
             this.maxVel = 1;
             this.direction = this.vel.heading();
 
-            // If within range, chase the player
-            if (this.inRange(game.player, 600)) {
+            // If within range of any players, chase the player
+            this.target = this.getTarget(game.players, 600);
+            if (this.target) {
                 this.state = "chase";
             }
+            // // If within range, chase the player
+            // if (this.inRange(game.player, 600)) {
+            //     this.state = "chase";
+            // }
             break;
         case "chase":
             // Chase the player
-            var vectorEnemytoPlayer = p5.Vector.sub(game.player.pos, this.pos);
+            var vectorEnemytoPlayer = p5.Vector.sub(this.target.pos, this.pos);
             vectorEnemytoPlayer.setMag(this.maxForce);
             this.acc.add(vectorEnemytoPlayer);
             this.maxVel = 1;
 
             // If out of range, stop chasing
-            if (!this.inRange(game.player, 750)) {
+            if (!this.inRange(this.target, 750)) {
                 this.state = "wander";
-            } else if (this.inRange(game.player, 350)) {
+            } else if (this.inRange(this.target, 350)) {
                 this.state = "camp";
             }
             break;
         case "camp":
             // Stay still and shoot from a distance
             this.maxVel = 1;
-            if (!this.inRange(game.player, 450)) {
+            if (!this.inRange(this.target, 450)) {
                 this.state = "chase";
-            } else if (this.inRange(game.player, 150)) {
+            } else if (this.inRange(this.target, 150)) {
                 this.state = "flee";
             }
             break;
         case "flee":
             // Flee from the player to avoid colliding
-            var vectorPlayertoEnemy = p5.Vector.sub(this.pos, game.player.pos);
+            var vectorPlayertoEnemy = p5.Vector.sub(this.pos, this.target.pos);
             vectorPlayertoEnemy.setMag(this.maxForce);
             this.acc.add(vectorPlayertoEnemy);
             this.maxVel = 1.5;
 
-            if (!this.inRange(game.player, 300)) {
+            if (!this.inRange(this.target, 300)) {
                 this.state = "camp";
             }
             break;
@@ -79,7 +84,7 @@ EnemyShooter.prototype.generalUpdate = function() {
     this.reloadTimer -= dt;
 
     if (!(this.state == "wander")) {
-        var vectorPlayerToTurret = p5.Vector.sub(game.player.pos, this.pos);
+        var vectorPlayerToTurret = p5.Vector.sub(this.target.pos, this.pos);
 
         this.direction = vectorPlayerToTurret.heading();
 
@@ -116,7 +121,7 @@ EnemyShooter.prototype.shoot = function() {
     var shootBullet = new Bullet(this.pos.copy(), this.direction + random(-0.3, 0.3), this,
         function(bullet) {
             // Spawns a second bullet targeted at the player
-            var direction = p5.Vector.sub(game.player.pos, bullet.pos).heading() + random(-0.3, 0.3);
+            var direction = p5.Vector.sub(bullet.parent.target.pos, bullet.pos).heading() + random(-0.3, 0.3);
             var secondBullet = new Bullet(bullet.pos.copy(), direction, bullet.parent);
             game.bullets.push(secondBullet);
         });
