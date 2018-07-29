@@ -120,10 +120,20 @@ EnemyShooter.prototype.draw = function() {
 EnemyShooter.prototype.shoot = function() {
     var shootBullet = new Bullet(this.pos.copy(), this.direction + random(-0.3, 0.3), this,
         function(bullet) {
-            // Spawns a second bullet targeted at the player
-            var direction = p5.Vector.sub(bullet.data.target.pos, bullet.pos).heading() + random(-0.3, 0.3);
-            var secondBullet = new Bullet(bullet.pos.copy(), direction, bullet.parent);
-            game.bullets.push(secondBullet);
+            if (bullet.data.target) {
+                // Spawns a second bullet targeted at the player
+                var direction = p5.Vector.sub(bullet.data.target.pos, bullet.pos).heading() + random(-0.3, 0.3);
+                // Big bug here which needs to be solved, hard to reproduce
+                // Cannot read property pos of bullet.data.target
+                // But bullet.data.target shouldn't be null
+                var secondBullet = new Bullet(bullet.pos.copy(), direction, bullet.parent);
+                game.bullets.push(secondBullet);
+            } else {
+                console.log("KNOWN BUG - enemy-shooter.js - shoot()")
+                console.log(bullet);
+                console.log("This bug is pretty much impossible to reproduce so if it happens please tell me (Saksham).")
+                console.log("Maybe even take a picture of the bullet object above.")
+            }
         }, {
             target: this.target
         });
