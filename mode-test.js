@@ -1,4 +1,4 @@
-var testMode = false;
+var testMode = true;
 var spawn = 0;
 
 function helpMessage() {

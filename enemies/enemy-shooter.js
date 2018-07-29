@@ -121,9 +121,11 @@ EnemyShooter.prototype.shoot = function() {
     var shootBullet = new Bullet(this.pos.copy(), this.direction + random(-0.3, 0.3), this,
         function(bullet) {
             // Spawns a second bullet targeted at the player
-            var direction = p5.Vector.sub(bullet.parent.target.pos, bullet.pos).heading() + random(-0.3, 0.3);
+            var direction = p5.Vector.sub(bullet.data.target.pos, bullet.pos).heading() + random(-0.3, 0.3);
             var secondBullet = new Bullet(bullet.pos.copy(), direction, bullet.parent);
             game.bullets.push(secondBullet);
+        }, {
+            target: this.target
         });
     game.bullets.push(shootBullet);
 

@@ -1,4 +1,4 @@
-function Bullet(position_, direction_, parent_, onHit_) {
+function Bullet(position_, direction_, parent_, onHit_, data_) {
 
     this.parent = parent_;
     this.speed = this.parent.bulletTemplate.speed;
@@ -21,6 +21,9 @@ function Bullet(position_, direction_, parent_, onHit_) {
 
     // This function is called when the bullet hits. Used for bullets that e.g. split into three.
     this.onHit = onHit_;
+
+    // Any data can be passed in
+    this.data = data_;
 }
 
 Bullet.prototype.update = function(entities) {

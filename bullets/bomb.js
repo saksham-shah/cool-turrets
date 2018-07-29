@@ -12,6 +12,8 @@ function Bomb(x_, y_, initialVel_, damage_, radius_, parent_) {
     this.parent = parent_;
 
     this.countdown = false;
+
+    this.mass = 5;
 }
 
 // Adds the Entity prototype to the Bomb object
@@ -29,6 +31,7 @@ Bomb.prototype.blowUp = function() {
     game.areaEffects.push(new AreaEffect(this.pos.x, this.pos.y, this.radius,
         function(areaEffect, entity) {
             entity.loseHealth(areaEffect.data.damage, areaEffect.data.parent);
+            console.log(entity);
             var knockbackForce = p5.Vector.sub(entity.pos, areaEffect.pos);
             knockbackForce.setMag(100);
             entity.applyForce(knockbackForce);
