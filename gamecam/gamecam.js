@@ -30,6 +30,7 @@ function GameCam(x_, y_, w_, h_) {
     this.rotated = false;
 
     this.screen = createGraphics(this.w, this.h);
+    this.screen.colorMode(HSB);
 
     this.toFollow = null;
     this.posFollow = null;
@@ -150,11 +151,11 @@ GameCam.prototype.drawToCanvas = function(x, y) {
     }
     image(img, x, y, this.w, this.h);
 
-    // Debug rectangle representing border of camera
-    // noFill();
-    // strokeWeight(4);
-    // stroke(255, 0, 0);
-    // rect(x, y, this.w, this.h);
+    //Debug rectangle representing border of camera
+    noFill();
+    strokeWeight(4);
+    stroke(0, 0, 0);
+    rect(x, y, this.w, this.h);
 }
 
 // Converts a game position to a draw position

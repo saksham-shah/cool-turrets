@@ -42,12 +42,12 @@ Bullet.prototype.update = function(entities) {
     this.timeAlive += dt;
 };
 
-Bullet.prototype.draw = function() {
-    fill(this.colour);
-    noStroke();
-    var drawPos = game.gameCam.getDrawPos(this.pos);
-    var drawR = game.gameCam.getDrawSize(this.r);
-    ellipse(drawPos.x, drawPos.y, drawR * 2, drawR * 2);
+Bullet.prototype.draw = function(cam, scr) {
+    scr.fill(this.colour);
+    scr.noStroke();
+    var drawPos = cam.getDrawPos(this.pos.x, this.pos.y);
+    var drawR = cam.getDrawSize(this.r);
+    scr.ellipse(drawPos.x, drawPos.y, drawR * 2, drawR * 2);
 };
 
 Bullet.prototype.checkHits = function(entities) {

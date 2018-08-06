@@ -1,4 +1,4 @@
-function GameCam(xBound_, yBound_, toFollow_) {
+function Cam(xBound_, yBound_, toFollow_) {
     // this.x = x_;
     // this.y = y_;
     this.xBound = xBound_;
@@ -13,7 +13,7 @@ function GameCam(xBound_, yBound_, toFollow_) {
 }
 
 // Updates the position of the camera
-GameCam.prototype.update = function() {
+Cam.prototype.update = function() {
     //dynamic zoom
     //this.zoom = this.baseZoom - this.baseZoom * map(max(abs(this.toFollow.vel.x), abs(this.toFollow.vel.y)), 0, 10, 0, 0.3);
     if (this.zoom > this.targetZoom + this.zoomSpeed) {
@@ -27,7 +27,7 @@ GameCam.prototype.update = function() {
 };
 
 // Restricts the camera to the borders of the game
-GameCam.prototype.borders = function() {
+Cam.prototype.borders = function() {
     if (this.x < width / 2 - this.buffer) {
         this.x = width / 2 - this.buffer;
     } else if (this.x > this.xBound - width / 2 + this.buffer) {
@@ -41,24 +41,24 @@ GameCam.prototype.borders = function() {
 };
 
 // Follows the player
-GameCam.prototype.follow = function() {
+Cam.prototype.follow = function() {
     this.x = this.toFollow.pos.x;
     this.y = this.toFollow.pos.y;
 };
 
 // Converts a game position to a draw position
-GameCam.prototype.getDrawPos = function(gamePos) {
+Cam.prototype.getDrawPos = function(gamePos) {
     var drawX = this.zoom * (gamePos.x - this.x) + width / 2;
     var drawY = this.zoom * (gamePos.y - this.y) + height / 2;
     return createVector(drawX, drawY);
 };
 
-GameCam.prototype.getDrawSize = function(gameSize) {
+Cam.prototype.getDrawSize = function(gameSize) {
     return gameSize * this.zoom;
 }
 
 // Used to convert mouse position into game position
-GameCam.prototype.getGamePos = function(drawPos) {
+Cam.prototype.getGamePos = function(drawPos) {
     // Just the inverse function of getDrawPos
     var gameX = (drawPos.x - width / 2) / this.zoom + this.x;
     var gameY = (drawPos.y - height / 2) / this.zoom + this.y;

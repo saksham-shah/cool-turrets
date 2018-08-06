@@ -39,18 +39,18 @@ AreaEffect.prototype.update = function(entities) {
     }
 }
 
-AreaEffect.prototype.draw = function() {
-    var drawPos = game.gameCam.getDrawPos(this.pos);
-    var drawR = game.gameCam.getDrawSize(this.currentR);
+AreaEffect.prototype.draw = function(cam, scr) {
+    var drawPos = cam.getDrawPos(this.pos.x, this.pos.y);
+    var drawR = cam.getDrawSize(this.currentR);
 
-    push();
+    scr.push();
 
-    translate(drawPos.x, drawPos.y);
+    scr.translate(drawPos.x, drawPos.y);
 
-    fill(0, 100, 58.8, 100);
-    noStroke();
+    scr.fill(0, 100, 58.8, 100);
+    scr.noStroke();
 
-    ellipse(0, 0, drawR * 2);
+    scr.ellipse(0, 0, drawR * 2);
 
-    pop();
+    scr.pop();
 }

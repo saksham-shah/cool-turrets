@@ -23,26 +23,28 @@ TurretBomber.prototype.shoot = function() {
 };
 
 
-TurretBomber.prototype.draw = function() {
-    push();
-    translate(this.drawPos.x, this.drawPos.y);
-    rotate(this.direction);
+TurretBomber.prototype.draw = function(cam, scr) {
+    var drawPos = cam.getDrawPos(this.pos.x, this.pos.y)
+    var drawR = cam.getDrawSize(this.r);
+    scr.push();
+    scr.translate(drawPos.x, drawPos.y);
+    scr.rotate(this.direction);
 
     // Draw control radius
-    fill(120, 100, 100, 0.1);
-    noStroke();
-    ellipse(0, 0, game.gameCam.getDrawSize(this.playerControlRadius) * 2);
+    scr.fill(120, 100, 100, 0.1);
+    scr.noStroke();
+    scr.ellipse(0, 0, cam.getDrawSize(this.playerControlRadius) * 2);
 
     // Draw turret body
-    fill(this.colour);
-    noStroke();
-    ellipse(0, 0, this.drawR * 2);
+    scr.fill(this.colour);
+    scr.noStroke();
+    scr.ellipse(0, 0, drawR * 2);
 
     // Draw gun
     var barrelWidth = 25;
     var barrelLength = 25;
-    var mult = game.gameCam.getDrawSize(1);
-    rect(0, -barrelWidth * 0.5 * mult, barrelLength * mult, barrelWidth * mult);
+    var mult = cam.getDrawSize(1);
+    scr.rect(0, -barrelWidth * 0.5 * mult, barrelLength * mult, barrelWidth * mult);
 
-    pop();
+    scr.pop();
 };

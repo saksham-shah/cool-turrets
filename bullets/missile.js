@@ -68,24 +68,24 @@ Missile.prototype.moveToTarget = function() {
     this.pos.add(vectorToTarget);
 };
 
-Missile.prototype.draw = function() {
-    var drawPos = game.gameCam.getDrawPos(this.pos);
-    var drawR = game.gameCam.getDrawSize(this.r);
+Missile.prototype.draw = function(cam, scr) {
+    var drawPos = cam.getDrawPos(this.pos.x, this.pos.y);
+    var drawR = cam.getDrawSize(this.r);
 
-    push();
+    scr.push();
 
-    translate(drawPos.x, drawPos.y);
+    scr.translate(drawPos.x, drawPos.y);
 
     if (this.flash) {
-        fill(0, 100, 100);
+        scr.fill(0, 100, 100);
     } else {
-        fill(60, 100, 100);
+        scr.fill(60, 100, 100);
     }
 
 
-    noStroke();
+    scr.noStroke();
 
-    ellipse(0, 0, drawR * 2);
+    scr.ellipse(0, 0, drawR * 2);
 
-    pop();
+    scr.pop();
 }

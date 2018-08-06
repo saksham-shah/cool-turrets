@@ -24,12 +24,15 @@ function Game() {
     this.xBound = XBOUND;
     this.yBound = YBOUND;
 
-    this.gameCam = new GameCam(this.xBound, this.yBound, this.players[0]);
+    // this.gameCam = new Cam(this.xBound, this.yBound, this.players[0]);
+    // this.gameCamSet = createCamSet(ONE_PLAYER, this.players[0].pos, this.players[0], this.players[0]);
+    this.gameCamSet = createCamSet(TWO_PLAYER, this.players[0].pos, this.players[1].pos, this.players[0], this.players[1], this.players[0], this.players[1]);
+
 
     // this.playerBar = new StatBar(100, this.player, (player) => player.health);
 
     //Interesting effect
-    this.gameCam.zoom = 0.1;
+    // this.gameCam.zoom = 0.1;
 
     // Test, will be commented out later
     this.timePassed = 0;
@@ -49,7 +52,7 @@ Game.prototype.update = function() {
         this.addEntities();
     }
 
-    this.gameCam.targetZoom = 1;
+    // this.gameCam.targetZoom = 1;
 
     for (var i = 0; i < this.bullets.length; i++) {
         this.bullets[i].update(this.entities);
@@ -91,7 +94,8 @@ Game.prototype.update = function() {
         }
     }
 
-    this.gameCam.update();
+    // this.gameCam.update();
+    this.gameCamSet.update();
 
     //Revive players
     // if (!this.player.alive) {
@@ -145,36 +149,43 @@ Game.prototype.addEntities = function() {
 }
 
 Game.prototype.draw = function() {
-
     // background(0);
-    this.drawBackground();
+    // this.drawBackground();
+    this.gameCamSet.draw(this.drawBackground);
 
 
     for (var i = 0; i < this.areaEffects.length; i++) {
-        this.areaEffects[i].draw();
+        // this.areaEffects[i].draw();
+        this.gameCamSet.draw(this.areaEffects[i]);
     }
 
     for (var i = 0; i < this.particles.length; i++) {
-        this.particles[i].draw();
+        // this.particles[i].draw();
+        this.gameCamSet.draw(this.particles[i]);
     }
 
     for (var i = 0; i < this.bullets.length; i++) {
         if (!this.bullets[i].hit) {
-            this.bullets[i].draw();
+            // this.bullets[i].draw();
+            this.gameCamSet.draw(this.bullets[i]);
         }
     }
 
     for (var i = 0; i < this.entities.length; i++) {
         if (this.entities[i].alive) {
-            this.entities[i].draw();
+            // this.entities[i].draw();
+            this.gameCamSet.draw(this.entities[i]);
         }
     }
 
     for (var i = 0; i < this.entities.length; i++) {
         if (this.entities[i].alive && this.entities[i].showHealthBar > 0) {
-            this.entities[i].healthBar.draw();
+            // this.entities[i].healthBar.draw();
+            this.gameCamSet.draw(this.entities[i].healthBar);
         }
     }
+
+    this.gameCamSet.drawToCanvas();
 
     // Draw score - could be seperate function?
     fill(255);
@@ -184,16 +195,40 @@ Game.prototype.draw = function() {
     text(this.score, width / 2, 50);
 };
 
-Game.prototype.drawBackground = function() {
-    background(0);
-    noFill();
-    fill(0, 0, 19.6);
-    stroke(0, 100, 100);
-    strokeWeight(5);
-    rectMode(CORNER);
-    var topLeft = this.gameCam.getDrawPos(createVector(0, 0));
-    var mult = this.gameCam.getDrawSize(1);
-    rect(topLeft.x, topLeft.y, this.xBound * mult, this.yBound * mult);
+// Game.prototype.drawBackground = function() {
+//     background(0);
+//     noFill();
+//     fill(0, 0, 19.6);
+//     stroke(0, 100, 100);
+//     strokeWeight(5);
+//     rectMode(CORNER);
+//     var topLeft = this.gameCam.getDrawPos(createVector(0, 0));
+//     var mult = this.gameCam.getDrawSize(1);
+//     rect(topLeft.x, topLeft.y, this.xBound * mult, this.yBound * mult);
+//
+//     // Commented because I made the map bigger
+//
+//     // strokeWeight(1);
+//     // //Draw some graphics
+//     // var centre = this.gameCam.getDrawPos(createVector(this.xBound / 2, this.yBound / 2));
+//     // var agons = [];
+//     // for (var i = -16; i < 16; i++) {
+//     //     for (var j = -10; j < 11; j++) {
+//     //         agons.push([i, j]);
+//     //     }
+//     // }
+//     // drawHexes(centre.x, centre.y, 20 * mult, 2 * mult, color(0, 0, 25, 0.5), agons);
+// };
+
+Game.prototype.drawBackground = function(cam, scr) {
+    scr.background(5);
+    scr.fill(0, 0, 19.6);
+    scr.stroke(0, 100, 100);
+    scr.strokeWeight(5);
+    scr.rectMode(CORNER);
+    var topLeft = cam.getDrawPos(0, 0);
+    var mult = cam.getDrawSize(1);
+    scr.rect(topLeft.x, topLeft.y, XBOUND * mult, YBOUND * mult);
 
     // Commented because I made the map bigger
 

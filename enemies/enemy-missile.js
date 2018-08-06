@@ -65,27 +65,29 @@ EnemyMissile.prototype.generalUpdate = function() {
 
 };
 
-EnemyMissile.prototype.draw = function() {
-    push();
-    fill(this.colour);
+EnemyMissile.prototype.draw = function(cam, scr) {
+    var drawPos = cam.getDrawPos(this.pos.x, this.pos.y)
+    var drawR = cam.getDrawSize(this.r);
+    scr.push();
+    scr.fill(this.colour);
     if (this.state != "wander") {
-        stroke(0, 100, 100);
-        strokeWeight(game.gameCam.getDrawSize(2));
+        scr.stroke(0, 100, 100);
+        scr.strokeWeight(cam.getDrawSize(2));
     } else {
-        noStroke();
+        scr.noStroke();
     }
-    translate(this.drawPos.x, this.drawPos.y);
-    rotate(this.direction);
+    scr.translate(drawPos.x, drawPos.y);
+    scr.rotate(this.direction);
 
     // Draw body
-    ellipse(0, 0, this.drawR * 2);
+    scr.ellipse(0, 0, drawR * 2);
 
     // Draw gun
-    noStroke();
-    var mult = game.gameCam.getDrawSize(1);
+    scr.noStroke();
+    var mult = cam.getDrawSize(1);
     var barrelWidth = 20;
-    rect(0, -barrelWidth * mult / 2, 30 * mult, barrelWidth * mult);
-    pop();
+    scr.rect(0, -barrelWidth * mult / 2, 30 * mult, barrelWidth * mult);
+    scr.pop();
 };
 
 EnemyMissile.prototype.shoot = function() {

@@ -118,27 +118,24 @@ SeekingMissile.prototype.hasHit = function() {
     this.hit = true;
 };
 
-SeekingMissile.prototype.draw = function() {
-    var drawPos = game.gameCam.getDrawPos(this.pos);
-    var drawR = game.gameCam.getDrawSize(this.r);
-    var mult = game.gameCam.getDrawSize(1);
+SeekingMissile.prototype.draw = function(cam, scr) {
+    var drawPos = cam.getDrawPos(this.pos.x, this.pos.y);
+    var drawR = cam.getDrawSize(this.r);
+    var mult = cam.getDrawSize(1);
 
-    push();
-    stroke(0);
-    strokeWeight(2 * mult);
+    scr.push();
+    scr.stroke(0);
+    scr.strokeWeight(2 * mult);
 
-    translate(drawPos.x, drawPos.y);
-    rotate(this.vel.heading());
+    scr.translate(drawPos.x, drawPos.y);
+    scr.rotate(this.vel.heading());
 
-    fill(0, 100, 47.1);
+    scr.fill(0, 100, 47.1);
+    scr.ellipse(0, 0, drawR * 2);
 
+    scr.fill(0, 0, 43.5);
+    scr.rectMode(CORNER);
+    scr.rect(0, -drawR, -drawR * 2, drawR * 2);
 
-
-    ellipse(0, 0, drawR * 2);
-    fill(0, 0, 43.5);
-    rectMode(CORNER);
-    rect(0, -drawR, -drawR * 2, drawR * 2);
-
-
-    pop();
+    scr.pop();
 };

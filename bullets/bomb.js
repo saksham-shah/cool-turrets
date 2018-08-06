@@ -43,15 +43,17 @@ Bomb.prototype.blowUp = function() {
         }));
 };
 
-Bomb.prototype.draw = function() {
-    push();
+Bomb.prototype.draw = function(cam, scr) {
+    var drawPos = cam.getDrawPos(this.pos.x, this.pos.y)
+    var drawR = cam.getDrawSize(this.r);
+    scr.push();
 
-    translate(this.drawPos.x, this.drawPos.y);
+    scr.translate(drawPos.x, drawPos.y);
 
-    fill(100, 0, 39.2);
-    noStroke();
+    scr.fill(100, 0, 39.2);
+    scr.noStroke();
 
-    ellipse(0, 0, this.drawR * 2);
+    scr.ellipse(0, 0, drawR * 2);
 
-    pop();
+    scr.pop();
 };

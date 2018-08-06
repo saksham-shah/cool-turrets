@@ -19,6 +19,13 @@ function Player(x_, y_, controls_) {
         shoot: controls_[4]
     }
 
+    this.z = 0.1;
+    this.zSpeed = 0.01;
+    this.targetZ = 1;
+
+    // Not needed but here for now
+    this.a = 0;
+
     // this.health = 100;
 }
 
@@ -26,6 +33,13 @@ function Player(x_, y_, controls_) {
 Player.prototype = Object.create(Entity.prototype);
 
 Player.prototype.update = function() {
+    if (this.z > this.targetZ + this.zSpeed) {
+        this.z -= this.zSpeed;
+    } else if (this.z < this.targetZ - this.zSpeed) {
+        this.z += this.zSpeed;
+    }
+    this.targetZ = 1;
+
     this.moveUsingArrowKeys();
 
     game.particles.push(new TrailParticle(this.pos, createVector(0, 0)));
@@ -71,9 +85,12 @@ Player.prototype.die = function() {
 };
 
 // Just a white circle right now
-Player.prototype.draw = function() {
-    fill(0, 0, 255);
+Player.prototype.draw = function(cam, scr) {
+    var drawPos = cam.getDrawPos(this.pos.x, this.pos.y);
+    var drawR = cam.getDrawSize(this.r);
 
-    noStroke();
-    ellipse(this.drawPos.x, this.drawPos.y, this.drawR * 2);
+    scr.fill(0, 0, 255);
+
+    scr.noStroke();
+    scr.ellipse(drawPos.x, drawPos.y, drawR * 2);
 };

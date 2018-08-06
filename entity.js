@@ -60,8 +60,8 @@ Entity.prototype.move = function() {
     this.vel.mult(this.friction);
 
     //Get Position relative to camera
-    this.drawPos = game.gameCam.getDrawPos(this.pos);
-    this.drawR = game.gameCam.getDrawSize(this.r);
+    // this.drawPos = game.gameCam.getDrawPos(this.pos);
+    // this.drawR = game.gameCam.getDrawSize(this.r);
 
     // General updates
     this.showHealthBar -= dt;

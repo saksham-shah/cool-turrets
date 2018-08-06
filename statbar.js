@@ -13,38 +13,27 @@ function StatBar(maxValue_, parent_, getValueFunction_) {
 }
 
 // Hard coded colours for now
-StatBar.prototype.draw = function() {
-    push();
-    translate(this.parent.drawPos.x, this.parent.drawPos.y);
+StatBar.prototype.draw = function(cam, scr) {
+    var drawPos = cam.getDrawPos(this.parent.pos.x, this.parent.pos.y);
+    var drawR = cam.getDrawSize(this.parent.r);
+    scr.push();
+    scr.translate(drawPos.x, drawPos.y);
 
+    var drawW = cam.getDrawSize(this.w);
+    var drawH = cam.getDrawSize(this.h);
+    var mult = cam.getDrawSize(1);
 
+    scr.stroke(0);
+    scr.strokeWeight(mult);
+    scr.fill(0, 0, 78.4);
 
-    var drawW = game.gameCam.getDrawSize(this.w);
-    var drawH = game.gameCam.getDrawSize(this.h);
-    var mult = game.gameCam.getDrawSize(1);
-
-    stroke(0);
-    strokeWeight(mult);
-    fill(0, 0, 78.4);
-
-
-    rect(-drawW, -this.parent.drawR - drawH - 5 * mult, drawW * 2, drawH);
+    scr.rect(-drawW, -drawR - drawH - 5 * mult, drawW * 2, drawH);
 
     var currentValue = this.getValueFunction(this.parent);
     var percentageFill = currentValue / this.maxValue;
 
-    fill(120, 100, 100);
-    rect(-drawW, -this.parent.drawR - drawH - 5 * mult, drawW * 2 * percentageFill, drawH);
+    scr.fill(120, 100, 100);
+    scr.rect(-drawW, -drawR - drawH - 5 * mult, drawW * 2 * percentageFill, drawH);
 
-
-
-
-
-    pop();
-
-
-
-
-
-
+    scr.pop();
 }
