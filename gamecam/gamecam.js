@@ -29,7 +29,7 @@ function GameCam(x_, y_, w_, h_) {
     this.rotation = 0;
     this.rotated = false;
 
-    this.screen = createGraphics(this.w, this.h);
+    this.screen = createGraphics(this.w * 2, this.h * 2);
     this.screen.colorMode(HSB);
 
     this.toFollow = null;
@@ -140,16 +140,8 @@ GameCam.prototype.drawToCanvas = function(x, y) {
     if (!y) {
         y = this.defaultDrawY;
     }
-    if (this.gameclip) {
-        var img = this.gameclip.next();
-    } else {
-        var img = this.snapshot();
-    }
-    if (img === false) {
-        img = this.snapshot();
-        this.gameclip = null;
-    }
-    image(img, x, y, this.w, this.h);
+
+    image(this.screen, x, y, this.w, this.h);
 
     //Debug rectangle representing border of camera
     noFill();

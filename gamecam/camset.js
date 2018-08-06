@@ -16,7 +16,6 @@ function CamSet(type, p1, p2, z1, z2, a1, a2) {
 			break;
 		case TWO_PLAYER:
 			var cam1 = this.addGameCam(0, 0, width/2, height);
-			console.log(z1);
 			cam1.follow(p1, POSITION);
 			cam1.follow(z1, ZOOM);
 			cam1.follow(a1, ROTATION);

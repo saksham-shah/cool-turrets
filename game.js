@@ -10,19 +10,20 @@ function Game() {
     this.enemyCount = 0;
     this.turretCount = 0;
 
-     var player = new Player(100, height / 2, [UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, 13]);
+
+    this.xBound = XBOUND;
+    this.yBound = YBOUND;
+
+     var player = new Player(random(this.xBound), random(this.yBound), [UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, 13]);
     this.entities.push(player);
     this.players.push(player);
-    var second = new Player(100, height / 2, [87, 83, 65, 68, 32]);
+    var second = new Player(random(this.xBound), random(this.yBound), [87, 83, 65, 68, 32]);
     this.entities.push(second);
     this.players.push(second);
 
     // this.entities.push(new EnemySeeker(width / 3, height / 3, color(0, 255, 0)));
 
     this.lastUpdate = Date.now();
-
-    this.xBound = XBOUND;
-    this.yBound = YBOUND;
 
     // this.gameCam = new Cam(this.xBound, this.yBound, this.players[0]);
     // this.gameCamSet = createCamSet(ONE_PLAYER, this.players[0].pos, this.players[0], this.players[0]);
@@ -116,16 +117,16 @@ Game.prototype.addEntities = function() {
         var toSpawn = randomFromWeights(ENEMYSPAWN);
         switch (toSpawn) {
             case 0:
-                this.entities.push(new EnemySeeker(random(0, this.xBound), random(0, this.yBound)));
+                this.entities.push(new EnemySeeker(random(this.xBound), random(this.yBound)));
                 break;
             case 1:
-                this.entities.push(new EnemyShooter(random(0, this.xBound), random(0, this.yBound)));
+                this.entities.push(new EnemyShooter(random(this.xBound), random(this.yBound)));
                 break;
             case 2:
-                this.entities.push(new EnemyMissile(random(0, this.xBound), random(0, this.yBound)));
+                this.entities.push(new EnemyMissile(random(this.xBound), random(this.yBound)));
                 break;
             case 3:
-                this.entities.push(new EnemyBossSeeker(random(0, this.xBound), random(0, this.yBound)));
+                this.entities.push(new EnemyBossSeeker(random(this.xBound), random(this.yBound)));
                 break;
         }
     }
@@ -133,16 +134,16 @@ Game.prototype.addEntities = function() {
         var toSpawn = randomFromWeights(TURRETSPAWN);
         switch (toSpawn) {
             case 0:
-                this.entities.push(new TurretStandard(random(0, this.xBound), random(0, this.yBound)));
+                this.entities.push(new TurretStandard(random(this.xBound), random(this.yBound)));
                 break;
             case 1:
-                this.entities.push(new TurretSniper(random(0, this.xBound), random(0, this.yBound)));
+                this.entities.push(new TurretSniper(random(this.xBound), random(this.yBound)));
                 break;
             case 2:
-                this.entities.push(new TurretBomber(random(0, this.xBound), random(0, this.yBound)));
+                this.entities.push(new TurretBomber(random(this.xBound), random(this.yBound)));
                 break;
             case 3:
-                this.entities.push(new TurretSpike(random(0, this.xBound), random(0, this.yBound)));
+                this.entities.push(new TurretSpike(random(this.xBound), random(this.yBound)));
                 break;
         }
     }
