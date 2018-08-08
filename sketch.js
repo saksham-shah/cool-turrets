@@ -2,6 +2,7 @@
 // var entities;
 var dt;
 var game;
+var screen;
 
 function setup() {
     // Multiplied by sqrt(2) because the split screen halved the view area
@@ -9,18 +10,21 @@ function setup() {
 
     colorMode(HSB);
 
-
     lastUpdate = Date.now();
 
+
+    gameScreen = new GameScreen();
+    screen = gameScreen;
+
     // game = new Game("single-player");
-    game = new Game("two-player");
+    //game = new Game("two-player");
+
     // game = new Game("coop");
 
 }
 
 
 function draw() {
-    game.update();
-    game.draw();
-
+    gameScreen.update();
+    gameScreen.draw();
 }

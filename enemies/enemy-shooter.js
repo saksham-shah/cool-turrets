@@ -33,7 +33,7 @@ EnemyShooter.prototype.stateUpdate = function() {
             this.direction = this.vel.heading();
 
             // If within range of any players, chase the player
-            this.target = this.getTarget(game.players, 600);
+            this.target = this.getTarget(gameScreen.game.players, 600);
             if (this.target) {
                 this.state = "chase";
             }
@@ -96,7 +96,7 @@ EnemyShooter.prototype.generalUpdate = function() {
 }
 
 EnemyShooter.prototype.draw = function(cam, scr) {
-    var drawPos = cam.getDrawPos(this.pos.x, this.pos.y)
+    var drawPos = cam.getDrawPos(this.pos.x, this.pos.y);
     var drawR = cam.getDrawSize(this.r);
     scr.push();
     scr.fill(this.colour);
@@ -129,7 +129,7 @@ EnemyShooter.prototype.shoot = function() {
                 // Cannot read property pos of bullet.data.target
                 // But bullet.data.target shouldn't be null
                 var secondBullet = new Bullet(bullet.pos.copy(), direction, bullet.parent);
-                game.bullets.push(secondBullet);
+                gameScreen.game.bullets.push(secondBullet);
             } else {
                 console.log("KNOWN BUG - enemy-shooter.js - shoot()")
                 console.log(bullet);
@@ -139,7 +139,7 @@ EnemyShooter.prototype.shoot = function() {
         }, {
             target: this.target
         });
-    game.bullets.push(shootBullet);
+    gameScreen.game.bullets.push(shootBullet);
 
     var recoilForce = p5.Vector.fromAngle(shootBullet.vel.heading()).rotate(PI);
     recoilForce.setMag(shootBullet.r * shootBullet.r * shootBullet.speed * 0.1);

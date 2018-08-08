@@ -15,7 +15,7 @@ TurretBomber.prototype.shoot = function() {
     var vector = p5.Vector.fromAngle(this.direction);
     var offset = vector.setMag(20 + this.r);
     var shootBomb = new Bomb(this.pos.x + offset.x, this.pos.y + offset.y, vector.setMag(15), 35, 100, this);
-    game.entities.push(shootBomb);
+    gameScreen.game.entities.push(shootBomb);
 
     var recoilForce = p5.Vector.fromAngle(shootBomb.acc.heading()).rotate(PI);
     recoilForce.setMag(shootBomb.mass * shootBomb.acc.mag());
@@ -24,7 +24,7 @@ TurretBomber.prototype.shoot = function() {
 
 
 TurretBomber.prototype.draw = function(cam, scr) {
-    var drawPos = cam.getDrawPos(this.pos.x, this.pos.y)
+    var drawPos = cam.getDrawPos(this.pos.x, this.pos.y);
     var drawR = cam.getDrawSize(this.r);
     scr.push();
     scr.translate(drawPos.x, drawPos.y);

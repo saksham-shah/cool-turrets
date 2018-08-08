@@ -2,7 +2,7 @@ var testMode = true;
 var spawn = 0;
 
 function helpMessage() {
-   if (!testMode){
+    if (!testMode) {
         return "Test mode disabled. To enable it, type test()";
     } else {
         return "Test mode enabled. Type help() for help.";
@@ -78,35 +78,36 @@ function keyPressed() {
 
 function mousePressed() {
     if (testMode) {
-        var gamePos = game.gameCamSet.cams[0].getMousePos();
+        var gamePos = gameScreen.game.gameCamSet.cams[0].getMousePos();
 
         switch (spawn) {
             case 1:
-                game.entities.push(new EnemySeeker(gamePos.x, gamePos.y));
+                gameScreen.game.entities.push(new EnemySeeker(gamePos.x, gamePos.y));
                 break;
             case 2:
-                game.entities.push(new EnemyShooter(gamePos.x, gamePos.y));
+                gameScreen.game.entities.push(new EnemyShooter(gamePos.x, gamePos.y));
                 break;
             case 3:
-                game.entities.push(new EnemyMissile(gamePos.x, gamePos.y));
+                gameScreen.game.entities.push(new EnemyMissile(gamePos.x, gamePos.y));
                 break;
             case 4:
-                game.bullets.push(new Missile(gamePos, 75, game.player));
+                //gameScreen.game.bullets.push(new Missile(gamePos, 75, gameScreen.game.player, undefined));
+                //Broken
                 break;
             case 5:
-                game.entities.push(new EnemyBossSeeker(gamePos.x, gamePos.y));
+                gameScreen.game.entities.push(new EnemyBossSeeker(gamePos.x, gamePos.y));
                 break;
             case 6:
-                game.entities.push(new TurretStandard(gamePos.x, gamePos.y));
+                gameScreen.game.entities.push(new TurretStandard(gamePos.x, gamePos.y));
                 break;
             case 7:
-                game.entities.push(new TurretSniper(gamePos.x, gamePos.y));
+                gameScreen.game.entities.push(new TurretSniper(gamePos.x, gamePos.y));
                 break;
             case 8:
-                game.entities.push(new TurretSpike(gamePos.x, gamePos.y));
+                gameScreen.game.entities.push(new TurretSpike(gamePos.x, gamePos.y));
                 break;
             case 9:
-                game.entities.push(new TurretBomber(gamePos.x, gamePos.y));
+                gameScreen.game.entities.push(new TurretBomber(gamePos.x, gamePos.y));
                 break;
             default:
                 console.log("No spawn selected. Press a number key (1-9).")
@@ -117,21 +118,21 @@ function mousePressed() {
 
 
 
-    // game.entities.push(new TurretStandard(gamePos.x, gamePos.y, color(255, 0, 0)));
-    // game.areaEffects.push(new AreaEffect(gamePos.x, gamePos.y, 150,
-    //     function(areaEffect, entity) {
-    //         entity.loseHealth(10);
-    //         var knockbackForce = p5.Vector.sub(entity.pos, areaEffect.pos);
-    //         knockbackForce.setMag(100);
-    //         entity.applyForce(knockbackForce);
-    //         return true;
-    //     }));
+// gameScreen.game.entities.push(new TurretStandard(gamePos.x, gamePos.y, color(255, 0, 0)));
+// gameScreen.game.areaEffects.push(new AreaEffect(gamePos.x, gamePos.y, 150,
+//     function(areaEffect, entity) {
+//         entity.loseHealth(10);
+//         var knockbackForce = p5.Vector.sub(entity.pos, areaEffect.pos);
+//         knockbackForce.setMag(100);
+//         entity.applyForce(knockbackForce);
+//         return true;
+//     }));
 
-    // Throw bomb
-    // var direction = p5.Vector.sub(gamePos, game.player.pos);
-    // direction.setMag(5);
-    // var offset = direction.copy().setMag(20 + game.player.r);
-    // game.entities.push(new Bomb(game.player.pos.x + offset.x, game.player.pos.y + offset.y, direction, 10, 100));
+// Throw bomb
+// var direction = p5.Vector.sub(gamePos, gameScreen.game.player.pos);
+// direction.setMag(5);
+// var offset = direction.copy().setMag(20 + gameScreen.game.player.r);
+// gameScreen.game.entities.push(new Bomb(gameScreen.game.player.pos.x + offset.x, gameScreen.game.player.pos.y + offset.y, direction, 10, 100));
 
-    // Launch missile
-    // game.bullets.push(new Missile(gamePos, 75, game.player));
+// Launch missile
+// gameScreen.game.bullets.push(new Missile(gamePos, 75, gameScreen.game.player));

@@ -33,7 +33,7 @@ Bullet.prototype.update = function(entities) {
     }
 
     //Destroy bullet if it's out of the map
-    if (!rectContains(this.pos, 0, 0, game.xBound, game.yBound)) {
+    if (!rectContains(this.pos, 0, 0, gameScreen.game.xBound, gameScreen.game.yBound)) {
         this.hasHit();
     }
 

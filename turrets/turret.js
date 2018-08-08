@@ -23,7 +23,7 @@ function Turret(x_, y_, health_, r_) {
     this.controller = null;
     this.latestShot = null;
 
-    game.turretCount++;
+    gameScreen.game.turretCount++;
 }
 
 // Adds the Entity prototype to the Turret object
@@ -42,8 +42,8 @@ Turret.prototype.update = function() {
 
     var count = 0;
     if (!this.controller) {
-        for (var i = 0; i < game.players.length; i++) {
-            var player = game.players[i];
+        for (var i = 0; i < gameScreen.game.players.length; i++) {
+            var player = gameScreen.game.players[i];
             // If the player is in range, it controls the turret
             if (this.pos.dist(player.pos) < this.playerControlRadius + player.r) {
                 this.controller = player;
@@ -82,7 +82,7 @@ Turret.prototype.update = function() {
 
 Turret.prototype.shoot = function() {
     var shootBullet = new Bullet(this.pos.copy(), this.direction, this);
-    game.bullets.push(shootBullet);
+    gameScreen.game.bullets.push(shootBullet);
 
     var recoilForce = p5.Vector.fromAngle(shootBullet.vel.heading()).rotate(PI);
     recoilForce.setMag(shootBullet.r * shootBullet.r * shootBullet.speed * 0.1);
@@ -90,5 +90,5 @@ Turret.prototype.shoot = function() {
 };
 
 Turret.prototype.die = function() {
-    game.turretCount--;
+    gameScreen.game.turretCount--;
 }

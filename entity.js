@@ -189,10 +189,10 @@ Entity.prototype.collide = function(other) {
 
 Entity.prototype.borderBounce = function() {
     //Bounce off walls
-    if (this.pos.x < this.r || this.pos.x > game.xBound - this.r) {
+    if (this.pos.x < this.r || this.pos.x > gameScreen.game.xBound - this.r) {
         this.vel = reflectVector(this.vel, createVector(1, 0));
     }
-    if (this.pos.y < this.r || this.pos.y > game.yBound - this.r) {
+    if (this.pos.y < this.r || this.pos.y > gameScreen.game.yBound - this.r) {
         this.vel = reflectVector(this.vel, createVector(0, 1));
     }
 };
@@ -206,13 +206,13 @@ Entity.prototype.borders = function() {
     if (this.pos.y < 0) {
         this.acc.add(createVector(0, 0.3));
     }
-    if (this.pos.y > game.yBound) {
+    if (this.pos.y > gameScreen.game.yBound) {
         this.acc.add(createVector(0, -0.3));
     }
     if (this.pos.x < 0) {
         this.acc.add(createVector(0.3, 0));
     }
-    if (this.pos.x > game.xBound) {
+    if (this.pos.x > gameScreen.game.xBound) {
         this.acc.add(createVector(-0.3, 0));
     }
 };

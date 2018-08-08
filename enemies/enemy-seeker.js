@@ -23,7 +23,7 @@ EnemySeeker.prototype.stateUpdate = function() {
             this.maxVel = 1;
 
             // If within range of any players, chase the player
-            this.target = this.getTarget(game.players, 300);
+            this.target = this.getTarget(gameScreen.game.players, 300);
             if (this.target) {
                 this.state = "chase";
             }

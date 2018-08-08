@@ -85,7 +85,7 @@ Game.prototype.update = function() {
             } else {
                 this.entities[i].alive = true;
                 this.entities[i].health = 100;
-                if (this.mode === "coop"){
+                if (this.mode === "coop") {
                     for (var i = 0; i < this.players.length; i++) {
                         this.players[i].score = 0;
                     }
@@ -213,24 +213,24 @@ Game.prototype.draw = function() {
 
     // Draws individual scores if the game mode is not coop
     if (this.mode !== "coop") {
-        this.gameCamSet.cams[0].draw(function (cam, scr){
+        this.gameCamSet.cams[0].draw(function(cam, scr) {
             scr.fill(255);
             scr.noStroke();
             scr.textSize(50);
             scr.textAlign(CENTER);
-            var score = game.players[0].score;
+            var score = gameScreen.game.players[0].score;
             scr.text(score, cam.w / 2, 50);
         })
     }
 
     // Draws a second score for player 2 if there are two players
     if (this.mode === "two-player") {
-        this.gameCamSet.cams[1].draw(function (cam, scr){
+        this.gameCamSet.cams[1].draw(function(cam, scr) {
             scr.fill(255);
             scr.noStroke();
             scr.textSize(50);
             scr.textAlign(CENTER);
-            var score = game.players[1].score;
+            var score = gameScreen.game.players[1].score;
             scr.text(score, cam.w / 2, 50);
         })
     }

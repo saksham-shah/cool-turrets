@@ -32,7 +32,7 @@ Bomb.prototype.update = function() {
 };
 
 Bomb.prototype.blowUp = function() {
-    game.areaEffects.push(new AreaEffect(this.pos.x, this.pos.y, this.radius,
+    gameScreen.game.areaEffects.push(new AreaEffect(this.pos.x, this.pos.y, this.radius,
         function(areaEffect, entity) {
             entity.loseHealth(areaEffect.data.damage, areaEffect.data.parent);
             var knockbackForce = p5.Vector.sub(entity.pos, areaEffect.pos);

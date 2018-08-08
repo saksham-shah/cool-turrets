@@ -45,7 +45,7 @@ SeekingMissile.prototype.update = function(entities) {
     if (this.seeking) {
         //Create particles
         var particleV = p5.Vector.add(this.vel, this.vel.copy().rotate(PI).setMag(5));
-        game.particles.push(new SmokeParticle(this.pos, particleV));
+        gameScreen.game.particles.push(new SmokeParticle(this.pos, particleV));
 
         if (!this.target.alive) {
             this.seeking = false;
@@ -104,7 +104,7 @@ SeekingMissile.prototype.checkHits = function(entities) {
 };
 
 SeekingMissile.prototype.hasHit = function() {
-    game.areaEffects.push(new AreaEffect(this.pos.x, this.pos.y, 50,
+    gameScreen.game.areaEffects.push(new AreaEffect(this.pos.x, this.pos.y, 50,
         function(areaEffect, entity) {
             entity.loseHealth(areaEffect.data.damage, areaEffect.data.parent);
             var knockbackForce = p5.Vector.sub(entity.pos, areaEffect.pos);

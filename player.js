@@ -17,7 +17,7 @@ function Player(x_, y_, zoomMult_, controls_) {
         left: controls_[2],
         right: controls_[3],
         shoot: controls_[4]
-    }
+    };
 
     this.z = 0.1;
     this.zSpeed = 0.01;
@@ -47,7 +47,7 @@ Player.prototype.update = function() {
 
     this.moveUsingArrowKeys();
 
-    game.particles.push(new TrailParticle(this.pos, createVector(0, 0)));
+    gameScreen.game.particles.push(new TrailParticle(this.pos, createVector(0, 0)));
 };
 
 // Follows mouse by accelerating towards it
@@ -86,7 +86,7 @@ Player.prototype.seekMouse = function() {
 Player.prototype.die = function() {
     // this.alive = true;
     // this.health = 100;
-    game.score = 0;
+    gameScreen.game.score = 0;
     this.score = 0;
 };
 

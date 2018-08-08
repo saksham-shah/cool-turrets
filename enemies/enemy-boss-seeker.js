@@ -34,12 +34,12 @@ EnemyBossSeeker.prototype.stateUpdate = function() {
             this.wander();
 
             // If within range of any players, chase the player
-            this.target = this.getTarget(game.players, 1000);
+            this.target = this.getTarget(gameScreen.game.players, 1000);
             if (this.target) {
                 this.state = "chase";
             }
             // // If within range, chase the player
-            // if (this.inRange(game.player, 1000)) {
+            // if (this.inRange(gameScreen.game.player, 1000)) {
             //     this.state = "chase";
             // }
             break;
@@ -98,10 +98,10 @@ EnemyBossSeeker.prototype.spawnSeeker = function() {
     var vector = this.vel.copy();
     var offset = vector.setMag(20 + this.r);
     var spawnedSeeker = new EnemySeeker(this.pos.x + offset.x, this.pos.y + offset.y, this, 400);
-    game.entities.push(spawnedSeeker);
+    gameScreen.game.entities.push(spawnedSeeker);
     this.children++;
 };
 
 EnemyBossSeeker.prototype.launchMissle = function() {
-    game.bullets.push(new Missile(this.target.pos, 75, this.target, this));
-}
+    gameScreen.game.bullets.push(new Missile(this.target.pos, 75, this.target, this));
+};

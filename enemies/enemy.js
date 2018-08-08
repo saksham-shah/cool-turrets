@@ -13,7 +13,7 @@ function Enemy(x_, y_, health_, parent_, parentRange_, r_) {
     this.parent = parent_;
     this.parentRange = parentRange_;
 
-    this.wanderForce = p5.Vector.fromAngle(random(- TWO_PI, TWO_PI)).setMag(0.1);
+    this.wanderForce = p5.Vector.fromAngle(random(-TWO_PI, TWO_PI)).setMag(0.1);
     this.wanderTime = 0;
 
     this.maxVel = 1;
@@ -21,7 +21,7 @@ function Enemy(x_, y_, health_, parent_, parentRange_, r_) {
 
     this.target = null;
 
-    game.enemyCount++;
+    gameScreen.game.enemyCount++;
 
 };
 
@@ -48,7 +48,7 @@ Enemy.prototype.update = function() {
     this.generalUpdate();
 };
 
-Enemy.prototype.getTarget = function (possibleTargets, radius) {
+Enemy.prototype.getTarget = function(possibleTargets, radius) {
     var target = null;
     for (var i = 0; i < possibleTargets.length; i++) {
         if (this.inRange(possibleTargets[i], radius)) {
@@ -67,7 +67,7 @@ Enemy.prototype.stayWithParent = function() {
 
 Enemy.prototype.wander = function() {
     if (random() < 0.02 && this.wanderTime > 60) {
-        this.wanderForce = p5.Vector.fromAngle(random(- TWO_PI, TWO_PI)).setMag(0.1);
+        this.wanderForce = p5.Vector.fromAngle(random(-TWO_PI, TWO_PI)).setMag(0.1);
         this.wanderTime = 0;
     }
     this.wanderTime += dt;
@@ -83,11 +83,11 @@ Enemy.prototype.inRange = function(entity, range) {
 };
 
 Enemy.prototype.die = function(killedBy) {
-    game.enemyCount--;
+    gameScreen.game.enemyCount--;
     if (this.parent !== undefined) {
         this.parent.children--;
     }
-    game.score += this.scoreValue;
+    gameScreen.game.score += this.scoreValue;
     if (killedBy instanceof Player) {
         killedBy.score += this.scoreValue;
     }
