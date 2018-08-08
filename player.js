@@ -27,6 +27,8 @@ function Player(x_, y_, zoomMult_, controls_) {
     // Not needed but here for now
     this.a = 0;
 
+    this.score = 0;
+
     // this.health = 100;
 }
 
@@ -82,9 +84,10 @@ Player.prototype.seekMouse = function() {
 };
 
 Player.prototype.die = function() {
-    this.alive = true;
-    this.health = 100;
+    // this.alive = true;
+    // this.health = 100;
     game.score = 0;
+    this.score = 0;
 };
 
 // Just a white circle right now

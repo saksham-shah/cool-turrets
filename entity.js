@@ -237,7 +237,7 @@ Entity.prototype.loseHealth = function(healthLost, causedBy) {
         this.showHealthBar = 250;
         if (this.health <= 0) {
             this.alive = false;
-            this.die();
+            this.die(causedBy);
             // console.log(causedBy);
             // console.log("killed");
             // console.log(this);

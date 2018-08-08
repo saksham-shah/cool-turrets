@@ -82,10 +82,13 @@ Enemy.prototype.inRange = function(entity, range) {
     return false;
 };
 
-Enemy.prototype.die = function() {
+Enemy.prototype.die = function(killedBy) {
     game.enemyCount--;
     if (this.parent !== undefined) {
         this.parent.children--;
     }
     game.score += this.scoreValue;
+    if (killedBy instanceof Player) {
+        killedBy.score += this.scoreValue;
+    }
 }

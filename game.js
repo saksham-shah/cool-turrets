@@ -1,5 +1,7 @@
-function Game(mode) {
+function Game(mode_) {
 
+
+    this.mode = mode_;
 
     this.entities = [];
     this.players = [];
@@ -16,15 +18,15 @@ function Game(mode) {
 
 
 
-    if (mode === "single-player") {
+    if (this.mode === "single-player") {
         var player = new Player(random(this.xBound), random(this.yBound), 1.4, [UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, 32]);
         this.entities.push(player);
         this.players.push(player);
     } else {
-        var player = new Player(random(this.xBound), random(this.yBound), 1, [UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, 13]);
+        var player = new Player(random(this.xBound), random(this.yBound), 1, [87, 83, 65, 68, 32]);
         this.entities.push(player);
         this.players.push(player);
-        var second = new Player(random(this.xBound), random(this.yBound), 1, [87, 83, 65, 68, 32]);
+        var second = new Player(random(this.xBound), random(this.yBound), 1, [UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, 13]);
         this.entities.push(second);
         this.players.push(second);
     }
@@ -34,10 +36,10 @@ function Game(mode) {
     this.lastUpdate = Date.now();
 
     // this.gameCam = new Cam(this.xBound, this.yBound, this.players[0]);
-    if (mode === "single-player") {
+    if (this.mode === "single-player") {
         this.gameCamSet = createCamSet(ONE_PLAYER, this.players[0].pos, this.players[0], this.players[0]);
     } else {
-        this.gameCamSet = createCamSet(TWO_PLAYER, this.players[1].pos, this.players[0].pos, this.players[1], this.players[0], this.players[1], this.players[0]);
+        this.gameCamSet = createCamSet(TWO_PLAYER, this.players[0].pos, this.players[1].pos, this.players[0], this.players[1], this.players[0], this.players[1]);
     }
 
 
@@ -76,9 +78,19 @@ Game.prototype.update = function() {
 
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].update();
-        if (!this.entities[i].alive && this.entities[i] !== this.player) {
-            this.entities.splice(i, 1);
-            i--;
+        if (!this.entities[i].alive) {
+            if (!this.players.includes(this.entities[i])) {
+                this.entities.splice(i, 1);
+                i--;
+            } else {
+                this.entities[i].alive = true;
+                this.entities[i].health = 100;
+                if (this.mode === "coop"){
+                    for (var i = 0; i < this.players.length; i++) {
+                        this.players[i].score = 0;
+                    }
+                }
+            }
         }
     }
 
@@ -197,14 +209,43 @@ Game.prototype.draw = function() {
         }
     }
 
+    // Draw scores - could be seperate function?
+
+    // Draws individual scores if the game mode is not coop
+    if (this.mode !== "coop") {
+        this.gameCamSet.cams[0].draw(function (cam, scr){
+            scr.fill(255);
+            scr.noStroke();
+            scr.textSize(50);
+            scr.textAlign(CENTER);
+            var score = game.players[0].score;
+            scr.text(score, cam.w / 2, 50);
+        })
+    }
+
+    // Draws a second score for player 2 if there are two players
+    if (this.mode === "two-player") {
+        this.gameCamSet.cams[1].draw(function (cam, scr){
+            scr.fill(255);
+            scr.noStroke();
+            scr.textSize(50);
+            scr.textAlign(CENTER);
+            var score = game.players[1].score;
+            scr.text(score, cam.w / 2, 50);
+        })
+    }
+
     this.gameCamSet.drawToCanvas();
 
-    // Draw score - could be seperate function?
-    fill(255);
-    noStroke();
-    textSize(50);
-    textAlign(CENTER);
-    text(this.score, width / 2, 50);
+    // Draws central score for both players in coop mode
+    if (this.mode === "coop") {
+        fill(255);
+        noStroke();
+        textSize(50);
+        textAlign(CENTER);
+        var score = this.players[0].score + this.players[1].score;
+        text(score, width / 2, 50);
+    }
 };
 
 // Game.prototype.drawBackground = function() {
