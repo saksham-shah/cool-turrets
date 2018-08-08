@@ -1,5 +1,5 @@
-function GameScreen() {
-    this.game = new Game("single-player");
+function GameScreen(mode_) {
+    this.game = new Game(mode_);
 }
 
 GameScreen.prototype.update = function() {

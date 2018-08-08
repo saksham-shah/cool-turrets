@@ -13,8 +13,10 @@ function setup() {
     lastUpdate = Date.now();
 
 
-    gameScreen = new GameScreen();
-    screen = gameScreen;
+    //gameScreen = new GameScreen();
+    menuScreen = new MenuScreen();
+    screen = menuScreen;
+    //screen = gameScreen;
 
     // game = new Game("single-player");
     //game = new Game("two-player");
@@ -25,6 +27,6 @@ function setup() {
 
 
 function draw() {
-    gameScreen.update();
-    gameScreen.draw();
+    screen.update();
+    screen.draw();
 }
