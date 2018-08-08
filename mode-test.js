@@ -1,4 +1,4 @@
-var testMode = false;
+var testMode = true;
 var spawn = 0;
 
 function helpMessage() {
@@ -78,7 +78,7 @@ function keyPressed() {
 
 function mousePressed() {
     if (testMode) {
-        var gamePos = game.gameCam.getGamePos(createVector(mouseX, mouseY));
+        var gamePos = game.gameCamSet.cams[0].getMousePos();
 
         switch (spawn) {
             case 1:

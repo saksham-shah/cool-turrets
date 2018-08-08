@@ -14,7 +14,7 @@ function Bullet(position_, direction_, parent_, onHit_, data_) {
     this.colour = this.parent.colour;
 
     if (this.parent instanceof Turret) {
-        this.fromPlayer = this.parent.controller;
+        this.fromPlayer = this.parent.latestShot;
     }
 
     this.timeAlive = 0;

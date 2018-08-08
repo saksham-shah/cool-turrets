@@ -11,6 +11,10 @@ function Bomb(x_, y_, initialVel_, damage_, radius_, parent_) {
 
     this.parent = parent_;
 
+    if (this.parent instanceof Turret) {
+        this.parent = this.parent.latestShot;
+    }
+
     this.countdown = false;
 
     this.mass = 5;
@@ -20,7 +24,7 @@ function Bomb(x_, y_, initialVel_, damage_, radius_, parent_) {
 Bomb.prototype = Object.create(Entity.prototype);
 
 Bomb.prototype.update = function() {
-    this.loseHealth(dt * 0.02);
+    this.loseHealth(dt * 0.02, this);
 
     if (this.health <= 0) {
         this.blowUp();

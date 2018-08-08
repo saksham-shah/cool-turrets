@@ -75,8 +75,24 @@ Entity.prototype.futurePos = function() {
 
 Entity.prototype.collide = function(other) {
     if (!(this instanceof Enemy) || !(other instanceof Enemy)) {
-        this.loseHealth(other.bodyDamage, this);
-        other.loseHealth(this.bodyDamage, other);
+        var hitBy = other;
+        if (other instanceof Turret) {
+            if (other.latestShot !== null) {
+                hitBy = other.latestShot;
+                // console.log("hitBy");
+                // console.log(hitBy)
+            }
+        }
+        var thisHitBy = this;
+        if (this instanceof Turret) {
+            if (this.latestShot !== null) {
+                thisHitBy = this.latestShot;
+                // console.log("hitBy");
+                // console.log(thisHitBy)
+            }
+        }
+        this.loseHealth(other.bodyDamage, hitBy);
+        other.loseHealth(this.bodyDamage, thisHitBy);
     }
     this.collided = true;
 
@@ -216,12 +232,15 @@ Entity.prototype.checkCollisions = function(entities) {
 };
 
 Entity.prototype.loseHealth = function(healthLost, causedBy) {
-    if (this.timeAlive > 0) {
+    if (this.timeAlive > 0 && this.alive == true) {
         this.health -= healthLost;
         this.showHealthBar = 250;
         if (this.health <= 0) {
             this.alive = false;
             this.die();
+            // console.log(causedBy);
+            // console.log("killed");
+            // console.log(this);
         }
     }
 };

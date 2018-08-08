@@ -21,6 +21,7 @@ function Turret(x_, y_, health_, r_) {
     this.bodyDamage = 1;
 
     this.controller = null;
+    this.latestShot = null;
 
     game.turretCount++;
 }
@@ -74,6 +75,7 @@ Turret.prototype.update = function() {
         if (this.reloadTimer < 0 && keyIsDown(this.controller.controls.shoot)) {
             this.reloadTimer = this.reloadTime;
             this.shoot();
+            this.latestShot = this.controller;
         }
     }
 };
