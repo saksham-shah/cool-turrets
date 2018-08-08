@@ -12,7 +12,7 @@ function setup() {
 
     lastUpdate = Date.now();
 
-    game = new Game();
+    game = new Game("single-player");
 
 }
 
