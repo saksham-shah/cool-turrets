@@ -12,7 +12,8 @@ function setup() {
 
     lastUpdate = Date.now();
 
-    game = new Game("single-player");
+    // game = new Game("single-player");
+    game = new Game("two-player");
 
 }
 

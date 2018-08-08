@@ -1,5 +1,5 @@
 // Player controlled entity
-function Player(x_, y_, controls_) {
+function Player(x_, y_, zoomMult_, controls_) {
     // Inherits from Entity (random number for size right now)
     Entity.call(this, x_, y_, 100, 10);
     this.maxVel = 3.5;
@@ -21,7 +21,8 @@ function Player(x_, y_, controls_) {
 
     this.z = 0.1;
     this.zSpeed = 0.01;
-    this.targetZ = 1;
+    this.zoomMult = zoomMult_;
+    this.targetZ = zoomMult_;
 
     // Not needed but here for now
     this.a = 0;
@@ -33,12 +34,14 @@ function Player(x_, y_, controls_) {
 Player.prototype = Object.create(Entity.prototype);
 
 Player.prototype.update = function() {
+    this.z /= this.zoomMult;
     if (this.z > this.targetZ + this.zSpeed) {
         this.z -= this.zSpeed;
     } else if (this.z < this.targetZ - this.zSpeed) {
         this.z += this.zSpeed;
     }
     this.targetZ = 1;
+    this.z *= this.zoomMult;
 
     this.moveUsingArrowKeys();
 

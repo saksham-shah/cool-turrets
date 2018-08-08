@@ -17,14 +17,14 @@ function Game(mode) {
 
 
     if (mode === "single-player") {
-        var player = new Player(random(this.xBound), random(this.yBound), [UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, 32]);
+        var player = new Player(random(this.xBound), random(this.yBound), 1.4, [UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, 32]);
         this.entities.push(player);
         this.players.push(player);
     } else {
-        var player = new Player(random(this.xBound), random(this.yBound), [UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, 13]);
+        var player = new Player(random(this.xBound), random(this.yBound), 1, [UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, 13]);
         this.entities.push(player);
         this.players.push(player);
-        var second = new Player(random(this.xBound), random(this.yBound), [87, 83, 65, 68, 32]);
+        var second = new Player(random(this.xBound), random(this.yBound), 1, [87, 83, 65, 68, 32]);
         this.entities.push(second);
         this.players.push(second);
     }
@@ -37,7 +37,7 @@ function Game(mode) {
     if (mode === "single-player") {
         this.gameCamSet = createCamSet(ONE_PLAYER, this.players[0].pos, this.players[0], this.players[0]);
     } else {
-        this.gameCamSet = createCamSet(TWO_PLAYER, this.players[0].pos, this.players[1].pos, this.players[0], this.players[1], this.players[0], this.players[1]);
+        this.gameCamSet = createCamSet(TWO_PLAYER, this.players[1].pos, this.players[0].pos, this.players[1], this.players[0], this.players[1], this.players[0]);
     }
 
 
