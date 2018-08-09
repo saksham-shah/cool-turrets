@@ -7,7 +7,7 @@ function MenuScreen() {
             screen = gameScreen;
         }
     ));
-    this.buttons.push(new Button(640, 400, 80,
+    this.buttons.push(new Button(650, 400, 80,
         function() {
             gameScreen = new GameScreen("coop");
             screen = gameScreen;
@@ -15,7 +15,7 @@ function MenuScreen() {
     ));
     this.buttons.push(new Button(900, 400, 80,
         function() {
-            gameScreen = new GameScreen("multi-player");
+            gameScreen = new GameScreen("two-player");
             screen = gameScreen;
         }
     ));
