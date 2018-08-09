@@ -34,7 +34,6 @@ Button.prototype.update = function() {
     // Changes the noiseWeight as required
     this.noiseWeight += this.noiseWeightSpeed * noiseWeightChange;
 
-
     if (p5.Vector.dist(this.pos, createVector(mouseX, mouseY)) < this.r) {
         this.hover = true;
         this.targetNoiseWeight = 0.75;

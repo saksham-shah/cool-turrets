@@ -1,4 +1,8 @@
-function GameScreen(mode_) {
+function GameScreen() {
+    this.game = null;
+}
+
+GameScreen.prototype.newGame = function(mode_) {
     this.game = new Game(mode_);
 }
 

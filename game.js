@@ -49,7 +49,8 @@ function Game(mode_) {
     // this.gameCam.zoom = 0.1;
 
     // Test, will be commented out later
-    this.timePassed = 0;
+    this.secondPassed = 0;
+    this.fps = round(frameRate() * 10);
 
     this.score = 0;
 
@@ -61,6 +62,8 @@ Game.prototype.update = function() {
     var now = Date.now();
     dt = (now - this.lastUpdate) / (1000 / 60); //dt will be 1 at 60fps
     this.lastUpdate = now;
+
+    this.secondPassed += dt;
 
     if (!testMode) {
         this.addEntities();
@@ -246,6 +249,17 @@ Game.prototype.draw = function() {
         var score = this.players[0].score + this.players[1].score;
         text(score, width / 2, 50);
     }
+
+    // Draw fps every second
+    if (this.secondPassed > 60) {
+        this.secondPassed = 0;
+        this.fps = round(frameRate() * 10);
+    }
+    fill(255);
+    noStroke();
+    textSize(30);
+    textAlign(LEFT);
+    text("FPS: " + this.fps / 10, 10, 30);
 };
 
 // Game.prototype.drawBackground = function() {

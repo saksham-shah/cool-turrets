@@ -2,7 +2,7 @@
 // var entities;
 var dt;
 var game;
-var screen;
+var screen, menuScreen, gameScreen;
 
 function setup() {
     // Multiplied by sqrt(2) because the split screen halved the view area
@@ -13,7 +13,7 @@ function setup() {
     lastUpdate = Date.now();
 
 
-    //gameScreen = new GameScreen();
+    gameScreen = new GameScreen();
     menuScreen = new MenuScreen();
     screen = menuScreen;
     //screen = gameScreen;

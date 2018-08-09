@@ -68,7 +68,7 @@ Turret.prototype.update = function() {
 
 
         if (this instanceof TurretSniper) {
-            this.controller.targetZ = 0.7;
+            this.controller.targetZoom = 0.7;
         }
 
         // 32 is the char code for space

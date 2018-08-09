@@ -20,9 +20,10 @@ function Player(x_, y_, zoomMult_, controls_) {
     };
 
     this.z = 0.1;
-    this.zSpeed = 0.01;
+    this.zoomSpeed = 0.01;
     this.zoomMult = zoomMult_;
-    this.targetZ = zoomMult_;
+    this.targetZoom = zoomMult_;
+    this.zoomBuffer = 0.2;
 
     // Not needed but here for now
     this.a = 0;
@@ -37,12 +38,20 @@ Player.prototype = Object.create(Entity.prototype);
 
 Player.prototype.update = function() {
     this.z /= this.zoomMult;
-    if (this.z > this.targetZ + this.zSpeed) {
-        this.z -= this.zSpeed;
-    } else if (this.z < this.targetZ - this.zSpeed) {
-        this.z += this.zSpeed;
+
+    // Same algorithm as button.js
+    var zoomChange = (this.targetZoom - this.z) / this.zoomBuffer;
+
+    if (zoomChange > 1) {
+        zoomChange = 1;
+    } else if (zoomChange < -1) {
+        zoomChange = -1;
     }
-    this.targetZ = 1;
+
+    this.z += this.zoomSpeed * zoomChange;
+
+    this.targetZoom = 1;
+
     this.z *= this.zoomMult;
 
     this.moveUsingArrowKeys();

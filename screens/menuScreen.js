@@ -3,19 +3,19 @@ function MenuScreen() {
 
     this.buttons.push(new Button(400, 400, 80,
         function() {
-            gameScreen = new GameScreen("single-player");
+            gameScreen.newGame("single-player");
             screen = gameScreen;
         }
     ));
     this.buttons.push(new Button(650, 400, 80,
         function() {
-            gameScreen = new GameScreen("coop");
+            gameScreen.newGame("coop");
             screen = gameScreen;
         }
     ));
     this.buttons.push(new Button(900, 400, 80,
         function() {
-            gameScreen = new GameScreen("two-player");
+            gameScreen.newGame("two-player");
             screen = gameScreen;
         }
     ));
