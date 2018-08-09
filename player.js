@@ -92,10 +92,13 @@ Player.prototype.seekMouse = function() {
     this.acc.add(vectorToMouse);
 };
 
-Player.prototype.die = function() {
+Player.prototype.die = function(killedBy) {
     // this.alive = true;
     // this.health = 100;
-    gameScreen.game.score = 0;
+    // gameScreen.game.score = 0;
+    if (killedBy instanceof Player) {
+        killedBy.score += 50 + round(0.1 * this.score) * 5;
+    }
     this.score = 0;
 };
 

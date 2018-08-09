@@ -87,7 +87,7 @@ Enemy.prototype.die = function(killedBy) {
     if (this.parent !== undefined) {
         this.parent.children--;
     }
-    gameScreen.game.score += this.scoreValue;
+    // gameScreen.game.score += this.scoreValue;
     if (killedBy instanceof Player) {
         killedBy.score += this.scoreValue;
     }
