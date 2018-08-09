@@ -29,7 +29,11 @@ function GameCam(x_, y_, w_, h_) {
     this.rotation = 0;
     this.rotated = false;
 
-    this.screen = createGraphics(this.w * 2, this.h * 2);
+    if (pixelDensity() == 4) {
+        this.screen = createGraphics(this.w * 2, this.h * 2);
+    } else {
+        this.screen = createGraphics(this.w, this.h);
+    }
     this.screen.colorMode(HSB);
 
     this.toFollow = null;
