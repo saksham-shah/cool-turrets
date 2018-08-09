@@ -1,7 +1,12 @@
-function Button(x_, y_, r_, onClick_) {
+function Button(x_, y_, r_, hue_, text_, textSize_, onClick_) {
     this.pos = createVector(x_, y_);
 
     this.r = r_;
+
+    this.hue = hue_;
+
+    this.text = text_;
+    this.textSize = textSize_;
 
     this.onClick = onClick_;
 
@@ -10,14 +15,14 @@ function Button(x_, y_, r_, onClick_) {
     // The current weight of the noise
     this.noiseWeight = 0;
 
-    // The target weight - this is 0 when not hovered, and 0.75 when hovered
+    // The target weight - this is 0 when not hovered, and 1 when hovered
     this.targetNoiseWeight = 0;
 
     // How fast the button gets bigger and smaller
     this.noiseWeightSpeed = 0.05;
 
     // Noise buffer makes the button slow down as it reaches its maximum size, so it looks super smooth
-    this.noiseBuffer = 0.75;
+    this.noiseBuffer = 1;
 }
 
 Button.prototype.update = function() {
@@ -36,7 +41,7 @@ Button.prototype.update = function() {
 
     if (p5.Vector.dist(this.pos, createVector(mouseX, mouseY)) < this.r) {
         this.hover = true;
-        this.targetNoiseWeight = 0.75;
+        this.targetNoiseWeight = 1;
     } else {
         this.hover = false;
         // When the weight is 0, the button will be a normal circle
@@ -49,7 +54,11 @@ Button.prototype.update = function() {
 };
 
 Button.prototype.draw = function() {
-    fill(255);
+    // var white = color(255);
+    // var red = color(0, 100, 100);
+
+    fill(this.hue, 100 * this.noiseWeight, 100);
+    noStroke();
 
     // if (this.hover) {
     push();
@@ -60,12 +69,19 @@ Button.prototype.draw = function() {
         // The sin(a) and cos(a) makes the noise look smooth all round the circle
         // The +1 prevents the noise from being symmetric
         var noiseR = noise((sin(a) + 1) * 0.3, (cos(a) + 1) * 0.3, frameCount * 0.01 + this.pos.x + this.pos.y);
-        var changedR = this.r + noiseR * this.noiseWeight * this.r;
+        var changedR = this.r + noiseR * this.noiseWeight * this.r * 0.75;
         // let r = this.r / 2 + noise(a / 3 + this.pos.x, frameCount * 0.02) * this.r;
         curveVertex(cos(a) * changedR, sin(a) * changedR);
     }
 
     endShape();
+
+    textAlign(CENTER);
+    var size = this.textSize + this.noiseWeight * this.textSize * 0.5;
+    textSize(size);
+    fill(0);
+    noStroke();
+    text(this.text, 0, size / 3);
 
 
     pop();

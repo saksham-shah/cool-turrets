@@ -1,19 +1,23 @@
 function MenuScreen() {
     this.buttons = [];
+    var white = color(255);
+    var red = color(0, 100, 100);
+    var green = color(120, 100, 100);
+    var blue = color(240, 100, 100);
 
-    this.buttons.push(new Button(400, 400, 80,
+    this.buttons.push(new Button(400, 400, 80, 0, "1P", 50,
         function() {
             gameScreen.newGame("single-player");
             screen = gameScreen;
         }
     ));
-    this.buttons.push(new Button(650, 400, 80,
+    this.buttons.push(new Button(650, 400, 80, 120, "2P co-op", 30,
         function() {
             gameScreen.newGame("coop");
             screen = gameScreen;
         }
     ));
-    this.buttons.push(new Button(900, 400, 80,
+    this.buttons.push(new Button(900, 400, 80, 240, "2P vs", 30,
         function() {
             gameScreen.newGame("two-player");
             screen = gameScreen;
