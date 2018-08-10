@@ -82,7 +82,7 @@ GameCam.prototype.update = function() {
 function correctRotation(x, y, rotation) {
     var v = createVector(x, y);
     var v2 = v.copy().rotate(rotation);
-    var dv = p5.Vector.sub(v, v2)
+    var dv = p5.Vector.sub(v, v2);
     dv.rotate(-rotation);
     return dv;
 }
