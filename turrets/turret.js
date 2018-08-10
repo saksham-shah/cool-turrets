@@ -74,8 +74,8 @@ Turret.prototype.update = function() {
         // 32 is the char code for space
         if (this.reloadTimer < 0 && keyIsDown(this.controller.controls.shoot)) {
             this.reloadTimer = this.reloadTime;
-            this.shoot();
             this.latestShot = this.controller;
+            this.shoot();
         }
     }
 };

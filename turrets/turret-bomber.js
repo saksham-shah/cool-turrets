@@ -14,7 +14,7 @@ TurretBomber.prototype.shoot = function() {
     // Throw bomb
     var vector = p5.Vector.fromAngle(this.direction);
     var offset = vector.setMag(20 + this.r);
-    var shootBomb = new Bomb(this.pos.x + offset.x, this.pos.y + offset.y, vector.setMag(15), 35, 100, this);
+    var shootBomb = new Bomb(this.pos.x + offset.x, this.pos.y + offset.y, vector.setMag(15), 35, 100, this.latestShot);
     gameScreen.game.entities.push(shootBomb);
 
     var recoilForce = p5.Vector.fromAngle(shootBomb.acc.heading()).rotate(PI);

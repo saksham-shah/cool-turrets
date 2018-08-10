@@ -14,9 +14,9 @@ ENEMYSPAWN = [
 ]
 
 TURRETSPAWN = [
-0.5,	// Standard
+0.2,	// Standard
 0.2,	// Sniper
-0.2,	// Bomber
+0.5,	// Bomber
 0.1,	// Spike
 ]
 

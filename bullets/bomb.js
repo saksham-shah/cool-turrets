@@ -11,9 +11,9 @@ function Bomb(x_, y_, initialVel_, damage_, radius_, parent_) {
 
     this.parent = parent_;
 
-    if (this.parent instanceof Turret) {
-        this.parent = this.parent.latestShot;
-    }
+    // if (this.parent instanceof Turret) {
+    //     this.parent = this.parent.latestShot;
+    // }
 
     this.countdown = false;
 
