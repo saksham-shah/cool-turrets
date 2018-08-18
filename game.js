@@ -1,6 +1,4 @@
 function Game(mode_) {
-
-
     this.mode = mode_;
 
     this.entities = [];
@@ -42,12 +40,6 @@ function Game(mode_) {
         this.gameCamSet = createCamSet(TWO_PLAYER, this.players[0].pos, this.players[1].pos, this.players[0], this.players[1], this.players[0], this.players[1]);
     }
 
-
-    // this.playerBar = new StatBar(100, this.player, (player) => player.health);
-
-    //Interesting effect
-    // this.gameCam.zoom = 0.1;
-
     // Test, will be commented out later
     this.secondPassed = 0;
     this.fps = round(frameRate() * 10);
@@ -69,6 +61,13 @@ Game.prototype.update = function() {
         this.addEntities();
     }
 
+    // Death screen after player dies
+    if (this.mode === "single-player") {
+        if (!this.players[0].alive) {
+            screen = new DeathScreen(this.mode, this.score);
+        }
+    }
+
     // this.gameCam.targetZoom = 1;
 
     for (var i = 0; i < this.bullets.length; i++) {
@@ -86,11 +85,15 @@ Game.prototype.update = function() {
                 this.entities.splice(i, 1);
                 i--;
             } else {
-                this.entities[i].alive = true;
-                this.entities[i].health = 100;
-                if (this.mode === "coop") {
-                    for (var i = 0; i < this.players.length; i++) {
-                        this.players[i].score = 0;
+                if (this.mode === "single-player") {
+                    screen = new DeathScreen(this.mode, this.score);
+                } else {
+                    this.entities[i].alive = true;
+                    this.entities[i].health = 100;
+                    if (this.mode === "coop") {
+                        for (var i = 0; i < this.players.length; i++) {
+                            this.players[i].score = 0;
+                        }
                     }
                 }
             }
@@ -124,16 +127,6 @@ Game.prototype.update = function() {
     // this.gameCam.update();
     this.gameCamSet.update();
 
-    //Revive players
-    // if (!this.player.alive) {
-    //     this.timePassed += dt;
-    //     // this.player.alive = true;
-    //     // this.player.health = 100;
-    //     if (this.timePassed > 60) {
-    //         this.player.respawn();
-    //         this.timePassed = 0;
-    //     }
-    // }
 
 
 };
@@ -173,45 +166,45 @@ Game.prototype.addEntities = function() {
                 break;
         }
     }
-}
+};
 
 Game.prototype.draw = function() {
     // background(0);
     // this.drawBackground();
     this.gameCamSet.draw(this.drawBackground);
 
-
     for (var i = 0; i < this.areaEffects.length; i++) {
-        // this.areaEffects[i].draw();
         this.gameCamSet.draw(this.areaEffects[i]);
     }
 
     for (var i = 0; i < this.particles.length; i++) {
-        // this.particles[i].draw();
         this.gameCamSet.draw(this.particles[i]);
     }
 
     for (var i = 0; i < this.bullets.length; i++) {
         if (!this.bullets[i].hit) {
-            // this.bullets[i].draw();
             this.gameCamSet.draw(this.bullets[i]);
         }
     }
 
     for (var i = 0; i < this.entities.length; i++) {
         if (this.entities[i].alive) {
-            // this.entities[i].draw();
             this.gameCamSet.draw(this.entities[i]);
         }
     }
 
     for (var i = 0; i < this.entities.length; i++) {
         if (this.entities[i].alive && this.entities[i].showHealthBar > 0) {
-            // this.entities[i].healthBar.draw();
             this.gameCamSet.draw(this.entities[i].healthBar);
         }
     }
 
+    this.drawScores();
+
+
+};
+
+Game.prototype.drawScores = function() {
     // Draw scores - could be seperate function?
 
     // Draws individual scores if the game mode is not coop
