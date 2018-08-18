@@ -23,6 +23,8 @@ function Button(x_, y_, r_, hue_, text_, textSize_, onClick_) {
 
     // Noise buffer makes the button slow down as it reaches its maximum size, so it looks super smooth
     this.noiseBuffer = 1;
+
+    this.color = color(this.hue, 100 * this.noiseWeight, 100);
 }
 
 Button.prototype.update = function() {
@@ -56,8 +58,8 @@ Button.prototype.update = function() {
 Button.prototype.draw = function() {
     // var white = color(255);
     // var red = color(0, 100, 100);
-
-    fill(this.hue, 100 * this.noiseWeight, 100);
+    this.color = color(this.hue, 100 * this.noiseWeight, 100);
+    fill(this.color);
     noStroke();
 
     // if (this.hover) {

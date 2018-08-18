@@ -99,7 +99,6 @@ Player.prototype.die = function(killedBy) {
     if (killedBy instanceof Player) {
         killedBy.score += 50 + round(0.1 * this.score) * 5;
     }
-    this.score = 0;
 };
 
 // Just a white circle right now

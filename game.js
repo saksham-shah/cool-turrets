@@ -14,6 +14,10 @@ function Game(mode_) {
     this.xBound = XBOUND;
     this.yBound = YBOUND;
 
+    if (this.mode === "two-player") {
+        this.xBound = XBOUNDVS;
+        this.yBound = YBOUNDVS;
+    }
 
 
     if (this.mode === "single-player") {
@@ -61,13 +65,6 @@ Game.prototype.update = function() {
         this.addEntities();
     }
 
-    // Death screen after player dies
-    if (this.mode === "single-player") {
-        if (!this.players[0].alive) {
-            screen = new DeathScreen(this.mode, this.score);
-        }
-    }
-
     // this.gameCam.targetZoom = 1;
 
     for (var i = 0; i < this.bullets.length; i++) {
@@ -85,16 +82,15 @@ Game.prototype.update = function() {
                 this.entities.splice(i, 1);
                 i--;
             } else {
-                if (this.mode === "single-player") {
-                    screen = new DeathScreen(this.mode, this.score);
+                if (this.mode != "two-player") {
+                    screen = new DeathScreen(this.mode, this.entities[i].score);
                 } else {
                     this.entities[i].alive = true;
                     this.entities[i].health = 100;
-                    if (this.mode === "coop") {
-                        for (var i = 0; i < this.players.length; i++) {
-                            this.players[i].score = 0;
-                        }
-                    }
+                    //for (var i = 0; i < this.players.length; i++) {
+                    //this.players[i].score = 0;
+                    //}
+
                 }
             }
         }
@@ -216,7 +212,7 @@ Game.prototype.drawScores = function() {
             scr.textAlign(CENTER);
             var score = gameScreen.game.players[0].score;
             scr.text(score, cam.w / 2, 50);
-        })
+        });
     }
 
     // Draws a second score for player 2 if there are two players
@@ -228,7 +224,7 @@ Game.prototype.drawScores = function() {
             scr.textAlign(CENTER);
             var score = gameScreen.game.players[1].score;
             scr.text(score, cam.w / 2, 50);
-        })
+        });
     }
 
     this.gameCamSet.drawToCanvas();
@@ -255,30 +251,6 @@ Game.prototype.drawScores = function() {
     text("FPS: " + this.fps / 10, 10, 30);
 };
 
-// Game.prototype.drawBackground = function() {
-//     background(0);
-//     noFill();
-//     fill(0, 0, 19.6);
-//     stroke(0, 100, 100);
-//     strokeWeight(5);
-//     rectMode(CORNER);
-//     var topLeft = this.gameCam.getDrawPos(createVector(0, 0));
-//     var mult = this.gameCam.getDrawSize(1);
-//     rect(topLeft.x, topLeft.y, this.xBound * mult, this.yBound * mult);
-//
-//     // Commented because I made the map bigger
-//
-//     // strokeWeight(1);
-//     // //Draw some graphics
-//     // var centre = this.gameCam.getDrawPos(createVector(this.xBound / 2, this.yBound / 2));
-//     // var agons = [];
-//     // for (var i = -16; i < 16; i++) {
-//     //     for (var j = -10; j < 11; j++) {
-//     //         agons.push([i, j]);
-//     //     }
-//     // }
-//     // drawHexes(centre.x, centre.y, 20 * mult, 2 * mult, color(0, 0, 25, 0.5), agons);
-// };
 
 Game.prototype.drawBackground = function(cam, scr) {
     scr.background(5);
@@ -288,7 +260,7 @@ Game.prototype.drawBackground = function(cam, scr) {
     scr.rectMode(CORNER);
     var topLeft = cam.getDrawPos(0, 0);
     var mult = cam.getDrawSize(1);
-    scr.rect(topLeft.x, topLeft.y, XBOUND * mult, YBOUND * mult);
+    scr.rect(topLeft.x, topLeft.y, gameScreen.game.xBound * mult, gameScreen.game.yBound * mult);
 
     // Commented because I made the map bigger
 

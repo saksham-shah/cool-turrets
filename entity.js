@@ -198,11 +198,6 @@ Entity.prototype.borderBounce = function() {
 };
 
 Entity.prototype.borders = function() {
-    /*if (!rectContains(this.pos, 0, 0, game.xBound, game.yBound)) {
-        var forceToCentre = p5.Vector.sub(createVector(game.xBound / 2, game.yBound / 2), this.pos);
-        forceToCentre.setMag(0.3);
-        this.acc.add(forceToCentre);
-    }*/
     if (this.pos.y < 0) {
         this.acc.add(createVector(0, 0.3));
     }

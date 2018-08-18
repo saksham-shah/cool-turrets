@@ -23,16 +23,26 @@ function MenuScreen() {
             screen = gameScreen;
         }
     ));
+
+    this.lastButtonID = 0;
 }
 
 MenuScreen.prototype.update = function() {
     for (var i = 0; i < this.buttons.length; i++) {
         this.buttons[i].update();
+        if (this.buttons[i].hover) {
+            this.lastButtonID = i;
+        }
     }
 };
 
 MenuScreen.prototype.draw = function() {
     background(0);
+    fill(this.buttons[this.lastButtonID].color);
+    textSize(128);
+    textAlign(CENTER);
+    text("Cool Turrets", 650, 200);
+
     for (var i = 0; i < this.buttons.length; i++) {
         this.buttons[i].draw();
     }
